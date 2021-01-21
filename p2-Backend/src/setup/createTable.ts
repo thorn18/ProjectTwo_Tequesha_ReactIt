@@ -25,8 +25,8 @@ const userSchema = {
         }
     ],
     ProvisionedThroughput: {
-        ReadCapacityUnits: 3,
-        WriteCapacityUnits: 3
+        ReadCapacityUnits: 5,
+        WriteCapacityUnits: 5
     },
     TableName: 'users',
     StreamSpecification: {
@@ -48,16 +48,7 @@ ddb.deleteTable(removeUsers, function (err, data) {
             } else {
                 // celebrate, I guess
                 console.log('Table Created', data);
-                setTimeout(()=>{
-                    populateUserTable();
-                }, 10000);
             }
         });
     }, 5000);
 });
-
-function populateUserTable() {
-    userService.addUser({name: 'Bob', password: '1234', money: 10, role: 'Customer'}).then(()=>{});
-    userService.addUser({name: 'Richard', password: 'pass', money: 10, role: 'Customer'}).then(()=>{});
-    userService.addUser({name: 'Cynthia', password: 'pass', money: 10, role: 'Employee'}).then(()=>{});
-}
