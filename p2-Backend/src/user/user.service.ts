@@ -71,27 +71,27 @@ class UserService {
         });
     }
 
-    async updateUser(user: User) {
-        const params = {
-            TableName: 'users',
-            Key: {
-                'name': user.name
-            },
-            UpdateExpression: 'set password = :p, money = :m',
-            ExpressionAttributeValues: {
-                ':m': user.money,
-                ':p': user.password
-            },
-            ReturnValues: 'UPDATED_NEW'
-        };
-        return await this.doc.update(params).promise().then((data) => {
-            logger.debug(data);
-            return true;
-        }).catch(error => {
-            logger.error(error);
-            return false;
-        });
-    }
+//     async updateUser(user: User) {
+//         const params = {
+//             TableName: 'users',
+//             Key: {
+//                 'name': user.name
+//             },
+//             UpdateExpression: 'set password = :p, money = :m',
+//             ExpressionAttributeValues: {
+//                 ':m': user.money,
+//                 ':p': user.password
+//             },
+//             ReturnValues: 'UPDATED_NEW'
+//         };
+//         return await this.doc.update(params).promise().then((data) => {
+//             logger.debug(data);
+//             return true;
+//         }).catch(error => {
+//             logger.error(error);
+//             return false;
+//         });
+//     }
 }
 
 const userService = new UserService();
