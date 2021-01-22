@@ -2,10 +2,6 @@
 import docClient from '../conn/dynamo'; 
 import * as User from '../../../reactIt-native/user/user';
 
-// interface User{
-//     username:string; 
-//     password:string; 
-// }
 
 
 export async function searchSingleUser(user:User.User):Promise<User.User|undefined> {

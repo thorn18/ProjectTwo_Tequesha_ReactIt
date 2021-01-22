@@ -1,16 +1,21 @@
 var express = require('express');
 var user = require('../dbfiles/services/userLogin')
+var addEntity = require('../dbfiles/services/addEntity')
 var router = express.Router();
+
+let TableName = 'Users';
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
+
   res.send('express is working');
 });
 
 
 /* GET users listing. */
 router.post('/register', function(req, res, next) {
-  res.send('respond with a resource');
+  addEntity.addAnEntity(TableName,req.body);
+  res.send('User Registration');
 });
 
 
