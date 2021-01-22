@@ -16,7 +16,7 @@ export type StackParams = {
 
 const Stack = createStackNavigator<StackParams>();
 const headerOptions: StackHeaderOptions = {
-    headerTitle: () => <Text>GrubDash: Your Food Very Slowly</Text>,
+    headerTitle: () => <Text>ReactIt: Your Favorite Online Forum</Text>,
     headerRight: () => <NavBarComponent />,
 };
 function RouterComponent(props: any) {
