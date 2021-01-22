@@ -1,4 +1,4 @@
-import {Restaurant} from './../restaurant/restaurant';
+//import {Restaurant} from './../restaurant/restaurant';
 import {User} from './../user/user';
 
 export enum RestaurantActions {
@@ -23,7 +23,7 @@ export interface UserAction<P> extends AppAction {
 }
 
 // All of our restaurant actions need to follow this interface.
-export interface RestaurantAction extends AppAction {
+/* export interface RestaurantAction extends AppAction {
     type: RestaurantActions;
     payload: Restaurant | Restaurant[];
 }
@@ -42,7 +42,7 @@ export function changeRestaurant(rest: Restaurant): RestaurantAction {
         payload: rest
     }
     return action;
-}
+} */
 
 export function getUser(user: User): UserAction<User> {
     const action: UserAction<User> = {

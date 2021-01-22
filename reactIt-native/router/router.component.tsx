@@ -4,17 +4,14 @@ import { createStackNavigator } from '@react-navigation/stack';
 import LoginComponent from '../user/login.component';
 import { StackHeaderOptions } from '@react-navigation/stack/lib/typescript/src/types';
 import NavBarComponent from './navbar.component';
-import RestaurantDetailComponent from '../restaurant/restaurant.detail.component';
-import TableComponent from '../restaurant/table.component';
-import { Restaurant } from '../restaurant/restaurant';
-import { GrubState } from '../store/store';
+import { ForumState } from '../store/store';
 import { useSelector } from 'react-redux';
 
 /* Parameter list for RouteProp requires a field for the route that we're on. */
 export type StackParams = {
     Login: undefined;
-    RestaurantDetail: Restaurant;
-    Restaurants: undefined;
+    /* RestaurantDetail: Restaurant;
+    Restaurants: undefined; */
 };
 
 const Stack = createStackNavigator<StackParams>();
@@ -23,7 +20,7 @@ const headerOptions: StackHeaderOptions = {
     headerRight: () => <NavBarComponent />,
 };
 function RouterComponent(props: any) {
-    const rest = useSelector((state: GrubState) => state.restaurant);
+    //const rest = useSelector((state: ForumState) => state.restaurant);
     return (
         <Stack.Navigator initialRouteName='Login'>
             <Stack.Screen
@@ -31,18 +28,18 @@ function RouterComponent(props: any) {
                 component={LoginComponent}
                 options={headerOptions}
             />
-            <Stack.Screen
+           {/*  <Stack.Screen
                 name='RestaurantDetail'
                 component={RestaurantDetailComponent}
                 options={headerOptions}
                 initialParams={rest}
-            />
+            /> */}
             {/* RestaurantListComponent */}
-            <Stack.Screen
+            {/* <Stack.Screen
                 name='Restaurants'
                 component={TableComponent}
                 options={headerOptions}
-            />
+            /> */}
         </Stack.Navigator>
     );
 }
