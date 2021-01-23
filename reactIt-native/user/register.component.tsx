@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import userService from './user.service';
 import { UserState } from '../store/store';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUser, loginAction } from '../store/actions';
+import { getUser, registerAction } from '../store/actions';
 import {
     Platform,
     Button,
@@ -15,11 +15,11 @@ import {
 import style from '../global-styles';
 
 // Function Component
-interface LoginProp {
+interface RegisterProp {
     navigation: any;
 }
-function LoginComponent({ navigation }: LoginProp) {
-    const userSelector = (state: UserState) => state.loginUser;
+function RegisterComponent({ navigation }: RegisterProp) {
+    const userSelector = (state: UserState) => state.registerUser;
     const user = useSelector(userSelector);
     const dispatch = useDispatch();
 
@@ -29,7 +29,7 @@ function LoginComponent({ navigation }: LoginProp) {
             .getLogin()
             .then((loggedUser) => {
                 dispatch(getUser(loggedUser));
-                navigation.navigate('Login');
+                navigation.navigate('Placeholder');
             })
             .catch((err) => {
                 console.error(err);
@@ -37,70 +37,87 @@ function LoginComponent({ navigation }: LoginProp) {
     }, []);
 
     function submitForm() {
-        userService.getUserByName(user).then((user) => {
+
+        userService.register(user).then((user) => {
             console.log(user);
             dispatch(getUser(user));
             navigation.navigate('Login');
         });
     }
     function handle() {
-        alert('why?');
+        alert('press');
     }
     function longHandle(){
         alert('long press');
     }
-
-    function register(){
-        navigation.navigate('Register');
-    }
-
     return (
         <View style={[style.container, style.login]}>
             <Text>Username: </Text>
             <TextInput
                 style={style.input}
                 onChangeText={(value) =>
-                    dispatch(loginAction({ ...user, name: value }))
+                    dispatch(registerAction({ ...user, name: value }))
                 }
                 value={user.name}
             />
             <Text>Password: </Text>
             <TextInput
+                style={style.input}
+                onChangeText={(value) =>
+                    dispatch(registerAction({ ...user, password: value }))
+                }
+                value={user.name}
+            />
+            <Text>Name: </Text>
+            <TextInput
                 secureTextEntry={true}
                 style={style.input}
                 onChangeText={(value) =>
-                    dispatch(loginAction({ ...user, password: value }))
+                    dispatch(registerAction({ ...user, name: value }))
                 }
-                value={user.password}
+                value={user.name}
             />
-            <Button onPress={submitForm} title='Login' color='#880022' />
-            <br></br>
-            <Button onPress={register} title='Register' color='#880022' />
+            <Text>Email: </Text>
+            <TextInput
+                style={style.input}
+                onChangeText={(value) =>
+                    dispatch(registerAction({ ...user, email: value }))
+                }
+                value={user.email}
+            />
+            <Text>Age: </Text>
+            <TextInput
+                secureTextEntry={true}
+                style={style.input}
+                onChangeText={(value) =>
+                    dispatch(registerAction({ ...user, age: Number(value) }))
+                }
+                value={String(user.age)}
+            />
+            <Text>Phone Number: </Text>
+            <TextInput
+                secureTextEntry={true}
+                style={style.input}
+                onChangeText={(value) =>
+                    dispatch(registerAction({ ...user, phonenumber: value }))
+                }
+                value={''+ user.phonenumber}
+            />
+            <Button onPress={submitForm} title='Register' color='#880022' />
             <Text>{Platform.OS}</Text>
             {Platform.OS === 'android' ? (
                 <TouchableNativeFeedback
                     background={TouchableNativeFeedback.SelectableBackground()}
                 >
-                    <View>
-                        <Text>OnlyAndroid</Text>
-                    </View>
                 </TouchableNativeFeedback>
             ) : (
                 <TouchableHighlight onPress={handle} underlayColor='white'>
-                    <View>
-                        <Text>Everyone Else</Text>
-                    </View>
                 </TouchableHighlight>
             )}
             <TouchableHighlight onLongPress={longHandle} underlayColor='white'>
-                <View>
-                    <Text>Everyone Else</Text>
-                </View>
             </TouchableHighlight>
         </View>
     );
-    // TouchableNativeFeedback - Android specific api
-    // TouchableHighlight - less specific version
 }
 
-export default LoginComponent;
+export default RegisterComponent;
