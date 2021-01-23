@@ -25,7 +25,7 @@ class UserService {
         const params = {
             TableName: 'users',
             Key: {
-                'name': username
+                'username': username
             }
         };
         return await this.doc.get(params).promise().then((data) => {

@@ -69,7 +69,7 @@ var UserService = /** @class */ (function () {
                         params = {
                             TableName: 'users',
                             Key: {
-                                'name': username
+                                'username': username
                             }
                         };
                         return [4 /*yield*/, this.doc.get(params).promise().then(function (data) {

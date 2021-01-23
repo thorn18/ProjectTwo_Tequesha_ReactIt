@@ -25,7 +25,7 @@ router.post('/register', function(req, res, next) {
 router.get('/login', function(req, res, next) {
   userservice.getUserByName("salman").then((returnedUser)=>{
 
-    if(res && returnedUser) {
+    if(returnedUser) {
       res.send("this is our record" + returnedUser.email);
     }
   
@@ -41,7 +41,7 @@ router.get('/login', function(req, res, next) {
  }).catch((err)=>{
    res.send(err); 
  });
- res.send("Bad Request");  
+
 });
 
 export default router;
