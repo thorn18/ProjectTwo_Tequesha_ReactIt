@@ -14,8 +14,6 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-var app = express();
-
 // view engine setup
 app.use(cors({origin:process.env.CLIENT, credentials: true}));
 app.set('views', path.join(__dirname, 'views'));
