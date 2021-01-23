@@ -8,7 +8,6 @@ import { GrubState } from './store';
 export const initialState: GrubState = {
     user: new User(),
     loginUser: new User(),
-    restaurants: [],
 }
 
 // Make sure that the reducer has a default argument of the inital state or it will not work.
@@ -18,12 +17,6 @@ const reducer = (state: GrubState = initialState, action: Actions.AppAction): Gr
     const newState = {...state}; // If we return this, it will re render the application. (call setState)
 
     switch (action.type) {    
-        case Actions.RestaurantActions.GetRestaurants:
-            newState.restaurants = action.payload as Restaurant[];
-            return newState;
-        case Actions.RestaurantActions.ChangeRestaurant:
-            newState.restaurant = action.payload as Restaurant;
-            return newState;
         case Actions.UserActions.GetUser:
             newState.user = action.payload as User;
             newState.loginUser = new User();
