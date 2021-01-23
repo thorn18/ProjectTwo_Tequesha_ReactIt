@@ -29,7 +29,7 @@ function LoginComponent({ navigation }: LoginProp) {
             .getLogin()
             .then((loggedUser) => {
                 dispatch(getUser(loggedUser));
-                navigation.navigate('Restaurants');
+                navigation.navigate('Login');
             })
             .catch((err) => {
                 console.error(err);
@@ -37,10 +37,10 @@ function LoginComponent({ navigation }: LoginProp) {
     }, []);
 
     function submitForm() {
-        userService.login(user).then((user) => {
+        userService.getUserByName(user).then((user) => {
             console.log(user);
             dispatch(getUser(user));
-            navigation.navigate('Restaurants');
+            navigation.navigate('Login');
         });
     }
     function handle() {
@@ -49,6 +49,11 @@ function LoginComponent({ navigation }: LoginProp) {
     function longHandle(){
         alert('long press');
     }
+
+    function register(){
+        navigation.navigate('Register');
+    }
+
     return (
         <View style={[style.container, style.login]}>
             <Text>Username: </Text>
@@ -69,6 +74,8 @@ function LoginComponent({ navigation }: LoginProp) {
                 value={user.password}
             />
             <Button onPress={submitForm} title='Login' color='#880022' />
+            <br></br>
+            <Button onPress={register} title='Register' color='#880022' />
             <Text>{Platform.OS}</Text>
             {Platform.OS === 'android' ? (
                 <TouchableNativeFeedback

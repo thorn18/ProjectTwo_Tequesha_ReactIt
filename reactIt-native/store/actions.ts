@@ -1,13 +1,9 @@
 import {User} from './../user/user';
 
-export enum RestaurantActions {
-    GetRestaurants = 'GET_RESTAURANTS',
-    ChangeRestaurant = 'CHANGE_RESTAURANT'
-}
-
 export enum UserActions {
     GetUser = 'GET_USER',
     LoginChange = 'CHANGE_LOGIN',
+    RegisterChange = 'CHANGE_REGISTER',
     ChangeLocale = 'CHANGE_LOCALE'
 }
 
@@ -32,6 +28,14 @@ export function getUser(user: User): UserAction<User> {
 export function loginAction(user: User): UserAction<User> {
     const action: UserAction<User> = {
         type: UserActions.LoginChange,
+        payload: user
+    }
+    return action;
+}
+
+export function registerAction(user: User): UserAction<User>{
+    const action: UserAction<User> = {
+        type: UserActions.RegisterChange,
         payload: user
     }
     return action;

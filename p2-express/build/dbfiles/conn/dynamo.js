@@ -21,7 +21,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var AWS = __importStar(require("aws-sdk"));
 var docClient = new AWS.DynamoDB.DocumentClient({
-    region: 'us-east-2',
-    endpoint: 'http://dynamodb.us-east-2.amazonaws.com'
+    region: 'us-west-2',
+    endpoint: 'http://dynamodb.us-west-2.amazonaws.com'
 });
 exports.default = docClient;
