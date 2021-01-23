@@ -2,14 +2,14 @@ import React from 'react';
 import { Button, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
-import { ForumState } from '../store/store';
+import { GrubState } from '../store/store';
 import styles from '../global-styles';
 import I18n, { strings } from '../i18n';
 import { changeLocale } from '../store/actions';
 
 function NavBarComponent() {
     const nav = useNavigation();
-    const user = useSelector((state: ForumState) => state.user);
+    const user = useSelector((state: GrubState) => state.user);
     //const locale = useSelector((state: GrubState) => state.locale);
     const dispatch = useDispatch();
 

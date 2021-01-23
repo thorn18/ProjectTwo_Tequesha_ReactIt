@@ -4,7 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import LoginComponent from '../user/login.component';
 import { StackHeaderOptions } from '@react-navigation/stack/lib/typescript/src/types';
 import NavBarComponent from './navbar.component';
-import { ForumState } from '../store/store';
+import { GrubState } from '../store/store';
 import { useSelector } from 'react-redux';
 
 /* Parameter list for RouteProp requires a field for the route that we're on. */
