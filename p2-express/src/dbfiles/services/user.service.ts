@@ -23,72 +23,48 @@ class UserService {
     async getUserByName(username: string): Promise<User | null> {
         // GetItem api call allows us to get something by the key
         const params = {
-            TableName: 'users',
+            TableName: 'Users',
             Key: {
-                'name': username
+                'username': username
             }
         };
         return await this.doc.get(params).promise().then((data) => {
             if (data && data.Item) {
                 return data.Item as User;
             } else {
+                console.log("Promise Failed");
                 return null;
             }
         })
     }
 
     async addUser(user: User): Promise<boolean> {
+
         // object to be sent to AWS.
         const params = {
             // TableName - the name of the table we are sending it to
             TableName: 'users',
             // Item - the object we are sending
             Item: user,
-            ConditionExpression: '#name <> :name',
-            ExpressionAttributeNames: {
-                '#name': 'name',
-                //'#role': 'role'
-            },
-            ExpressionAttributeValues: {
-                ':name': user.name,
-                //':role': user.role
-            }
+            // ConditionExpression: '#username <> :username',
+            // ExpressionAttributeNames: {
+            //     '#username': 'username',
+            //     //'#role': 'role'
+            // },
+            // ExpressionAttributeValues: {
+            //     ':username': user.username,
+            //     //':role': user.role
+            // }
         };
 
-        /*
-            The await is just returning all of that as another promise
-                to be resolved by a different layer of the application.
-            put function takes in our params, and PUTs (http method) the item in the db.
-            promise function returns a promise representation of the request
-        */
+
         return await this.doc.put(params).promise().then((result) => {
             return true;
         }).catch((error) => {
+            console.log(error);
             return false;
         });
     }
-
-//     async updateUser(user: User) {
-//         const params = {
-//             TableName: 'users',
-//             Key: {
-//                 'name': user.name
-//             },
-//             UpdateExpression: 'set password = :p, money = :m',
-//             ExpressionAttributeValues: {
-//                 ':m': user.money,
-//                 ':p': user.password
-//             },
-//             ReturnValues: 'UPDATED_NEW'
-//         };
-//         return await this.doc.update(params).promise().then((data) => {
-//             logger.debug(data);
-//             return true;
-//         }).catch(error => {
-//             logger.error(error);
-//             return false;
-//         });
-//     }
 }
 
 const userService = new UserService();

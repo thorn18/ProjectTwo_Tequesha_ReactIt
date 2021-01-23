@@ -16,11 +16,11 @@ class UserService {
     }
 
     register(user: User): Promise<User>{
-        return axios.post(this.URI, user, {withCredentials: true}).then(result => result.data).catch(err => err);
+        return axios.post(this.URI+"/register", user, {withCredentials: true}).then(result => result.data).catch(err => err);
     }
 
     getUserByName(user: User): Promise<User> {
-        return axios.get(this.URI+'/'+user.username, {withCredentials: true}).then(result => result.data).catch(err => err);
+        return axios.get(this.URI+'/login'+'/'+user.username, {withCredentials: true}).then(result => result.data).catch(err => err);
     }
     
     /* logout(): Promise<null> {

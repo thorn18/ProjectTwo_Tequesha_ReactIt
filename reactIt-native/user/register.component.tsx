@@ -23,19 +23,6 @@ function RegisterComponent({ navigation }: RegisterProp) {
     const user = useSelector(userSelector);
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        // Check to see if we're already logged in. Redirect if we are.
-        userService
-            .getLogin()
-            .then((loggedUser) => {
-                dispatch(getUser(loggedUser));
-                navigation.navigate('Placeholder');
-            })
-            .catch((err) => {
-                console.error(err);
-            });
-    }, []);
-
     function submitForm() {
 
         userService.register(user).then((user) => {
@@ -47,7 +34,7 @@ function RegisterComponent({ navigation }: RegisterProp) {
     function handle() {
         alert('press');
     }
-    function longHandle(){
+    function longHandle() {
         alert('long press');
     }
     return (
@@ -55,10 +42,11 @@ function RegisterComponent({ navigation }: RegisterProp) {
             <Text>Username: </Text>
             <TextInput
                 style={style.input}
-                onChangeText={(value) =>
-                    dispatch(registerAction({ ...user, name: value }))
-                }
-                value={user.name}
+                onChangeText= {(value) => {
+                    user.username = value;
+                    dispatch(registerAction({ ...user, username: value }))
+                }}
+                value={user.username}
             />
             <Text>Password: </Text>
             <TextInput
@@ -66,11 +54,10 @@ function RegisterComponent({ navigation }: RegisterProp) {
                 onChangeText={(value) =>
                     dispatch(registerAction({ ...user, password: value }))
                 }
-                value={user.name}
+                value={user.password}
             />
             <Text>Name: </Text>
             <TextInput
-                secureTextEntry={true}
                 style={style.input}
                 onChangeText={(value) =>
                     dispatch(registerAction({ ...user, name: value }))
@@ -87,35 +74,23 @@ function RegisterComponent({ navigation }: RegisterProp) {
             />
             <Text>Age: </Text>
             <TextInput
-                secureTextEntry={true}
+                
                 style={style.input}
                 onChangeText={(value) =>
+
                     dispatch(registerAction({ ...user, age: Number(value) }))
                 }
-                value={String(user.age)}
             />
             <Text>Phone Number: </Text>
             <TextInput
-                secureTextEntry={true}
                 style={style.input}
                 onChangeText={(value) =>
                     dispatch(registerAction({ ...user, phonenumber: value }))
                 }
-                value={''+ user.phonenumber}
+                value={user.phonenumber}
             />
             <Button onPress={submitForm} title='Register' color='#880022' />
-            <Text>{Platform.OS}</Text>
-            {Platform.OS === 'android' ? (
-                <TouchableNativeFeedback
-                    background={TouchableNativeFeedback.SelectableBackground()}
-                >
-                </TouchableNativeFeedback>
-            ) : (
-                <TouchableHighlight onPress={handle} underlayColor='white'>
-                </TouchableHighlight>
-            )}
-            <TouchableHighlight onLongPress={longHandle} underlayColor='white'>
-            </TouchableHighlight>
+
         </View>
     );
 }
