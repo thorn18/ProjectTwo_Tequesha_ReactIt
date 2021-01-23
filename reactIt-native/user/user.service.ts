@@ -17,7 +17,7 @@ class UserService {
 
 
     searchSingleUser(user: User): Promise<User> {
-        return axios.post(this.URI, user, {withCredentials: true}).then(result => result.data).catch(err => err);
+        return axios.get(this.URI, {withCredentials: true}).then(result => result.data).catch(err => err);
     }
     /* logout(): Promise<null> {
         return axios.delete(this.URI, {withCredentials: true}).then(result => null);
