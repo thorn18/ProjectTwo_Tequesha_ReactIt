@@ -104,18 +104,7 @@ function RegisterComponent({ navigation }: RegisterProp) {
                 value={''+ user.phonenumber}
             />
             <Button onPress={submitForm} title='Register' color='#880022' />
-            <Text>{Platform.OS}</Text>
-            {Platform.OS === 'android' ? (
-                <TouchableNativeFeedback
-                    background={TouchableNativeFeedback.SelectableBackground()}
-                >
-                </TouchableNativeFeedback>
-            ) : (
-                <TouchableHighlight onPress={handle} underlayColor='white'>
-                </TouchableHighlight>
-            )}
-            <TouchableHighlight onLongPress={longHandle} underlayColor='white'>
-            </TouchableHighlight>
+            
         </View>
     );
 }
