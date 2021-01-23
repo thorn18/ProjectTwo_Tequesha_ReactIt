@@ -6,11 +6,7 @@
   "scripts": {
     "start": "node bin/www",
     "test": "echo \"Error: no test specified\" && exit 1",
-<<<<<<< HEAD
-    "setup": "node build/setup/createTable.js"
-=======
     "setup":"node build/setup/createTable.js"
->>>>>>> 05b6e8382eb7e09f9a0416c6397f915526ea672e
   },
   "author": "",
   "license": "ISC",
