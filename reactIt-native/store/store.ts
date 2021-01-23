@@ -9,6 +9,7 @@ import reducer from "./reducer";
 export interface UserState {
     user: User;
     loginUser: User;
+    registerUser: User;
     locale?: string;
 }
 export interface ForumState extends UserState{ }

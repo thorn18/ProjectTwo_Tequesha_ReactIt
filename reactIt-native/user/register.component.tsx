@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import userService from './user.service';
 import { UserState } from '../store/store';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUser, loginAction } from '../store/actions';
+import { getUser, registerAction } from '../store/actions';
 import {
     Platform,
     Button,
@@ -19,7 +19,7 @@ interface RegisterProp {
     navigation: any;
 }
 function RegisterComponent({ navigation }: RegisterProp) {
-    const userSelector = (state: UserState) => state.loginUser;
+    const userSelector = (state: UserState) => state.registerUser;
     const user = useSelector(userSelector);
     const dispatch = useDispatch();
 
@@ -37,11 +37,12 @@ function RegisterComponent({ navigation }: RegisterProp) {
     }, []);
 
     function submitForm() {
-        /* userService.login(user).then((user) => {
+
+        userService.register(user).then((user) => {
             console.log(user);
             dispatch(getUser(user));
-            navigation.navigate('Placeholder');
-        }); */
+            navigation.navigate('Login');
+        });
     }
     function handle() {
         alert('press');
@@ -55,7 +56,7 @@ function RegisterComponent({ navigation }: RegisterProp) {
             <TextInput
                 style={style.input}
                 onChangeText={(value) =>
-                    dispatch(loginAction({ ...user, name: value }))
+                    dispatch(registerAction({ ...user, name: value }))
                 }
                 value={user.name}
             />
@@ -63,7 +64,7 @@ function RegisterComponent({ navigation }: RegisterProp) {
             <TextInput
                 style={style.input}
                 onChangeText={(value) =>
-                    dispatch(loginAction({ ...user, password: value }))
+                    dispatch(registerAction({ ...user, password: value }))
                 }
                 value={user.name}
             />
@@ -72,7 +73,7 @@ function RegisterComponent({ navigation }: RegisterProp) {
                 secureTextEntry={true}
                 style={style.input}
                 onChangeText={(value) =>
-                    dispatch(loginAction({ ...user, name: value }))
+                    dispatch(registerAction({ ...user, name: value }))
                 }
                 value={user.name}
             />
@@ -80,7 +81,7 @@ function RegisterComponent({ navigation }: RegisterProp) {
             <TextInput
                 style={style.input}
                 onChangeText={(value) =>
-                    dispatch(loginAction({ ...user, email: value }))
+                    dispatch(registerAction({ ...user, email: value }))
                 }
                 value={user.email}
             />
@@ -89,7 +90,7 @@ function RegisterComponent({ navigation }: RegisterProp) {
                 secureTextEntry={true}
                 style={style.input}
                 onChangeText={(value) =>
-                    dispatch(loginAction({ ...user, age: Number(value) }))
+                    dispatch(registerAction({ ...user, age: Number(value) }))
                 }
                 value={String(user.age)}
             />
@@ -98,7 +99,7 @@ function RegisterComponent({ navigation }: RegisterProp) {
                 secureTextEntry={true}
                 style={style.input}
                 onChangeText={(value) =>
-                    dispatch(loginAction({ ...user, phonenumber: value }))
+                    dispatch(registerAction({ ...user, phonenumber: value }))
                 }
                 value={''+ user.phonenumber}
             />

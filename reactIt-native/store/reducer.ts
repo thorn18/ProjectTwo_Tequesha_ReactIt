@@ -8,6 +8,7 @@ import { ForumState } from './store';
 export const initialState: ForumState = {
     user: new User(),
     loginUser: new User(),
+    registerUser: new User(),
 }
 
 // Make sure that the reducer has a default argument of the inital state or it will not work.
@@ -23,6 +24,9 @@ const reducer = (state: ForumState = initialState, action: Actions.AppAction): F
             return newState;
         case Actions.UserActions.LoginChange:
             newState.loginUser = action.payload as User;
+            return newState;
+        case Actions.UserActions.RegisterChange:
+            newState.registerUser = action.payload as User;
             return newState;
         case Actions.UserActions.ChangeLocale:
             newState.locale = action.payload as string;
