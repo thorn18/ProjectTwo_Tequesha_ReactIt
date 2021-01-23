@@ -12,12 +12,13 @@ router.get('/', function (req, res, next) {
 });
 /* GET users listing. */
 router.post('/register', function (req, res, next) {
-    user_service_1.default.getUserByName(req.body).then(function (result) {
+    user_service_1.default.addUser(req.body).then(function (result) {
         console.log(result);
+        console.log("Registered!");
     }).catch(function (err) {
         console.log(err);
+        console.log("NotRegistered!");
     });
-    res.send('User Registration');
 });
 router.get('/login/:username', function (req, res, next) {
     user_service_1.default.getUserByName(req.params.username).then(function (returnedUser) {

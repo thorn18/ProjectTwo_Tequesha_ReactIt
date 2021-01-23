@@ -1,8 +1,8 @@
 import * as AWS from 'aws-sdk';
 
 let docClient = new AWS.DynamoDB.DocumentClient({
-    region: 'us-east-2',
-    endpoint: 'http://dynamodb.us-east-2.amazonaws.com'
+    region: 'us-west-2',
+    endpoint: 'http://dynamodb.us-west-2.amazonaws.com'
 });
 
 
