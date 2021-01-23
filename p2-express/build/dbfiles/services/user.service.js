@@ -70,9 +70,9 @@ var UserService = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         params = {
-                            TableName: 'users',
+                            TableName: 'Users',
                             Key: {
-                                'name': username
+                                'username': username
                             }
                         };
                         return [4 /*yield*/, this.doc.get(params).promise().then(function (data) {
@@ -80,6 +80,7 @@ var UserService = /** @class */ (function () {
                                     return data.Item;
                                 }
                                 else {
+                                    console.log("Promise Failed");
                                     return null;
                                 }
                             })];
@@ -99,27 +100,14 @@ var UserService = /** @class */ (function () {
                             TableName: 'users',
                             // Item - the object we are sending
                             Item: user,
-                            ConditionExpression: '#name <> :name',
-                            ExpressionAttributeNames: {
-                                '#name': 'name',
-                            },
-                            ExpressionAttributeValues: {
-                                ':name': user.name,
-                            }
                         };
                         return [4 /*yield*/, this.doc.put(params).promise().then(function (result) {
                                 return true;
                             }).catch(function (error) {
+                                console.log(error);
                                 return false;
                             })];
-                    case 1: 
-                    /*
-                        The await is just returning all of that as another promise
-                            to be resolved by a different layer of the application.
-                        put function takes in our params, and PUTs (http method) the item in the db.
-                        promise function returns a promise representation of the request
-                    */
-                    return [2 /*return*/, _a.sent()];
+                    case 1: return [2 /*return*/, _a.sent()];
                 }
             });
         });
