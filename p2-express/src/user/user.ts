@@ -23,8 +23,8 @@ export class User{
         this.emailvalidated = emailvalidated;
     }
 
-    public username;
-    public password;
+    public username: string;
+    public password: string;
     public role: string;
     public name: string;
     public email: string;

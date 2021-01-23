@@ -37,7 +37,7 @@ function LoginComponent({ navigation }: LoginProp) {
     }, []);
 
     function submitForm() {
-        userService.searchSingleUser(user).then((user) => {
+        userService.getUserByName(user).then((user) => {
             console.log(user);
             dispatch(getUser(user));
             navigation.navigate('Login');

@@ -13,7 +13,6 @@ var index_1 = __importDefault(require("../build/routes/index"));
 var app = express_1.default();
 var dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
-var app = express_1.default();
 // view engine setup
 app.use(cors_1.default({ origin: process.env.CLIENT, credentials: true }));
 app.set('views', path_1.default.join(__dirname, 'views'));
