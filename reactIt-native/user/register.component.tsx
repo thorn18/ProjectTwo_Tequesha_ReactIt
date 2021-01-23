@@ -37,11 +37,11 @@ function RegisterComponent({ navigation }: RegisterProp) {
     }, []);
 
     function submitForm() {
-        userService.login(user).then((user) => {
+        /* userService.login(user).then((user) => {
             console.log(user);
             dispatch(getUser(user));
             navigation.navigate('Placeholder');
-        });
+        }); */
     }
     function handle() {
         alert('press');

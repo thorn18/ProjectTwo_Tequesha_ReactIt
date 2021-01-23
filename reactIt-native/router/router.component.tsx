@@ -6,10 +6,12 @@ import { StackHeaderOptions } from '@react-navigation/stack/lib/typescript/src/t
 import NavBarComponent from './navbar.component';
 import { ForumState } from '../store/store';
 import { useSelector } from 'react-redux';
+import RegisterComponent from '../user/register.component';
 
 /* Parameter list for RouteProp requires a field for the route that we're on. */
 export type StackParams = {
     Login: undefined;
+    Register: undefined;
     /* RestaurantDetail: Restaurant;
     Restaurants: undefined; */
 };
@@ -28,6 +30,12 @@ function RouterComponent(props: any) {
                 component={LoginComponent}
                 options={headerOptions}
             />
+            <Stack.Screen
+                name='Register'
+                component = {RegisterComponent}
+                options={headerOptions}
+            />
+           
            {/*  <Stack.Screen
                 name='RestaurantDetail'
                 component={RestaurantDetailComponent}
@@ -41,6 +49,7 @@ function RouterComponent(props: any) {
                 options={headerOptions}
             /> */}
         </Stack.Navigator>
+        
     );
 }
 

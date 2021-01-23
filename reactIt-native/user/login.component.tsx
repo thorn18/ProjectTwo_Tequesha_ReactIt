@@ -49,6 +49,11 @@ function LoginComponent({ navigation }: LoginProp) {
     function longHandle(){
         alert('long press');
     }
+
+    function register(){
+        navigation.navigate('Register');
+    }
+
     return (
         <View style={[style.container, style.login]}>
             <Text>Username: </Text>
@@ -69,6 +74,8 @@ function LoginComponent({ navigation }: LoginProp) {
                 value={user.password}
             />
             <Button onPress={submitForm} title='Login' color='#880022' />
+            <br></br>
+            <Button onPress={register} title='Register' color='#880022' />
             <Text>{Platform.OS}</Text>
             {Platform.OS === 'android' ? (
                 <TouchableNativeFeedback
