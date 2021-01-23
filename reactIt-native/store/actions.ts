@@ -1,10 +1,5 @@
 import {User} from './../user/user';
 
-export enum RestaurantActions {
-    GetRestaurants = 'GET_RESTAURANTS',
-    ChangeRestaurant = 'CHANGE_RESTAURANT'
-}
-
 export enum UserActions {
     GetUser = 'GET_USER',
     LoginChange = 'CHANGE_LOGIN',

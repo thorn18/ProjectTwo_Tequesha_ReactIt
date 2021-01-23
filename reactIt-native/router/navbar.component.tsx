@@ -2,15 +2,15 @@ import React from 'react';
 import { Button, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
-import { GrubState } from '../store/store';
+import { ForumState } from '../store/store';
 import styles from '../global-styles';
 import I18n, { strings } from '../i18n';
 import { changeLocale } from '../store/actions';
 
 function NavBarComponent() {
     const nav = useNavigation();
-    const user = useSelector((state: GrubState) => state.user);
-    const locale = useSelector((state: GrubState) => state.locale);
+    const user = useSelector((state: ForumState) => state.user);
+    //const locale = useSelector((state: GrubState) => state.locale);
     const dispatch = useDispatch();
 
     // dispatch(changeLocale('en')); // infinite re-render
@@ -38,7 +38,7 @@ function NavBarComponent() {
             ) : (
                 <></>
             )}
-            {user.role === 'Employee' ? (
+            {/* {user.role === 'Employee' ? (
                 <Button
                     onPress={() => {
                         nav.navigate('AddRestaurant');
@@ -53,7 +53,7 @@ function NavBarComponent() {
                     nav.navigate('Restaurants');
                 }}
                 title='Restaurants'
-            />
+            /> */}
         </View>
     );
 }

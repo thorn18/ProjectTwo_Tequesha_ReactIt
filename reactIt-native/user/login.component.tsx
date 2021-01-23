@@ -29,7 +29,7 @@ function LoginComponent({ navigation }: LoginProp) {
             .getLogin()
             .then((loggedUser) => {
                 dispatch(getUser(loggedUser));
-                navigation.navigate('Restaurants');
+                navigation.navigate('Login');
             })
             .catch((err) => {
                 console.error(err);
@@ -37,10 +37,10 @@ function LoginComponent({ navigation }: LoginProp) {
     }, []);
 
     function submitForm() {
-        userService.login(user).then((user) => {
+        userService.searchSingleUser(user).then((user) => {
             console.log(user);
             dispatch(getUser(user));
-            navigation.navigate('Restaurants');
+            navigation.navigate('Login');
         });
     }
     function handle() {
