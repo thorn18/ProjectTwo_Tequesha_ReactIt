@@ -70,9 +70,9 @@ var UserService = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         params = {
-                            TableName: 'users',
+                            TableName: 'Users',
                             Key: {
-                                'name': username
+                                'username': username
                             }
                         };
                         return [4 /*yield*/, this.doc.get(params).promise().then(function (data) {
@@ -80,6 +80,7 @@ var UserService = /** @class */ (function () {
                                     return data.Item;
                                 }
                                 else {
+                                    console.log("Promise Failed");
                                     return null;
                                 }
                             })];

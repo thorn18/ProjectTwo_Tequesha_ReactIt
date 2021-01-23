@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node bin/www",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "setup":"node build/setup/createTable.js"
+    "setup": "node build/setup/createTable.js"
   },
   "author": "",
   "license": "ISC",
@@ -32,6 +32,7 @@
     "@types/http-errors": "^1.8.0",
     "@types/jest": "^26.0.19",
     "@types/morgan": "^1.9.2",
+    "@types/node": "^14.14.22",
     "babel-jest": "^26.6.3",
     "jest": "^26.6.3",
     "morgan": "^1.9.1",

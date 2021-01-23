@@ -23,15 +23,16 @@ class UserService {
     async getUserByName(username: string): Promise<User | null> {
         // GetItem api call allows us to get something by the key
         const params = {
-            TableName: 'users',
+            TableName: 'Users',
             Key: {
-                'name': username
+                'username': username
             }
         };
         return await this.doc.get(params).promise().then((data) => {
             if (data && data.Item) {
                 return data.Item as User;
             } else {
+                console.log("Promise Failed");
                 return null;
             }
         })
