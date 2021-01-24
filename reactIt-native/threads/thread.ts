@@ -1,5 +1,4 @@
 
-
 export class Thread {
     title: string = '';
     author: string = '';

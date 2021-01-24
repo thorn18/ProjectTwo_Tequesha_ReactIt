@@ -9,3 +9,5 @@ class ThreadService {
     }
 
 }
+
+export default new ThreadService();
