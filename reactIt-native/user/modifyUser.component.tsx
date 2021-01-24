@@ -2,41 +2,37 @@ import React, { useEffect } from 'react';
 import userService from './user.service';
 import { UserState } from '../store/store';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUser, registerAction } from '../store/actions';
+import {changeUser, getUser, registerAction} from '../store/actions';
 import {
-    Platform,
     Button,
     TextInput,
     Text,
     View,
-    TouchableNativeFeedback,
-    TouchableHighlight,
+    StyleSheet,
 } from 'react-native';
 import style from '../global-styles';
+import { User } from './user';
+import {State} from 'react-native-gesture-handler';
+//import styles from '../global-styles';
 
-// Function Component
-interface RegisterProp {
+interface ModifyUserProp {
     navigation: any;
 }
-function RegisterComponent({ navigation }: RegisterProp) {
-    const userSelector = (state: UserState) => state.registerUser;
+
+function ModifyUserComponent({ navigation }: ModifyUserProp) {
+    const userSelector = (state: UserState) => state.user;
     const user = useSelector(userSelector);
     const dispatch = useDispatch();
 
-    function submitForm() {
 
-        userService.register(user).then((user) => {
-            console.log(user);
-            dispatch(getUser(user));
+    function submitForm() {
+        userService.updateUser(user).then(() => {
             navigation.navigate('Login');
         });
+        dispatch(changeUser(user));
+        console.log(user);
     }
-    function handle() {
-        alert('press');
-    }
-    function longHandle() {
-        alert('long press');
-    }
+
     return (
         <View style={[style.container, style.login]}>
             <Text>Username: </Text>
@@ -54,7 +50,7 @@ function RegisterComponent({ navigation }: RegisterProp) {
                 onChangeText={(value) =>
                     dispatch(registerAction({ ...user, password: value }))
                 }
-                value={user.password}
+                placeholder='Password Hidden'
             />
             <Text>Name: </Text>
             <TextInput
@@ -62,7 +58,7 @@ function RegisterComponent({ navigation }: RegisterProp) {
                 onChangeText={(value) =>
                     dispatch(registerAction({ ...user, name: value }))
                 }
-                value={user.name}
+                placeholder={user.name}
             />
             <Text>Email: </Text>
             <TextInput
@@ -70,7 +66,7 @@ function RegisterComponent({ navigation }: RegisterProp) {
                 onChangeText={(value) =>
                     dispatch(registerAction({ ...user, email: value }))
                 }
-                value={user.email}
+                placeholder={user.email}
             />
             <Text>Age: </Text>
             <TextInput
@@ -87,12 +83,12 @@ function RegisterComponent({ navigation }: RegisterProp) {
                 onChangeText={(value) =>
                     dispatch(registerAction({ ...user, phonenumber: value }))
                 }
-                value={user.phonenumber}
+                placeholder={user.phonenumber}
             />
-            <Button onPress={submitForm} title='Register' color='#880022' />
-
+            <br></br>
+            <Button onPress={submitForm} title='Update' color='#880022' />
         </View>
-    );
+    )
 }
 
-export default RegisterComponent;
+export default ModifyUserComponent;

@@ -22,7 +22,12 @@ class UserService {
     getUserByName(user: User): Promise<User> {
         return axios.get(this.URI+'/login'+'/'+user.username, {withCredentials: true}).then(result => result.data).catch(err => err);
     }
-    
+
+    updateUser(user: User): Promise<null> {
+        console.log('Update User: ', user);
+        return axios.put(this.URI, user).then((result) => null);
+    }
+
     /* logout(): Promise<null> {
         return axios.delete(this.URI, {withCredentials: true}).then(result => null);
     } */

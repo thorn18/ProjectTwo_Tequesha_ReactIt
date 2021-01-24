@@ -42,7 +42,7 @@ router.get('/login/:username', function (req, res, next) {
 router.get('/login', function (req, res, next) {
     user_service_1.default.getUserByName("salman").then(function (returnedUser) {
         if (res && returnedUser) {
-            res.send("this is our record" + returnedUser.email);
+            res.send(JSON.stringify(returnedUser));
         }
         if (returnedUser && req.body) {
             if (returnedUser.username == req.body.username && returnedUser.password == req.body.password) {
@@ -55,6 +55,11 @@ router.get('/login', function (req, res, next) {
     }).catch(function (err) {
         console.log("404");
         res.send(err);
+    });
+});
+router.put('/', function (req, res, next) {
+    user_service_1.default.updateUser(req.body).then(function (data) {
+        res.send(data);
     });
 });
 exports.default = router;

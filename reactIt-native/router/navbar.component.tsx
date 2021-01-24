@@ -33,11 +33,22 @@ function NavBarComponent() {
                     title='FR'
                 />
             )}
-            {user.name ? (
+            {user.username?(
+                <Button
+                onPress={() => {
+                    nav.navigate('ModifyUser')
+                }}
+                title={strings('nav.welcome', { name: user.name })}
+            />
+            ):(
+                <></>
+            )}
+            
+            {/* {user.name ? (
                 <Text>{strings('nav.welcome', { name: user.name })}</Text>
             ) : (
                 <></>
-            )}
+            )} */}
             {/* {user.role === 'Employee' ? (
                 <Button
                     onPress={() => {

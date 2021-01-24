@@ -7,11 +7,13 @@ import NavBarComponent from './navbar.component';
 import { ForumState } from '../store/store';
 import { useSelector } from 'react-redux';
 import RegisterComponent from '../user/register.component';
+import ModifyUserComponent from '../user/modifyUser.component';
 
 /* Parameter list for RouteProp requires a field for the route that we're on. */
 export type StackParams = {
     Login: undefined;
     Register: undefined;
+    ModifyUser: undefined;
     /* RestaurantDetail: Restaurant;
     Restaurants: undefined; */
 };
@@ -33,6 +35,11 @@ function RouterComponent(props: any) {
             <Stack.Screen
                 name='Register'
                 component = {RegisterComponent}
+                options={headerOptions}
+            />
+            <Stack.Screen
+                name='ModifyUser'
+                component = {ModifyUserComponent}
                 options={headerOptions}
             />
            

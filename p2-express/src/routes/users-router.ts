@@ -48,17 +48,17 @@ router.get('/login', function(req, res, next) {
   userservice.getUserByName("salman").then((returnedUser)=>{
 
     if(res && returnedUser) {
-      res.send("this is our record" + returnedUser.email);
+      res.send(JSON.stringify(returnedUser));
     }
   
-  if(returnedUser && req.body) {
-    if(returnedUser.username == req.body.username && returnedUser.password == req.body.password){
-      res.send("200"); 
+    if(returnedUser && req.body) {
+      if(returnedUser.username == req.body.username && returnedUser.password == req.body.password){
+        res.send("200"); 
+      }
+      else{
+        res.send("400"); 
+      }
     }
-    else{
-      res.send("400"); 
-    }
-  }
    
  }).catch((err)=>{
    console.log("404");
@@ -66,4 +66,9 @@ router.get('/login', function(req, res, next) {
  });
 });
 
+router.put('/', (req, res, next) => {
+  userservice.updateUser(req.body).then((data)=> {
+      res.send(data);
+  })
+})
 export default router;
