@@ -47,13 +47,13 @@ function NavBarComponent() {
                 />
             ) : (
                 <></>
-            )}
+            )} */}
             <Button
                 onPress={() => {
-                    nav.navigate('Restaurants');
+                    nav.navigate('Add Thread');
                 }}
-                title='Restaurants'
-            /> */}
+                title='Threads'
+            />
         </View>
     );
 }

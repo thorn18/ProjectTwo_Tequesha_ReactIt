@@ -48,7 +48,7 @@ router.get('/login', function(req, res, next) {
   userservice.getUserByName("salman").then((returnedUser)=>{
 
     if(res && returnedUser) {
-      res.send("this is our record" + returnedUser.email);
+      res.send(JSON.stringify(returnedUser));
     }
   
   if(returnedUser && req.body) {
