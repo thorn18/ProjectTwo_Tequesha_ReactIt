@@ -37,7 +37,8 @@ function LoginComponent({ navigation }: LoginProp) {
     }, []);
 
     function submitForm() {
-        userService.getUserByName(user).then((user) => {
+        console.log(user);
+        userService.login(user).then((user) => {
             console.log(user);
             dispatch(getUser(user));
             navigation.navigate('Home');
@@ -64,9 +65,9 @@ function LoginComponent({ navigation }: LoginProp) {
             <TextInput
                 style={style.input}
                 onChangeText={(value) =>
-                    dispatch(loginAction({ ...user, name: value }))
+                    dispatch(loginAction({ ...user, username: value }))
                 }
-                value={user.name}
+                value={user.username}
             />
             <Text>Password: </Text>
             <TextInput

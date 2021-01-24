@@ -14,6 +14,11 @@ class UserService {
             return result.data
         });
     }
+    
+    login(user: User): Promise<User> {
+        console.log('login: ', user);
+        return axios.post(this.URI, user, { withCredentials: true }).then((result) => result.data);
+    }
 
     register(user: User): Promise<User>{
         return axios.post(this.URI+"/register", user, {withCredentials: true}).then(result => result.data).catch(err => err);
