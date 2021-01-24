@@ -51,7 +51,7 @@ function HomeComponent({ navigation }: LoginProp) {
     }
     return (
         <View style={[style.homeContainer]}>
-            <Button onPress={createNewThread} title='Register' color='#880022' />
+            <Button onPress={createNewThread} title='Create New Thread' color='#880022' />
             <SearchBar
                 style={[style.searchBar]}
                 onChangeText={(value) => {
