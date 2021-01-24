@@ -1,11 +1,8 @@
 import createError from 'http-errors';
 import express from 'express';
 import path from 'path';
-import session from 'express-session';
-import MemoryStore from 'memorystore';
 import cors from 'cors';
 import publicDir from './constant';
-
 import usersRouter from "../src/routes/users-router"
 
 var app = express();
