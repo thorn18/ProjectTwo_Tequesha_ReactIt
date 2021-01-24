@@ -30,6 +30,15 @@ export default function NewThreadComponent() {
                 }
                 value={th.title}>
             </TextInput>
+            <br></br>
+            <Text>Category: </Text>
+            <TextInput style={style.input}
+                onChangeText={(value) => 
+                    dispatch(addThread({...th, category: value}))
+                }
+                value={th.category}>
+            </TextInput>
+            <br></br>
             <TextInput style={style.input} multiline numberOfLines={4}
                 onChangeText={(value) => 
                     dispatch(addThread({...th, body: value}))
