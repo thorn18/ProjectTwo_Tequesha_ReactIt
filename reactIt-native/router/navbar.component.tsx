@@ -44,27 +44,6 @@ function NavBarComponent() {
                 <></>
             )}
             
-            {/* {user.name ? (
-                <Text>{strings('nav.welcome', { name: user.name })}</Text>
-            ) : (
-                <></>
-            )} */}
-            {/* {user.role === 'Employee' ? (
-                <Button
-                    onPress={() => {
-                        nav.navigate('AddRestaurant');
-                    }}
-                    title={strings('nav.add')}
-                />
-            ) : (
-                <></>
-            )}
-            <Button
-                onPress={() => {
-                    nav.navigate('Restaurants');
-                }}
-                title='Restaurants'
-            /> */}
         </View>
     );
 }

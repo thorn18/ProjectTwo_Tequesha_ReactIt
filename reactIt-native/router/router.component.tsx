@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import RegisterComponent from '../user/register.component';
 import ModifyUserComponent from '../user/modifyUser.component';
 import UserScreenComponent from '../user/userProfile.component';
+import HomeComponent from './home.component';
 
 /* Parameter list for RouteProp requires a field for the route that we're on. */
 export type StackParams = {
@@ -16,6 +17,7 @@ export type StackParams = {
     Register: undefined;
     ModifyUser: undefined;
     Profile: undefined;
+    Home:undefined;
     /* RestaurantDetail: Restaurant;
     Restaurants: undefined; */
 };
@@ -26,7 +28,6 @@ const headerOptions: StackHeaderOptions = {
     headerRight: () => <NavBarComponent />,
 };
 function RouterComponent(props: any) {
-    //const rest = useSelector((state: ForumState) => state.restaurant);
     return (
         <Stack.Navigator initialRouteName='Login'>
             <Stack.Screen
@@ -49,19 +50,11 @@ function RouterComponent(props: any) {
                 component = {UserScreenComponent}
                 options={headerOptions}
             />
-           
-           {/*  <Stack.Screen
-                name='RestaurantDetail'
-                component={RestaurantDetailComponent}
+            <Stack.Screen
+                name='Home'
+                component = {HomeComponent}
                 options={headerOptions}
-                initialParams={rest}
-            /> */}
-            {/* RestaurantListComponent */}
-            {/* <Stack.Screen
-                name='Restaurants'
-                component={TableComponent}
-                options={headerOptions}
-            /> */}
+            />
         </Stack.Navigator>
         
     );
