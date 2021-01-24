@@ -16,7 +16,7 @@ function NavBarComponent() {
     // dispatch(changeLocale('en')); // infinite re-render
     return (
         <View style={styles.row}>
-            {I18n.locale === 'fr' ? (
+            {/* {I18n.locale === 'fr' ? (
                 <Button
                     onPress={() => {
                         I18n.locale = 'en';
@@ -32,7 +32,7 @@ function NavBarComponent() {
                     }}
                     title='FR'
                 />
-            )}
+            )} */}
             {user.name ? (
                 <Text>{strings('nav.welcome', { name: user.name })}</Text>
             ) : (
