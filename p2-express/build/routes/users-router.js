@@ -40,6 +40,7 @@ router.post('/register', function (req, res, next) {
         console.log("NotRegistered!");
     });
 });
+<<<<<<< HEAD
 router.post("/", function (req, res, next) {
     user.login(req.body.username, req.body.password).then(function (user) {
         if (user === null) {
@@ -50,6 +51,10 @@ router.post("/", function (req, res, next) {
     });
 });
 router.get('/login/:username', function (req, res, next) {
+=======
+router.post('/login/:username', function (req, res, next) {
+    console.log("Getting user on login!");
+>>>>>>> a1df0ab612043c06a2195170606b2e1c9772de33
     user_service_1.default.getUserByName(req.params.username).then(function (returnedUser) {
         if (res && returnedUser) {
             res.send("this is our record" + returnedUser.email);

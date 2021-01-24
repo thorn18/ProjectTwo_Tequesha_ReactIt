@@ -2,6 +2,7 @@ import React, { createRef, useRef } from 'react';
 import { ForumState, UserState } from '../store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+    Button,
     View,
 } from 'react-native';
 import style from './homestyle';
@@ -45,8 +46,12 @@ function HomeComponent({ navigation }: LoginProp) {
         // searchQuery = 
     }
 
+    function createNewThread() {
+
+    }
     return (
         <View style={[style.homeContainer]}>
+            <Button onPress={createNewThread} title='Register' color='#880022' />
             <SearchBar
                 style={[style.searchBar]}
                 onChangeText={(value) => {
