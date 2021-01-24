@@ -15,17 +15,13 @@ class UserService {
         });
     }
     
-    login(user: User): Promise<User> {
-        console.log('login: ', user);
-        return axios.post(this.URI, user, { withCredentials: true }).then((result) => result.data);
-    }
-
     register(user: User): Promise<User>{
         return axios.post(this.URI+"/register", user, {withCredentials: true}).then(result => result.data).catch(err => err);
     }
 
     getUserByName(user: User): Promise<User> {
-        return axios.get(this.URI+'/login'+'/'+user.username, {withCredentials: true}).then(result => result.data).catch(err => err);
+        console.log(this.URI+'/login/'+user.username)
+        return axios.post(this.URI+'/login'+'/'+user.username, {withCredentials: true}).then(result => result.data).catch(err => err);
     }
 
     updateUser(user: User): Promise<null> {

@@ -37,11 +37,16 @@ function LoginComponent({ navigation }: LoginProp) {
     }, []);
 
     function submitForm() {
-        console.log(user);
-        userService.login(user).then((user) => {
-            console.log(user);
+        userService.getUserByName(user).then((user) => {
+            if(user) {
+                console.log(user);
+            } else {
+                console.log("No user");
+            }
             dispatch(getUser(user));
             navigation.navigate('Home');
+        }).catch((err) => {
+            console.log(err);
         });
     }
     function handle() {
