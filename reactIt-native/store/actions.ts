@@ -7,14 +7,32 @@ export enum UserActions {
     ChangeLocale = 'CHANGE_LOCALE'
 }
 
+export enum ThreadActions {
+    GetThreads = 'GET_THREADS',
+}
+
 export interface AppAction {
     type: string;
     payload: any;
 }
 
+export interface ThreadAction<P> extends AppAction{
+    type:ThreadActions;
+    payload:P;
+}
+
 export interface UserAction<P> extends AppAction {
     type: UserActions;
     payload: P;
+}
+
+//TODO: MODIFY AFTER THREAD OBJECT CREATED.
+export function getThreads(threads: any): ThreadAction<String> {
+    const action: ThreadAction<String> = {
+        type: ThreadActions.GetThreads,
+        payload: threads
+    }
+    return action;
 }
 
 export function getUser(user: User): UserAction<User> {
