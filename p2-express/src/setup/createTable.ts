@@ -14,13 +14,13 @@ const removeUsers = {
 const userSchema = {
     AttributeDefinitions: [
         {
-            AttributeName: 'name',
+            AttributeName: 'username',
             AttributeType: 'S'
         }
     ],
     KeySchema: [
         {
-            AttributeName: 'name',
+            AttributeName: 'username',
             KeyType: 'HASH'
         }
     ],

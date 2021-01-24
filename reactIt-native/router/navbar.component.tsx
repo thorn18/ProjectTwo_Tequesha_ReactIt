@@ -38,22 +38,13 @@ function NavBarComponent() {
             ) : (
                 <></>
             )}
-            {/* {user.role === 'Employee' ? (
-                <Button
-                    onPress={() => {
-                        nav.navigate('AddRestaurant');
-                    }}
-                    title={strings('nav.add')}
-                />
-            ) : (
-                <></>
-            )} */}
             <Button
                 onPress={() => {
-                    nav.navigate('Add Thread');
+                    nav.navigate('AddThreads');
                 }}
                 title='Threads'
             />
+
         </View>
     );
 }

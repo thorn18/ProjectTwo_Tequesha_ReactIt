@@ -43,27 +43,4 @@ router.get('/login/:username', function(req, res, next) {
  });
 });
 
-/* GET users listing. */
-router.get('/login', function(req, res, next) {
-  userservice.getUserByName("salman").then((returnedUser)=>{
-
-    if(res && returnedUser) {
-      res.send(JSON.stringify(returnedUser));
-    }
-  
-  if(returnedUser && req.body) {
-    if(returnedUser.username == req.body.username && returnedUser.password == req.body.password){
-      res.send("200"); 
-    }
-    else{
-      res.send("400"); 
-    }
-  }
-   
- }).catch((err)=>{
-   console.log("404");
-   res.send(err); 
- });
-});
-
 export default router;

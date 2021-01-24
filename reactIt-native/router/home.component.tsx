@@ -1,0 +1,70 @@
+import React, { createRef, useRef } from 'react';
+import { ForumState, UserState } from '../store/store';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+    View,
+} from 'react-native';
+import style from './homestyle';
+import { SearchBar } from 'react-native-elements';
+import { FlatList } from 'react-native';
+import { getThreads, ThreadAction } from '../store/actions';
+
+
+// Function Component
+interface LoginProp {
+    navigation: any;
+}
+
+interface ThreadProp {
+    data: "hello";
+}
+
+function HomeComponent({ navigation }: LoginProp) {
+    const userSelector = (state: UserState) => state.loginUser;
+    const user = useSelector(userSelector);
+    const dispatch = useDispatch();
+    const [searchQuery, setSearchQuery] = React.useState('');
+    const selectThread = (state: ForumState) => state.threads;
+    const threads = useSelector(selectThread);
+
+    //TODO: Utilize later for preferences
+    // useEffect(() => {
+    //     // Check to see if we're already logged in. Redirect if we are.
+    //     userService
+    //         .getLogin()
+    //         .then((loggedUser) => {
+    //             dispatch(getUser(loggedUser));
+    //             navigation.navigate('Home');
+    //         })
+    //         .catch((err) => {
+    //             console.error(err);
+    //         });
+    // }, []);
+
+    function handleSearchInput() {
+        // searchQuery = 
+    }
+
+    return (
+        <View style={[style.homeContainer]}>
+            <SearchBar
+                style={[style.searchBar]}
+                onChangeText={(value) => {
+                    console.log(searchQuery);
+                    //DIspatch needs updating once Thread element exists.
+                    dispatch(getThreads({ threads, searchQuery}));
+                    value = searchQuery
+                }
+            }
+            />
+            {/* <FlatList
+            data={threads}
+            renderItem={({item}) => 
+            (<ThreadComponentPlaceholder data={item}></ThreadComponentPlaceholder>)}
+            keyExtractor={(item)=>item.name}
+            /> */}
+        </View>
+    );
+}
+
+export default HomeComponent;
