@@ -11,9 +11,6 @@ import {
     StyleSheet,
 } from 'react-native';
 import style from '../global-styles';
-import { User } from './user';
-import {State} from 'react-native-gesture-handler';
-//import styles from '../global-styles';
 
 interface ModifyUserProp {
     navigation: any;
@@ -29,7 +26,6 @@ function ModifyUserComponent({ navigation }: ModifyUserProp) {
         userService.updateUser(user).then(() => {
             navigation.navigate('Login');
         });
-        dispatch(changeUser(user));
         console.log(user);
     }
 
@@ -48,7 +44,7 @@ function ModifyUserComponent({ navigation }: ModifyUserProp) {
             <TextInput
                 style={style.input}
                 onChangeText={(value) =>
-                    dispatch(registerAction({ ...user, password: value }))
+                    dispatch(changeUser({ ...user, password: value }))
                 }
                 placeholder='Password Hidden'
             />
@@ -56,7 +52,7 @@ function ModifyUserComponent({ navigation }: ModifyUserProp) {
             <TextInput
                 style={style.input}
                 onChangeText={(value) =>
-                    dispatch(registerAction({ ...user, name: value }))
+                    dispatch(changeUser({ ...user, name: value }))
                 }
                 placeholder={user.name}
             />
@@ -64,7 +60,7 @@ function ModifyUserComponent({ navigation }: ModifyUserProp) {
             <TextInput
                 style={style.input}
                 onChangeText={(value) =>
-                    dispatch(registerAction({ ...user, email: value }))
+                    dispatch(changeUser({ ...user, email: value }))
                 }
                 placeholder={user.email}
             />
@@ -74,14 +70,14 @@ function ModifyUserComponent({ navigation }: ModifyUserProp) {
                 style={style.input}
                 onChangeText={(value) =>
 
-                    dispatch(registerAction({ ...user, age: Number(value) }))
+                    dispatch(changeUser({ ...user, age: Number(value) }))
                 }
             />
             <Text>Phone Number: </Text>
             <TextInput
                 style={style.input}
                 onChangeText={(value) =>
-                    dispatch(registerAction({ ...user, phonenumber: value }))
+                    dispatch(changeUser({ ...user, phonenumber: value }))
                 }
                 placeholder={user.phonenumber}
             />

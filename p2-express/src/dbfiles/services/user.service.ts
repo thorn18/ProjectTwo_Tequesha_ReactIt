@@ -72,11 +72,9 @@ class UserService {
             Key: {
                 'username': user.username
             },
-            UpdateExpression: 'set username = :username, password = :password, name = :name, email = :email, age = :age, phonenumber = :phonenumber',
+            UpdateExpression: 'set password = :password, email = :email, age = :age, phonenumber = :phonenumber',
             ExpressionAttributeValues: {
-                ':username': user.username,
                 ':password': user.password,
-                ':name': user.name,
                 ':email': user.email,
                 ':age': user.age,
                 ':phonenumber': user.phonenumber,
@@ -86,6 +84,7 @@ class UserService {
             return await this.doc.update(params).promise().then((data) => {
                 return true;
             }).catch((err) => {
+                console.log(err)
                 return false;
             });
         }

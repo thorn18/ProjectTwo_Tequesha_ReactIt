@@ -123,11 +123,9 @@ var UserService = /** @class */ (function () {
                             Key: {
                                 'username': user.username
                             },
-                            UpdateExpression: 'set username = :username, password = :password, name = :name, email = :email, age = :age, phonenumber = :phonenumber',
+                            UpdateExpression: 'set password = :password, email = :email, age = :age, phonenumber = :phonenumber',
                             ExpressionAttributeValues: {
-                                ':username': user.username,
                                 ':password': user.password,
-                                ':name': user.name,
                                 ':email': user.email,
                                 ':age': user.age,
                                 ':phonenumber': user.phonenumber,
@@ -137,6 +135,7 @@ var UserService = /** @class */ (function () {
                         return [4 /*yield*/, this.doc.update(params).promise().then(function (data) {
                                 return true;
                             }).catch(function (err) {
+                                console.log(err);
                                 return false;
                             })];
                     case 1: return [2 /*return*/, _a.sent()];
