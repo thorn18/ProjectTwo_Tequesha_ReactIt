@@ -23,7 +23,7 @@ class UserService {
     async getUserByName(username: string): Promise<User | null> {
         // GetItem api call allows us to get something by the key
         const params = {
-            TableName: 'Users',
+            TableName: 'users',
             Key: {
                 'username': username
             }
