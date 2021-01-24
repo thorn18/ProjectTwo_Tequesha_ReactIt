@@ -8,12 +8,14 @@ import { ForumState } from '../store/store';
 import { useSelector } from 'react-redux';
 import RegisterComponent from '../user/register.component';
 import ModifyUserComponent from '../user/modifyUser.component';
+import UserScreenComponent from '../user/userProfile.component';
 
 /* Parameter list for RouteProp requires a field for the route that we're on. */
 export type StackParams = {
     Login: undefined;
     Register: undefined;
     ModifyUser: undefined;
+    Profile: undefined;
     /* RestaurantDetail: Restaurant;
     Restaurants: undefined; */
 };
@@ -40,6 +42,11 @@ function RouterComponent(props: any) {
             <Stack.Screen
                 name='ModifyUser'
                 component = {ModifyUserComponent}
+                options={headerOptions}
+            />
+            <Stack.Screen
+                name='Profile'
+                component = {UserScreenComponent}
                 options={headerOptions}
             />
            

@@ -1,14 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import userService from './user.service';
 import { UserState } from '../store/store';
 import { useDispatch, useSelector } from 'react-redux';
-import {changeUser, getUser, registerAction} from '../store/actions';
+import {changeUser, registerAction} from '../store/actions';
 import {
     Button,
     TextInput,
     Text,
     View,
-    StyleSheet,
+    Picker,
 } from 'react-native';
 import style from '../global-styles';
 
@@ -20,8 +20,7 @@ function ModifyUserComponent({ navigation }: ModifyUserProp) {
     const userSelector = (state: UserState) => state.user;
     const user = useSelector(userSelector);
     const dispatch = useDispatch();
-
-
+ 
     function submitForm() {
         userService.updateUser(user).then(() => {
             navigation.navigate('Login');
@@ -82,6 +81,7 @@ function ModifyUserComponent({ navigation }: ModifyUserProp) {
                 placeholder={user.phonenumber}
             />
             <br></br>
+            
             <Button onPress={submitForm} title='Update' color='#880022' />
         </View>
     )

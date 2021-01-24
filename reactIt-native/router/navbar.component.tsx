@@ -36,7 +36,7 @@ function NavBarComponent() {
             {user.username?(
                 <Button
                 onPress={() => {
-                    nav.navigate('ModifyUser')
+                    nav.navigate('Profile')
                 }}
                 title={strings('nav.welcome', { name: user.name })}
             />
