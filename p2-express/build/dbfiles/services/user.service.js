@@ -70,7 +70,7 @@ var UserService = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         params = {
-                            TableName: 'Users',
+                            TableName: 'users',
                             Key: {
                                 'username': username
                             }
