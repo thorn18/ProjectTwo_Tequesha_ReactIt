@@ -1,6 +1,7 @@
 import { applyMiddleware, createStore, Store } from "redux";
 import thunk from "redux-thunk";
 import { User } from "../user/user";
+import { Thread } from "../threads/thread";
 import { AppAction, ThreadActions } from "./actions";
 import reducer from "./reducer";
 
@@ -14,7 +15,8 @@ export interface UserState {
 }
 export interface ThreadState {
     //TEMP NEEDS CHANGING
-    threads: string;
+    threads: Thread[];
+    thread: Thread
 }
 
 export interface ForumState extends UserState,ThreadState{ }
