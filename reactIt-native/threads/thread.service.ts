@@ -6,15 +6,6 @@ class ThreadService {
     constructor() {
     }
 
-    getThreads(): {
-    }
-
-    
-    getThreadById(id:string): {
-    }
-
-    
-
 }
 
 export default new ThreadService();

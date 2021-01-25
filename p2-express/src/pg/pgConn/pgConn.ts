@@ -1,5 +1,7 @@
 import dotenv from 'dotenv';
+dotenv.config({path:'../../../.env'});
 import {Pool, Client} from 'pg';
+import {getThreads} from '../pgFunctions/selectFunction'
 let myConn = new Object({
     user: process.env.PGUSER,
     host: process.env.PGHOST, 
@@ -15,5 +17,7 @@ let myConn = new Object({
     pool.end();
     process.exit();
 }
+console.log(pool)
+getThreads();
 
 

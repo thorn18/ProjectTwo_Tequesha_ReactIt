@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getThreads = exports.insert_thread = void 0;
 var pgConn_1 = require("../pgConn/pgConn");
 function insert_thread(category, title, description, username) {
     pgConn_1.pool.connect();
@@ -7,6 +8,7 @@ function insert_thread(category, title, description, username) {
         pgConn_1.quit();
     });
 }
+exports.insert_thread = insert_thread;
 function getThreads() {
     pgConn_1.pool.connect();
     pgConn_1.pool.query('select * from threads)', function (data) {
@@ -14,4 +16,4 @@ function getThreads() {
         pgConn_1.quit();
     });
 }
-console.log(process.env);
+exports.getThreads = getThreads;
