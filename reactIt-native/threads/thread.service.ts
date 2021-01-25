@@ -7,7 +7,7 @@ class ThreadService {
     constructor() {
         this.URI = 'http://34.219.142.203:3000/threads';
     }
-
+    
     
 
 }
