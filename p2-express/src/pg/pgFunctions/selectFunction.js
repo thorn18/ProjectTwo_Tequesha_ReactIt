@@ -7,4 +7,4 @@ function insert_thread(category, title, description, username) {
         pgConn_1.quit();
     });
 }
-insert_thread('category', 'myTitle', 'myDescription', 'slaman');
+insert_thread('category', 'myTitle', 'myDescription', 'slaman 200');

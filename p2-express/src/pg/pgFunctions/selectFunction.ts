@@ -9,6 +9,6 @@ function insert_thread(category:string, title:string, description:string, userna
   }
 
 
-    insert_thread('category', 'myTitle', 'myDescription', 'slaman');
+    insert_thread('category', 'myTitle', 'myDescription', 'slaman 200');
 
   
