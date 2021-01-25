@@ -23,7 +23,7 @@ class UserService {
     async getUserByName(username: string): Promise<User | null> {
         // GetItem api call allows us to get something by the key
         const params = {
-            TableName: 'Users',
+            TableName: 'users',
             Key: {
                 'username': username
             }
@@ -65,6 +65,29 @@ class UserService {
             return false;
         });
     }
+
+    async  updateUser(user: User): Promise<boolean>{
+        const params = {
+            TableName: 'users',
+            Key: {
+                'username': user.username
+            },
+            UpdateExpression: 'set password = :password, email = :email, age = :age, phonenumber = :phonenumber',
+            ExpressionAttributeValues: {
+                ':password': user.password,
+                ':email': user.email,
+                ':age': user.age,
+                ':phonenumber': user.phonenumber,
+            },
+            ReturnValues: 'UPDATED_NEW'
+            };
+            return await this.doc.update(params).promise().then((data) => {
+                return true;
+            }).catch((err) => {
+                console.log(err)
+                return false;
+            });
+        }
 }
 
 const userService = new UserService();

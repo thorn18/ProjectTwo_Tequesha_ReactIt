@@ -29,7 +29,7 @@ function LoginComponent({ navigation }: LoginProp) {
             .getLogin()
             .then((loggedUser) => {
                 dispatch(getUser(loggedUser));
-                navigation.navigate('Login');
+                navigation.navigate('Home');
             })
             .catch((err) => {
                 console.error(err);
@@ -38,9 +38,15 @@ function LoginComponent({ navigation }: LoginProp) {
 
     function submitForm() {
         userService.getUserByName(user).then((user) => {
-            console.log(user);
+            if(user) {
+                console.log(user);
+            } else {
+                console.log("No user");
+            }
             dispatch(getUser(user));
-            navigation.navigate('Login');
+            navigation.navigate('Home');
+        }).catch((err) => {
+            console.log(err);
         });
     }
     function handle() {
@@ -54,15 +60,19 @@ function LoginComponent({ navigation }: LoginProp) {
         navigation.navigate('Register');
     }
 
+    function home() {
+        navigation.navigate('Home');
+    }
+
     return (
         <View style={[style.container, style.login]}>
             <Text>Username: </Text>
             <TextInput
                 style={style.input}
                 onChangeText={(value) =>
-                    dispatch(loginAction({ ...user, name: value }))
+                    dispatch(loginAction({ ...user, username: value }))
                 }
-                value={user.name}
+                value={user.username}
             />
             <Text>Password: </Text>
             <TextInput
@@ -73,9 +83,11 @@ function LoginComponent({ navigation }: LoginProp) {
                 }
                 value={user.password}
             />
+            <br></br>
             <Button onPress={submitForm} title='Login' color='#880022' />
             <br></br>
             <Button onPress={register} title='Register' color='#880022' />
+            <Button onPress={home} title='Home(Temporary)' color='#880022' />
             <Text>{Platform.OS}</Text>
             {Platform.OS === 'android' ? (
                 <TouchableNativeFeedback

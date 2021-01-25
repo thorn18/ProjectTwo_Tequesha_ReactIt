@@ -1,13 +1,9 @@
 import createError from 'http-errors';
 import express from 'express';
 import path from 'path';
-import session from 'express-session';
-import MemoryStore from 'memorystore';
 import cors from 'cors';
 import publicDir from './constant';
-
 import usersRouter from "../src/routes/users-router"
-import indexRouter from "../src/routes/index"
 
 var app = express();
 import dotenv from 'dotenv';
@@ -26,7 +22,6 @@ app.use(express.static(publicDir));
 //   store: new (MemoryStore(session))({checkPeriod: 86400000}),
 //   cookie: {}}));
 
-app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler

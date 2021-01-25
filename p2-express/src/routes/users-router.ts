@@ -1,5 +1,6 @@
 import express from 'express'
 import userservice from '../dbfiles/services/user.service'
+import * as user from '../user/user';
 
 var router = express.Router();
 
@@ -21,36 +22,12 @@ router.post('/register', function(req, res, next) {
   })
 });
 
-router.get('/login/:username', function(req, res, next) {
+router.post('/login/:username', function(req, res, next) {
+  console.log("Getting user on login!");
   userservice.getUserByName(req.params.username).then((returnedUser)=>{
-
     if(res && returnedUser) {
-      res.send("this is our record" + returnedUser.email);
+      res.send(JSON.stringify(returnedUser));
     }
-  
-  if(returnedUser && req.body) {
-    if(returnedUser.username == req.body.username && returnedUser.password == req.body.password){
-      res.send("200"); 
-    }
-    else{
-      res.send("400"); 
-    }
-  }
-   
- }).catch((err)=>{
-   console.log("404");
-   res.send(err); 
- });
-});
-
-/* GET users listing. */
-router.get('/login', function(req, res, next) {
-  userservice.getUserByName("salman").then((returnedUser)=>{
-
-    if(res && returnedUser) {
-      res.send("this is our record" + returnedUser.email);
-    }
-  
   if(returnedUser && req.body) {
     if(returnedUser.username == req.body.username && returnedUser.password == req.body.password){
       res.send("200"); 
