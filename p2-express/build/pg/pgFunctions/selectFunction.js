@@ -36,35 +36,33 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getThreads = exports.insert_thread = void 0;
 var pgConn_1 = require("../pgConn/pgConn");
-function insert_thread(category, title, description, username) {
-    return __awaiter(this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            pgConn_1.pool.connect();
-            pgConn_1.pool.query('call insert_thread($1::text,$2::text,$3::text,$4::text)', [category, title, description, username], function () {
-                pgConn_1.quit();
+var ThreadService = /** @class */ (function () {
+    function ThreadService() {
+    }
+    ThreadService.insert_thread = function (category, title, description, username) {
+        pgConn_1.pool.connect();
+        pgConn_1.pool.query('call insert_thread($1::text,$2::text,$3::text,$4::text)', [category, title, description, username], function () {
+            pgConn_1.quit();
+        });
+    };
+    ThreadService.getThreads = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        pgConn_1.pool.connect();
+                        return [4 /*yield*/, pgConn_1.pool.query('select * from threads').then(function (data) {
+                                return data.rows;
+                                pgConn_1.quit();
+                            })];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
             });
-            return [2 /*return*/];
         });
-    });
-}
-exports.insert_thread = insert_thread;
-function getThreads() {
-    return __awaiter(this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    pgConn_1.pool.connect();
-                    return [4 /*yield*/, pgConn_1.pool.query('select * from threads').then(function (data) {
-                            console.log(data.rows[0]);
-                            pgConn_1.quit();
-                        })];
-                case 1:
-                    _a.sent();
-                    return [2 /*return*/];
-            }
-        });
-    });
-}
-exports.getThreads = getThreads;
+    };
+    return ThreadService;
+}());
+exports.default = ThreadService;
