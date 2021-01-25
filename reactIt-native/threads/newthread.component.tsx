@@ -1,3 +1,4 @@
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ThreadState } from '../store/store';
 import {
@@ -54,6 +55,7 @@ export default function NewThreadComponent({ navigation }: NewThreadProp) {
                 value={th.body}>      
             </TextInput>
             <Button onPress={seeComment} title='Comments' />
+            <br></br>
             <Button onPress={submitThread} title='Add Thread' color='#880022'/>
         </View>
     )
