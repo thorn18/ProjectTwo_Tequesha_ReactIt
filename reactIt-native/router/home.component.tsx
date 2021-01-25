@@ -47,8 +47,9 @@ function HomeComponent({ navigation }: LoginProp) {
     }
 
     function createNewThread() {
-
+        navigation.navigate('NewThread');
     }
+    
     return (
         <View style={[style.homeContainer]}>
             <Button onPress={createNewThread} title='Create New Thread' color='#880022' />

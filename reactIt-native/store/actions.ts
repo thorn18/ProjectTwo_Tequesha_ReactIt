@@ -1,4 +1,5 @@
 import {User} from './../user/user';
+import { Thread } from './../threads/thread';
 
 export enum UserActions {
     GetUser = 'GET_USER',
@@ -10,6 +11,7 @@ export enum UserActions {
 
 export enum ThreadActions {
     GetThreads = 'GET_THREADS',
+    ChangeThreads = 'CHANGE_THREADS'
 }
 
 export interface AppAction {
@@ -28,10 +30,18 @@ export interface UserAction<P> extends AppAction {
 }
 
 //TODO: MODIFY AFTER THREAD OBJECT CREATED.
-export function getThreads(threads: any): ThreadAction<String> {
-    const action: ThreadAction<String> = {
+export function getThreads(threads: any): ThreadAction<Thread> {
+    const action: ThreadAction<Thread> = {
         type: ThreadActions.GetThreads,
         payload: threads
+    }
+    return action;
+}
+
+export function addThread(thread: Thread): ThreadAction<Thread> {
+    const action: ThreadAction<Thread> = {
+        type: ThreadActions.ChangeThreads,
+        payload: thread
     }
     return action;
 }
