@@ -20,7 +20,8 @@ router.post('/register', function (req, res, next) {
         console.log("NotRegistered!");
     });
 });
-router.get('/login/:username', function (req, res, next) {
+router.post('/login/:username', function (req, res, next) {
+    console.log("Getting user on login!");
     user_service_1.default.getUserByName(req.params.username).then(function (returnedUser) {
         if (res && returnedUser) {
             res.send("this is our record" + returnedUser.email);
