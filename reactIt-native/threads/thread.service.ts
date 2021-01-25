@@ -15,6 +15,7 @@ class ThreadService {
             console.log(result);
             return result.data
         }).catch((err) => {
+            console.log("Promise Fulfilled");
             console.log(err);
         });
     }

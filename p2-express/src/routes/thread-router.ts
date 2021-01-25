@@ -7,6 +7,7 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
+   console.log("Inside get Thread");
    return ThreadService.getThreads();
 });
 
