@@ -2,7 +2,7 @@ import { applyMiddleware, createStore, Store } from "redux";
 import thunk from "redux-thunk";
 import { User } from "../user/user";
 import { Thread } from "../threads/thread";
-import { AppAction, ThreadActions } from "./actions";
+import { AppAction } from "./actions";
 import reducer from "./reducer";
 
 // Define the items that are in our state

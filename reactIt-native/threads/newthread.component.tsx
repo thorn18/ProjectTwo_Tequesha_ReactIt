@@ -17,6 +17,10 @@ export default function NewThreadComponent() {
     const dispatch = useDispatch();
     const th = useSelector((state: ThreadState) => state.thread);
 
+    function submitThread() {
+
+    }
+
     function seeComment() {
 
     }
@@ -46,6 +50,7 @@ export default function NewThreadComponent() {
                 value={th.body}>      
             </TextInput>
             <Button onPress={seeComment} title='Comments' />
+            <Button onPress={submitThread} title='Add Thread' color='#880022'/>
         </View>
     )
 }
