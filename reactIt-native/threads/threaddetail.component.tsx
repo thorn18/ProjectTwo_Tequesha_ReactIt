@@ -14,7 +14,7 @@ interface NewThreadProp{
     navigation: any
 }
 
-export default function ThreadDetail({ navigation }: NewThreadProp) {
+export default function ThreadDetailComponent({ navigation }: NewThreadProp) {
     const dispatch = useDispatch();
     const th = useSelector((state: ThreadState) => state.thread);
 
