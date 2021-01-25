@@ -7,13 +7,19 @@ import NavBarComponent from './navbar.component';
 import { ForumState } from '../store/store';
 import { useSelector } from 'react-redux';
 import RegisterComponent from '../user/register.component';
+import ModifyUserComponent from '../user/modifyUser.component';
+import UserScreenComponent from '../user/userProfile.component';
 import HomeComponent from './home.component';
+import NewThreadComponent from '../threads/newthread.component';
 
 /* Parameter list for RouteProp requires a field for the route that we're on. */
 export type StackParams = {
     Login: undefined;
     Register: undefined;
+    ModifyUser: undefined;
+    Profile: undefined;
     Home:undefined;
+    NewThread: undefined;
     /* RestaurantDetail: Restaurant;
     Restaurants: undefined; */
 };
@@ -37,8 +43,23 @@ function RouterComponent(props: any) {
                 options={headerOptions}
             />
             <Stack.Screen
+                name='ModifyUser'
+                component = {ModifyUserComponent}
+                options={headerOptions}
+            />
+            <Stack.Screen
+                name='Profile'
+                component = {UserScreenComponent}
+                options={headerOptions}
+            />
+            <Stack.Screen
                 name='Home'
                 component = {HomeComponent}
+                options={headerOptions}
+            />
+            <Stack.Screen
+                name='NewThread'
+                component = {NewThreadComponent}
                 options={headerOptions}
             />
         </Stack.Navigator>

@@ -1,5 +1,6 @@
 import express from 'express'
 import userservice from '../dbfiles/services/user.service'
+import * as user from '../user/user';
 
 var router = express.Router();
 
@@ -25,7 +26,7 @@ router.post('/login/:username', function(req, res, next) {
   console.log("Getting user on login!");
   userservice.getUserByName(req.params.username).then((returnedUser)=>{
     if(res && returnedUser) {
-      res.send("this is our record" + returnedUser.email);
+      res.send(JSON.stringify(returnedUser));
     }
   if(returnedUser && req.body) {
     if(returnedUser.username == req.body.username && returnedUser.password == req.body.password){

@@ -32,6 +32,9 @@ const reducer = (state: ForumState = initialState, action: Actions.AppAction): F
             newState.user = action.payload as User;
             newState.loginUser = new User();
             return newState;
+        case Actions.UserActions.ChangeUser:
+            newState.user = action.payload as User;
+            return newState;
         case Actions.UserActions.LoginChange:
             newState.loginUser = action.payload as User;
             return newState;

@@ -13,7 +13,11 @@ import style from '../global-styles';
 import { addThread } from '../store/actions';
 import { useEffect } from 'react';
 
-export default function NewThreadComponent() {
+interface NewThreadProp{
+    navigation: any
+}
+
+export default function NewThreadComponent({ navigation }: NewThreadProp) {
     const dispatch = useDispatch();
     const th = useSelector((state: ThreadState) => state.thread);
 

@@ -3,6 +3,7 @@ import { Thread } from './../threads/thread';
 
 export enum UserActions {
     GetUser = 'GET_USER',
+    ChangeUser = 'CHANGE_USER',
     LoginChange = 'CHANGE_LOGIN',
     RegisterChange = 'CHANGE_REGISTER',
     ChangeLocale = 'CHANGE_LOCALE'
@@ -48,6 +49,14 @@ export function addThread(thread: Thread): ThreadAction<Thread> {
 export function getUser(user: User): UserAction<User> {
     const action: UserAction<User> = {
         type: UserActions.GetUser,
+        payload: user
+    }
+    return action;
+}
+
+export function changeUser(user: User): UserAction<User> {
+    const action: UserAction<User> = {
+        type: UserActions.ChangeUser,
         payload: user
     }
     return action;
