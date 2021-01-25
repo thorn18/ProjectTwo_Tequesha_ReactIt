@@ -11,13 +11,13 @@ import {
     StyleSheet,
     Image
 } from 'react-native';
-import style from '../global-styles';
+import style from './account-styles';
 
 interface ModifyUserProp {
     navigation: any;
 }
 
-function UserScreenComponent({ navigation }: ModifyUserProp) {
+function UserProfileComponent({ navigation }: ModifyUserProp) {
     const userSelector = (state: UserState) => state.user;
     const user = useSelector(userSelector);
     const dispatch = useDispatch();
@@ -28,17 +28,20 @@ function UserScreenComponent({ navigation }: ModifyUserProp) {
 
     return (
         <View style={[style.container, style.login]}>
-            <Text>{user.username}</Text>
+            <br></br>
+            <Text style={style.text}>{user.username}</Text>
+            <br></br>
             <Image 
                 source={{uri:'https://icon-library.com/images/default-profile-icon/default-profile-icon-24.jpg'}}
                 style = {{width: 100, height: 100}}
                 />
-            <Text>Name: {user.name}</Text>
-            <Text>Age: {user.age}</Text>
+            <br></br>
+            <Text style={style.text}>Name: {user.name}</Text>
+            <Text style={style.text}>Age: {user.age}</Text>
             <br></br>
             <Button onPress={goToModify} title='Modify Account' color='#880022' />
         </View>
     )
 }
 
-export default UserScreenComponent;
+export default UserProfileComponent;

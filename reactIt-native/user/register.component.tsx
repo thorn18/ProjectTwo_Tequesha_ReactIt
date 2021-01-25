@@ -28,8 +28,9 @@ function RegisterComponent({ navigation }: RegisterProp) {
         userService.register(user).then((user) => {
             console.log(user);
             dispatch(getUser(user));
-            navigation.navigate('Login');
         });
+        navigation.navigate('Login');
+
     }
     function handle() {
         alert('press');
