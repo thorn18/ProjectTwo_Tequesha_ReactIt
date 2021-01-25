@@ -1,15 +1,14 @@
 import {pool,client, quit} from '../pgConn/pgConn';
 
- 
-client.connect()
-client.query('SELECT * from threads', (err:any, res:any) => {
-  console.log(res.rows[0])
-  client.end()
-})
+function insert_thread(category:string, title:string, description:string, username:string){
+  pool.connect()
+  pool.query('call insert_thread($1::text,$2::text,$3::text,$4::text)', [category, title,description,username], (data) => {
+
+    quit(); 
+  });
+  }
 
 
-pool.connect()
-pool.query('call insert_thread($1::text,$2::text,$3::integer)', ['reactit group','node js in the meeting',5555], (data) => {
- console.log(data);
-  quit(); 
-});
+    insert_thread('category', 'myTitle', 'myDescription', 'slaman');
+
+  
