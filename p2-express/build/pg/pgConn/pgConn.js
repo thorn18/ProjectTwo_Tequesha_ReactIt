@@ -23,5 +23,4 @@ function quit() {
     process.exit();
 }
 exports.quit = quit;
-console.log(exports.pool);
-selectFunction_1.getThreads();
+selectFunction_1.insert_thread("Donkeys", "Donkeys are not horses", "Everyone hates donkeys", "thorn");
