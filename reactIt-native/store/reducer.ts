@@ -18,12 +18,18 @@ export const initialState: ForumState = {
 const reducer = (state: ForumState = initialState, action: Actions.AppAction): ForumState => {
     //console.log(action);
     // We want to call setState. (redux will do that when we return a new state object from the reducer)
-    const newState = {...state}; // If we return this, it will re render the application. (call setState)
+    const newState = { ...state }; // If we return this, it will re render the application. (call setState)
 
-    switch (action.type) {    
+    switch (action.type) {
         case Actions.ThreadActions.GetThreads:
+            console.log("Calling action getThreads");
+            console.log(action.payload);
             //Threads [] will need updating here.
             newState.threads = action.payload as Thread[];
+            return newState;
+        case Actions.ThreadActions.GetThread:
+            //Threads [] will need updating here.
+            newState.thread = action.payload as Thread;
             return newState;
         case Actions.ThreadActions.ChangeThreads:
             newState.thread = action.payload as Thread;
@@ -44,7 +50,7 @@ const reducer = (state: ForumState = initialState, action: Actions.AppAction): F
         case Actions.UserActions.ChangeLocale:
             newState.locale = action.payload as string;
             return newState;
-        default: 
+        default:
             return state;
     }
 }

@@ -3,7 +3,7 @@ import express from 'express';
 import path from 'path';
 import cors from 'cors';
 import publicDir from './constant';
-import usersRouter from "../src/routes/users-router"
+import usersRouter from "./routes/users-router"
 import threadRouter from './routes/thread-router';
 var app = express();
 import dotenv from 'dotenv';

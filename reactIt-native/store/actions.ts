@@ -11,6 +11,7 @@ export enum UserActions {
 
 export enum ThreadActions {
     GetThreads = 'GET_THREADS',
+    GetThread = 'GET_THREAD',
     ChangeThreads = 'CHANGE_THREADS'
 }
 
@@ -30,10 +31,18 @@ export interface UserAction<P> extends AppAction {
 }
 
 //TODO: MODIFY AFTER THREAD OBJECT CREATED.
-export function getThreads(threads: any): ThreadAction<Thread> {
-    const action: ThreadAction<Thread> = {
+export function getThreads(threads: Thread[]): ThreadAction<Thread[]> {
+    const action: ThreadAction<Thread[]> = {
         type: ThreadActions.GetThreads,
         payload: threads
+    }
+    return action;
+}
+
+export function getThread(thread: Thread): ThreadAction<Thread> {
+    const action: ThreadAction<Thread> = {
+        type: ThreadActions.GetThreads,
+        payload: thread
     }
     return action;
 }
