@@ -9,6 +9,8 @@ import style from './homestyle';
 import { SearchBar } from 'react-native-elements';
 import { FlatList } from 'react-native';
 import { getThreads, ThreadAction } from '../store/actions';
+import ThreadDetailComponent from '../threads/threaddetail.component';
+import threadService from '../threads/thread.service';
 
 
 // Function Component
@@ -49,24 +51,31 @@ function HomeComponent({ navigation }: LoginProp) {
     function createNewThread() {
         navigation.navigate('NewThread');
     }
-    
+
+    function handleStuff() {
+        threadService.getAllThreads();
+
+    }
+
     return (
         <View style={[style.homeContainer]}>
+            <Button onPress={handleStuff} title='Get Threads' color='#880022' />
+
             <Button onPress={createNewThread} title='Create New Thread' color='#880022' />
             <SearchBar
                 style={[style.searchBar]}
                 onChangeText={(value) => {
                     console.log(searchQuery);
                     //DIspatch needs updating once Thread element exists.
-                    dispatch(getThreads({ threads, searchQuery}));
+                    dispatch(getThreads({ threads, searchQuery }));
                     value = searchQuery
                 }
-            }
+                }
             />
             {/* <FlatList
             data={threads}
             renderItem={({item}) => 
-            (<ThreadComponentPlaceholder data={item}></ThreadComponentPlaceholder>)}
+            (<ThreadDetailComponent data={item}></ThreadDetailComponent>)}
             keyExtractor={(item)=>item.name}
             /> */}
         </View>
