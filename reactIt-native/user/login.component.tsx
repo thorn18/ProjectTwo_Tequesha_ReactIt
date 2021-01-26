@@ -44,7 +44,12 @@ function LoginComponent({ navigation }: LoginProp) {
                 console.log("No user");
             }
             dispatch(getUser(user));
-            navigation.navigate('Home');
+            if(user.accountstatus === 'deactivated'){
+                alert('Your account is currently deactivated.  Re-activate to continue.');
+                navigation.navigate('ModifyUser');
+            } else{
+                navigation.navigate('Home');
+            }
         }).catch((err) => {
             console.log(err);
         });

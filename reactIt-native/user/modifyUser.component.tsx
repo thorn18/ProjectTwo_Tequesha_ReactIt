@@ -14,7 +14,7 @@ import welcomeName from '../router/navbar.component';
 import I18n, { strings } from '../i18n';
 import AccountStatusComponent from './accountStatus.component';
 
-interface ModifyUserProp {
+export interface ModifyUserProp {
     navigation: any;
 }
 
@@ -25,17 +25,10 @@ function ModifyUserComponent({ navigation }: ModifyUserProp) {
  
     function submitForm() {
         userService.updateUser(user).then(() => {
-            navigation.navigate('Login');
+            navigation.navigate('Home');
         });
         console.log(user);
 
-    }
-
-    function deactivateAccount(){
-        user.accountstatus = 'deactivated';
-        userService.updateUser(user).then(() => {
-            navigation.navigate('');
-        });
     }
 
     return (

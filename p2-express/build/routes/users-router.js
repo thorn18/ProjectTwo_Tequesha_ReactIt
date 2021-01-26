@@ -39,4 +39,9 @@ router.post('/login/:username', function (req, res, next) {
         res.send(err);
     });
 });
+router.put('/', function (req, res, next) {
+    user_service_1.default.updateUser(req.body).then(function (data) {
+        res.send(data);
+    });
+});
 exports.default = router;

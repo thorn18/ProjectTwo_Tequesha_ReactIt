@@ -43,4 +43,10 @@ router.post('/login/:username', function(req, res, next) {
  });
 });
 
+router.put('/', (req, res, next) => {
+  userservice.updateUser(req.body).then((data)=> {
+      res.send(data);
+  })
+})
+
 export default router;

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changeUser } from '../store/actions';
 import { Button, View } from 'react-native';
 import { User } from './user';
+import {useNavigation} from '@react-navigation/native';
 
 interface statusProp {
     user: User;
@@ -12,6 +13,7 @@ interface statusProp {
 function AccountStatusComponent(prop: statusProp) {
     const userSelector = (state: UserState) => state.user;
     const currUser = useSelector(userSelector);
+    const navigation = useNavigation();
 
     console.log('Current User: ', currUser);
     console.log('User Prop: ', prop.user);
@@ -33,6 +35,7 @@ function AccountStatusComponent(prop: statusProp) {
     function activateAccount() {
         prop.user.accountstatus = 'activated';
         update();
+        navigation.navigate('Home');
     }
 
     function moderatorDeactivated() {
