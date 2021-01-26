@@ -11,9 +11,9 @@ interface MyEvent {
 
 export const handler = async (event: MyEvent): Promise<any> => {
     let username = event.path.substring(event.path.lastIndexOf('/')+1, event.path.length);
-    const rest = await getUserByName(username);
-    if (rest) {
-        return {statusCode: 200, body: JSON.stringify(rest)};
+    const user = await getUserByName(username);
+    if (user) {
+        return {statusCode: 200, body: JSON.stringify(user)};
     } else {
         return {statusCode: 404, body: JSON.stringify({})};
     }
@@ -38,13 +38,13 @@ async function getUserByName(username: string): Promise<User | null> {
     })
 }
 
-export class PersonalSettings {
+class PersonalSettings {
     public backgroundcolor:string = "Blue";
     public language:string = "English";
     public fontstyle:string = "";
 }
 
-export class User{
+class User{
     constructor(username:string = "", password:string= "",role:string= "",name:string= "",email:string= "",age:number = -1,personalsettings:PersonalSettings = new PersonalSettings(),emailvalidated:boolean = false, phonenumber?:string) {
         this.username = username;
         this.password = password;
