@@ -46,19 +46,22 @@ var ThreadService = /** @class */ (function () {
             pgConn_1.quit();
         });
     };
-    ThreadService.getThreads = function () {
+    ThreadService.prototype.getThreads = function () {
         return __awaiter(this, void 0, void 0, function () {
+            var ret;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         pgConn_1.pool.connect();
                         return [4 /*yield*/, pgConn_1.pool.query('select * from threads').then(function (data) {
-                                return data.rows;
-                                pgConn_1.quit();
+                                if (data) {
+                                    ret = data.rows;
+                                }
+                                // quit();
                             })];
                     case 1:
                         _a.sent();
-                        return [2 /*return*/];
+                        return [2 /*return*/, ret];
                 }
             });
         });

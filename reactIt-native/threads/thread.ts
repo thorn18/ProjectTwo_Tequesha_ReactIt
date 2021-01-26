@@ -1,9 +1,10 @@
-import { Comment } from "../comment/comment";
 
 export class Thread {
-    title: string = '';
-    author: string = '';
-    body: string = '';
-    category: string = '';
-    comments: Comment[] = [];
+    created_on:string = '';
+    thread_id:number = -1;
+    threadcategory:string = '';
+    threadname:string = '';
+    threaddescription:string = '';
+    username:string = '';
+    admincomments:string = '';
 }

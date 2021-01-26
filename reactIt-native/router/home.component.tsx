@@ -1,5 +1,5 @@
 import React, { createRef, useRef } from 'react';
-import { ForumState, UserState } from '../store/store';
+import { ForumState, ThreadState, UserState } from '../store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import {
     Button,
@@ -11,6 +11,7 @@ import { FlatList } from 'react-native';
 import { getThreads, ThreadAction } from '../store/actions';
 import ThreadDetailComponent from '../threads/threaddetail.component';
 import threadService from '../threads/thread.service';
+import { Thread } from '../threads/thread';
 
 
 // Function Component
@@ -26,9 +27,9 @@ function HomeComponent({ navigation }: LoginProp) {
     const userSelector = (state: UserState) => state.loginUser;
     const user = useSelector(userSelector);
     const dispatch = useDispatch();
-    const [searchQuery, setSearchQuery] = React.useState('');
-    const selectThread = (state: ForumState) => state.threads;
-    const threads = useSelector(selectThread);
+    const [searchQuery] = React.useState('');
+    const selectThread = (state: ThreadState) => state.threads;
+    let threads = useSelector(selectThread);
 
     //TODO: Utilize later for preferences
     // useEffect(() => {
@@ -53,8 +54,22 @@ function HomeComponent({ navigation }: LoginProp) {
     }
 
     function handleStuff() {
-        threadService.getAllThreads();
+        let th: any;
+        threadService.getAllThreads().then((result) => {
+            console.log("result = ");
+            console.log(result);
+            th = result;
+            populateThreads(th);
+        });
+    }
 
+    function populateThreads(thr: any) {
+        let temp: Thread[] = [];
+        thr.forEach((row: Thread) => {
+            temp.push(row);
+        })
+        threads = temp;
+        dispatch(getThreads(threads));
     }
 
     return (
@@ -67,16 +82,16 @@ function HomeComponent({ navigation }: LoginProp) {
                 onChangeText={(value) => {
                     console.log(searchQuery);
                     //DIspatch needs updating once Thread element exists.
-                    dispatch(getThreads({ threads, searchQuery }));
+                    dispatch(searchQuery);
                     value = searchQuery
                 }
                 }
             />
             {/* <FlatList
-            data={threads}
-            renderItem={({item}) => 
-            (<ThreadDetailComponent data={item}></ThreadDetailComponent>)}
-            keyExtractor={(item)=>item.name}
+                data={threads}
+                renderItem={({ item }) =>
+                    (<ThreadDetailComponent data={item}></ThreadDetailComponent>)}
+                keyExtractor={(item) => item.thread_id}
             /> */}
         </View>
     );

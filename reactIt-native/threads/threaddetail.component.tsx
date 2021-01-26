@@ -9,9 +9,11 @@ import {
 } from 'react-native';
 import style from '../global-styles';
 import { addThread } from '../store/actions';
+import { Thread } from './thread';
 
 interface NewThreadProp{
     navigation: any
+    
 }
 
 export default function ThreadDetailComponent({ navigation }: NewThreadProp) {
@@ -28,14 +30,14 @@ export default function ThreadDetailComponent({ navigation }: NewThreadProp) {
 
     return (
         <View>
-            <Text>{th.title}</Text>
-            <Text>{th.author}</Text>
-            <Text>{th.category}</Text>
-            <Text>{th.body}</Text>
-            {th.comments.forEach((row) => {
+            <Text>{th.threadname}</Text>
+            <Text>{th.username}</Text>
+            <Text>{th.threadcategory}</Text>
+            <Text>{th.threaddescription}</Text>
+            {/* {th.comments.forEach((row) => {
                 <Text>row</Text>
-            })}
-            <Button onPress = {createNewComment} title = "New Comment"/>
+            })} */}
+            {/* <Button onPress = {createNewComment} title = "New Comment"/> */}
         </View>
     )
 }

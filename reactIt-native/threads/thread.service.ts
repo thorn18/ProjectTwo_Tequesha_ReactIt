@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { ThreadState } from '../store/store';
+import { Thread } from './thread';
 class ThreadService {
     private URI: string;
 
@@ -8,16 +9,20 @@ class ThreadService {
         this.URI = 'http://localhost:3000/threads';
     }
 
-    getAllThreads() {
-        console.log("hello");
-        return axios.get(this.URI, {withCredentials: true}).then(result=>{
-            console.log("Promise Fulfilled");
-            console.log(result);
-            return result.data
+    async getAllThreads() {
+        let ret;
+        await axios.get(this.URI, { withCredentials: true }).then(result => {
+            if (result) {
+                ret =  result.data   
+            } else {
+                console.log("RESULT IS EMPTY");
+            }
         }).catch((err) => {
-            console.log("Promise Fulfilled");
+            console.log("Promise Error");
             console.log(err);
         });
+        console.log(ret);
+        return ret;
     }
 }
 

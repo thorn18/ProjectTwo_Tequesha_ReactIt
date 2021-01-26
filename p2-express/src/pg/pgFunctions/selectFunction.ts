@@ -10,12 +10,17 @@ class ThreadService {
     });
   }
 
-  static async getThreads() {
+  async getThreads(): Promise<any> {
     pool.connect()
-    await pool.query('select * from threads').then((data) => {
-      return data.rows;
+    let ret;
+    await pool.query('select * from threads').then((data: any) => {
+      if(data) {
+        ret = data.rows;
+      }
       quit();
     });
+
+    return ret;
   }
 }
 
