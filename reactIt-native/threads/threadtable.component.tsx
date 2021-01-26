@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ThreadState } from '../store/store';
 import {
+    Button,
     Text,
     View,
 } from 'react-native';
@@ -17,7 +18,7 @@ export default function ThreadDetailComponent({data}: ThreadProps) {
     const dispatch = useDispatch();
     const th = useSelector((state: ThreadState) => state.thread);
 
-    function createNewComment() {
+    function GoToDetailComponent() {
 
     }
 
@@ -34,7 +35,7 @@ export default function ThreadDetailComponent({data}: ThreadProps) {
             {/* {th.comments.forEach((row) => {
                 <Text>row</Text>
             })} */}
-            {/* <Button onPress = {createNewComment} title = "New Comment"/> */}
+            <Button onPress = {GoToDetailComponent} title = "Go To Thread"/>
         </View>
     )
 }
