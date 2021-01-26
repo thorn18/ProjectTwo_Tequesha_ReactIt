@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { ThreadState } from '../store/store';
+
 class ThreadService {
     private URI: string;
 

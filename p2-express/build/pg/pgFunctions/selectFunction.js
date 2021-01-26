@@ -53,8 +53,9 @@ var ThreadService = /** @class */ (function () {
                     case 0:
                         pgConn_1.pool.connect();
                         return [4 /*yield*/, pgConn_1.pool.query('select * from threads').then(function (data) {
+                                //quit();
                                 return data.rows;
-                                pgConn_1.quit();
+                                //quit();
                             })];
                     case 1:
                         _a.sent();

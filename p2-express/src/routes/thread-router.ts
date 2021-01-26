@@ -6,11 +6,13 @@ import * as user from '../user/user';
 var router = express.Router();
 
 /* GET threads listing. */
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
    console.log("Inside get Thread");
-   console.log(req);
-   console.log(res);
-   return ThreadService.getThreads();
+   //console.log(res);
+   ThreadService.getThreads().then((data) => {
+      console.log(data);
+      res.send('debugging');
+   });
 });
 
 export default router;

@@ -13,8 +13,9 @@ class ThreadService {
   static async getThreads() {
     pool.connect()
     await pool.query('select * from threads').then((data) => {
+      //quit();
       return data.rows;
-      quit();
+      //quit();
     });
   }
 }

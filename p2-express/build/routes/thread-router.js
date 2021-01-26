@@ -6,9 +6,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var selectFunction_1 = __importDefault(require("../pg/pgFunctions/selectFunction"));
 var router = express_1.default.Router();
-/* GET users listing. */
+/* GET threads listing. */
 router.get('/', function (req, res, next) {
     console.log("Inside get Thread");
-    return selectFunction_1.default.getThreads();
+    console.log(req.query);
+    //console.log(res);
+    selectFunction_1.default.getThreads().then(function (data) {
+        console.log(data);
+    });
 });
 exports.default = router;
