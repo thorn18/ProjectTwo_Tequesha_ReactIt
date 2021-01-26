@@ -83,7 +83,6 @@ function LoginComponent({ navigation }: LoginProp) {
                 }
                 value={user.password}
             />
-            <br></br>
             <Button onPress={submitForm} title='Login' color='#880022' />
             <br></br>
             <Button onPress={register} title='Register' color='#880022' />

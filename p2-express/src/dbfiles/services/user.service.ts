@@ -72,12 +72,13 @@ class UserService {
             Key: {
                 'username': user.username
             },
-            UpdateExpression: 'set password = :password, email = :email, age = :age, phonenumber = :phonenumber',
+            UpdateExpression: 'set password = :password, email = :email, age = :age, phonenumber = :phonenumber, accountstatus = :accountstatus',
             ExpressionAttributeValues: {
                 ':password': user.password,
                 ':email': user.email,
                 ':age': user.age,
                 ':phonenumber': user.phonenumber,
+                ':accountstatus': user.accountstatus,
             },
             ReturnValues: 'UPDATED_NEW'
             };

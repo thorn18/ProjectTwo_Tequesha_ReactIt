@@ -12,6 +12,7 @@ import {
 import style from '../global-styles';
 import welcomeName from '../router/navbar.component';
 import I18n, { strings } from '../i18n';
+import AccountStatusComponent from './accountStatus.component';
 
 interface ModifyUserProp {
     navigation: any;
@@ -28,6 +29,13 @@ function ModifyUserComponent({ navigation }: ModifyUserProp) {
         });
         console.log(user);
 
+    }
+
+    function deactivateAccount(){
+        user.accountstatus = 'deactivated';
+        userService.updateUser(user).then(() => {
+            navigation.navigate('');
+        });
     }
 
     return (
@@ -98,6 +106,8 @@ function ModifyUserComponent({ navigation }: ModifyUserProp) {
             )}
             <br></br>
             <Button onPress={submitForm} title='Update' color='#880022' />
+            <br></br>
+            <AccountStatusComponent user={user}/>
         </View>
     )
 }

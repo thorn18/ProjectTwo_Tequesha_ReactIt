@@ -10,9 +10,6 @@ import RegisterComponent from '../user/register.component';
 import ModifyUserComponent from '../user/modifyUser.component';
 import UserScreenComponent from '../user/userProfile.component';
 import HomeComponent from './home.component';
-import NewThreadComponent from '../threads/newthread.component';
-import ThreadDetail from '../threads/threaddetail.component';
-import ThreadDetailComponent from '../threads/threaddetail.component';
 
 /* Parameter list for RouteProp requires a field for the route that we're on. */
 export type StackParams = {
@@ -21,8 +18,6 @@ export type StackParams = {
     ModifyUser: undefined;
     Profile: undefined;
     Home:undefined;
-    NewThread: undefined;
-    ThreadDetails:undefined;
     /* RestaurantDetail: Restaurant;
     Restaurants: undefined; */
 };
@@ -58,16 +53,6 @@ function RouterComponent(props: any) {
             <Stack.Screen
                 name='Home'
                 component = {HomeComponent}
-                options={headerOptions}
-            />
-            <Stack.Screen
-                name='NewThread'
-                component = {NewThreadComponent}
-                options={headerOptions}
-            />
-            <Stack.Screen
-                name='ThreadDetails'
-                component = {ThreadDetailComponent}
                 options={headerOptions}
             />
         </Stack.Navigator>
