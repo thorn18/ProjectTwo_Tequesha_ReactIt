@@ -2,13 +2,10 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ThreadState } from '../store/store';
 import {
-    Button,
-    TextInput,
     Text,
     View,
 } from 'react-native';
-import style from '../global-styles';
-import { addThread } from '../store/actions';
+import style from './thread_table_style';
 import { Thread } from './thread';
 
 interface ThreadProps{
@@ -29,7 +26,7 @@ export default function ThreadDetailComponent({data}: ThreadProps) {
     }
 
     return (
-        <View>
+        <View style = {[style.threadCardContainer]}>
             <Text>{data.threadname}</Text>
             <Text>{data.username}</Text>
             <Text>{data.threadcategory}</Text>
