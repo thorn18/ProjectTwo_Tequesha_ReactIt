@@ -41,9 +41,9 @@ var ThreadService = /** @class */ (function () {
     function ThreadService() {
     }
     ThreadService.insert_thread = function (category, title, description, username) {
-        pgConn_1.pool.connect();
+        //pool.connect();
         pgConn_1.pool.query('call insert_thread($1::text,$2::text,$3::text,$4::text)', [category, title, description, username], function () {
-            pgConn_1.quit();
+            pgConn_1.pool.end();
         });
     };
     ThreadService.prototype.getThreads = function () {
@@ -51,14 +51,12 @@ var ThreadService = /** @class */ (function () {
             var ret;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0:
-                        pgConn_1.pool.connect();
-                        return [4 /*yield*/, pgConn_1.pool.query('select * from threads').then(function (data) {
-                                if (data) {
-                                    ret = data.rows;
-                                }
-                                // quit();
-                            })];
+                    case 0: return [4 /*yield*/, pgConn_1.pool.query('select * from threads').then(function (data) {
+                            if (data) {
+                                ret = data.rows;
+                            }
+                            // pool.end();
+                        })];
                     case 1:
                         _a.sent();
                         return [2 /*return*/, ret];

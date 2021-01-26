@@ -1,4 +1,4 @@
-import React, { createRef, useRef } from 'react';
+import React, { createRef, useEffect, useRef, useState } from 'react';
 import { ForumState, ThreadState, UserState } from '../store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -9,7 +9,7 @@ import style from './homestyle';
 import { SearchBar } from 'react-native-elements';
 import { FlatList } from 'react-native';
 import { getThreads, ThreadAction } from '../store/actions';
-import ThreadDetailComponent from '../threads/threaddetail.component';
+import ThreadTableComponent from '../threads/threadtable.component';
 import threadService from '../threads/thread.service';
 import { Thread } from '../threads/thread';
 
@@ -30,20 +30,10 @@ function HomeComponent({ navigation }: LoginProp) {
     const [searchQuery] = React.useState('');
     const selectThread = (state: ThreadState) => state.threads;
     let threads = useSelector(selectThread);
-    handleStuff();
-    //TODO: Utilize later for preferences
-    // useEffect(() => {
-    //     // Check to see if we're already logged in. Redirect if we are.
-    //     userService
-    //         .getLogin()
-    //         .then((loggedUser) => {
-    //             dispatch(getUser(loggedUser));
-    //             navigation.navigate('Home');
-    //         })
-    //         .catch((err) => {
-    //             console.error(err);
-    //         });
-    // }, []);
+
+    useEffect(() => {
+        handleStuff()
+    }, []);
     function handleSearchInput() {
         // searchQuery = 
     }
@@ -53,6 +43,8 @@ function HomeComponent({ navigation }: LoginProp) {
     }
 
     function handleStuff() {
+        console.log("hello");
+        // settest(1);
         let th: any;
         threadService.getAllThreads().then((result) => {
             th = result;
@@ -60,13 +52,19 @@ function HomeComponent({ navigation }: LoginProp) {
         });
     }
 
+    function rerender() {
+        console.log("calling rerender");
+    }
+
     function populateThreads(thr: any) {
+        console.log("calling populatae thread");
         let temp: Thread[] = [];
         thr.forEach((row: Thread) => {
             temp.push(row);
         })
         threads = temp;
         dispatch(getThreads(threads));
+        rerender();
     }
 
     return (
@@ -87,7 +85,7 @@ function HomeComponent({ navigation }: LoginProp) {
             <FlatList
                 data={threads}
                 renderItem={({ item }) =>
-                    (<ThreadDetailComponent data={item}></ThreadDetailComponent>)}
+                    (<ThreadTableComponent data={item}></ThreadTableComponent>)}
                 keyExtractor={(item) => item.thread_id}
             />
         </View>
