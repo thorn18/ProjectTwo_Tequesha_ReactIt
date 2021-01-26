@@ -55,8 +55,6 @@ function HomeComponent({ navigation }: LoginProp) {
     function handleStuff() {
         let th: any;
         threadService.getAllThreads().then((result) => {
-            console.log("result = ");
-            console.log(result);
             th = result;
             populateThreads(th);
         });

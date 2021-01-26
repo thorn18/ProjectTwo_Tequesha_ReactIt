@@ -27,10 +27,10 @@ export default function ThreadDetailComponent({data}: ThreadProps) {
 
     return (
         <View style = {[style.threadCardContainer]}>
-            <Text>{data.threadname}</Text>
-            <Text>{data.username}</Text>
-            <Text>{data.threadcategory}</Text>
-            <Text>{data.threaddescription}</Text>
+            <Text style = {[style.title]}>{data.threadname}</Text>
+            <Text>Author : {data.username}</Text>
+            <Text>Category: {data.threadcategory}</Text>
+            {/* <Text>{data.threaddescription}</Text> */}
             {/* {th.comments.forEach((row) => {
                 <Text>row</Text>
             })} */}
