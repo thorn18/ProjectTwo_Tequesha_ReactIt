@@ -11,12 +11,12 @@ import style from '../global-styles';
 import { addThread } from '../store/actions';
 import { Thread } from './thread';
 
-interface NewThreadProp{
-    navigation: any
+interface ThreadProps{
+    data:Thread
     
 }
 
-export default function ThreadDetailComponent({ navigation }: NewThreadProp) {
+export default function ThreadDetailComponent({data}: ThreadProps) {
     const dispatch = useDispatch();
     const th = useSelector((state: ThreadState) => state.thread);
 
@@ -30,10 +30,10 @@ export default function ThreadDetailComponent({ navigation }: NewThreadProp) {
 
     return (
         <View>
-            <Text>{th.threadname}</Text>
-            <Text>{th.username}</Text>
-            <Text>{th.threadcategory}</Text>
-            <Text>{th.threaddescription}</Text>
+            <Text>{data.threadname}</Text>
+            <Text>{data.username}</Text>
+            <Text>{data.threadcategory}</Text>
+            <Text>{data.threaddescription}</Text>
             {/* {th.comments.forEach((row) => {
                 <Text>row</Text>
             })} */}

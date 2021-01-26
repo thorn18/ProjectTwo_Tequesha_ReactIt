@@ -17,7 +17,7 @@ class ThreadService {
       if(data) {
         ret = data.rows;
       }
-      quit();
+      // quit();
     });
 
     return ret;

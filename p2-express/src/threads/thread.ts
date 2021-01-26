@@ -1,7 +1,7 @@
 
 export class Thread {
     created_on:string = '';
-    thread_id:number = -1;
+    thread_id:string = '';
     threadcategory:string = '';
     threadname:string = '';
     threaddescription:string = '';

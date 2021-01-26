@@ -30,7 +30,7 @@ function HomeComponent({ navigation }: LoginProp) {
     const [searchQuery] = React.useState('');
     const selectThread = (state: ThreadState) => state.threads;
     let threads = useSelector(selectThread);
-
+    handleStuff();
     //TODO: Utilize later for preferences
     // useEffect(() => {
     //     // Check to see if we're already logged in. Redirect if we are.
@@ -44,7 +44,6 @@ function HomeComponent({ navigation }: LoginProp) {
     //             console.error(err);
     //         });
     // }, []);
-
     function handleSearchInput() {
         // searchQuery = 
     }
@@ -87,12 +86,12 @@ function HomeComponent({ navigation }: LoginProp) {
                 }
                 }
             />
-            {/* <FlatList
+            <FlatList
                 data={threads}
                 renderItem={({ item }) =>
                     (<ThreadDetailComponent data={item}></ThreadDetailComponent>)}
                 keyExtractor={(item) => item.thread_id}
-            /> */}
+            />
         </View>
     );
 }
