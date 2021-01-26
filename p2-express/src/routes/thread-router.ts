@@ -5,9 +5,11 @@ import * as user from '../user/user';
 
 var router = express.Router();
 
-/* GET users listing. */
+/* GET threads listing. */
 router.get('/', function(req, res, next) {
    console.log("Inside get Thread");
+   console.log(req);
+   console.log(res);
    return ThreadService.getThreads();
 });
 
