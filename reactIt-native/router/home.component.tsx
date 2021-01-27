@@ -29,12 +29,12 @@ function HomeComponent({ navigation }: LoginProp) {
     const dispatch = useDispatch();
     const selectThread = (state: ThreadState) => state.threads;
     let threads = useSelector(selectThread);
-    const queryThread = (state: UserState) => state.query;
-    let query = useSelector(queryThread);
+
+    let [q2, q2setter] = useState("");
 
     useEffect(() => {
         handleStuff()
-    }, []);
+    }, [q2]);
 
     function createNewThread() {
         navigation.navigate('NewThread');
@@ -65,6 +65,14 @@ function HomeComponent({ navigation }: LoginProp) {
         rerender();
     }
 
+    function checkfilter(thread: Thread) {
+        if (threads.includes(thread) && thread.threadname.includes(q2)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     return (
         <View style={[style.homeContainer]}>
             <Button onPress={handleStuff} title='Get Threads' color='#880022' />
@@ -73,19 +81,16 @@ function HomeComponent({ navigation }: LoginProp) {
             <SearchBar
                 style={[style.searchBar]}
                 onChangeText={(value) => {
-                    console.log(value);
-                    query = value;
-                    dispatch(getQuery(query));
-                    console.log("Query Changed to: " + query);
-                    value = query;
+                    q2setter(value);
+                    console.log("Query Changed to: " + value);
+                    value = q2;
                 }
                 }
-                value = {query}
+                value={q2}
             />
             <FlatList
                 data={threads}
-                renderItem={({ item }) =>
-                    (<ThreadTableComponent data={item}></ThreadTableComponent>)}
+                renderItem={({ item }) => ((checkfilter(item) && <ThreadTableComponent data={item}></ThreadTableComponent>))}
                 keyExtractor={(item) => item.thread_id}
             />
         </View>
