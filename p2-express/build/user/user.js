@@ -1,7 +1,4 @@
 "use strict";
-/*Group 2: Introduce the ability to register a user.
-As a user, I can register as a customer with a starting amount of money.
-*/
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {

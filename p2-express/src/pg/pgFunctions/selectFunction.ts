@@ -7,6 +7,7 @@ function insert_thread(category:string, title:string, description:string, userna
     quit(); 
   });
   }
+  console.log(process.env);
 
 
     insert_thread('category', 'myTitle', 'myDescription', 'slaman 200');

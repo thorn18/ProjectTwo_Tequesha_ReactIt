@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var pgConn_1 = require("../pgConn/pgConn");
 function insert_thread(category, title, description, username) {
     pgConn_1.pool.connect();
