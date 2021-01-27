@@ -3,8 +3,8 @@ import express from 'express';
 import path from 'path';
 import cors from 'cors';
 import publicDir from './constant';
-import usersRouter from "../src/routes/users-router"
-
+import usersRouter from "./routes/users-router"
+import threadRouter from './routes/thread-router';
 var app = express();
 import dotenv from 'dotenv';
 
@@ -23,6 +23,7 @@ app.use(express.static(publicDir));
 //   cookie: {}}));
 
 app.use('/users', usersRouter);
+app.use('/threads', threadRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req:any, res:any, next:Function) {

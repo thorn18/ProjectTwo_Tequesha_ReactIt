@@ -1,7 +1,3 @@
-/*Group 2: Introduce the ability to register a user.
-As a user, I can register as a customer with a starting amount of money.
-*/
-
 import userService from '../dbfiles/services/user.service';
 
 export class PersonalSettings {
