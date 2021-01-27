@@ -20,9 +20,9 @@ export interface AppAction {
     payload: any;
 }
 
-export interface ThreadAction<P> extends AppAction{
+export interface ThreadAction extends AppAction{
     type:ThreadActions;
-    payload:P;
+    payload: Thread | Thread[];
 }
 
 export interface UserAction<P> extends AppAction {
@@ -31,24 +31,24 @@ export interface UserAction<P> extends AppAction {
 }
 
 //TODO: MODIFY AFTER THREAD OBJECT CREATED.
-export function getThreads(threads: Thread[]): ThreadAction<Thread[]> {
-    const action: ThreadAction<Thread[]> = {
+export function getThreads(threads: Thread[]): ThreadAction {
+    const action: ThreadAction = {
         type: ThreadActions.GetThreads,
         payload: threads
     }
     return action;
 }
 
-export function getThread(thread: Thread): ThreadAction<Thread> {
-    const action: ThreadAction<Thread> = {
+export function getThread(thread: Thread): ThreadAction {
+    const action: ThreadAction = {
         type: ThreadActions.GetThreads,
         payload: thread
     }
     return action;
 }
 
-export function addThread(thread: Thread): ThreadAction<Thread> {
-    const action: ThreadAction<Thread> = {
+export function addThread(thread: Thread): ThreadAction {
+    const action: ThreadAction = {
         type: ThreadActions.ChangeThreads,
         payload: thread
     }

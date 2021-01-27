@@ -10,6 +10,9 @@ import UserScreenComponent from '../user/userProfile.component';
 import HomeComponent from './home.component';
 import NewThreadComponent from '../threads/newthread.component';
 import ThreadDetailComponent from '../threads/threadtable.component';
+import { useSelector } from 'react-redux';
+import { ForumState } from '../store/store';
+import { Thread } from '../threads/thread';
 
 /* Parameter list for RouteProp requires a field for the route that we're on. */
 export type StackParams = {
@@ -19,7 +22,7 @@ export type StackParams = {
     Profile: undefined;
     Home:undefined;
     NewThread: undefined;
-    ThreadDetails:undefined;
+    ThreadDetails: Thread;
     /* RestaurantDetail: Restaurant;
     Restaurants: undefined; */
 };
@@ -30,6 +33,8 @@ const headerOptions: StackHeaderOptions = {
     headerRight: () => <NavBarComponent />,
 };
 function RouterComponent(props: any) {
+    const th = useSelector((state: ForumState) => state.thread);
+
     return (
         <Stack.Navigator initialRouteName='Login'>
             <Stack.Screen
@@ -66,6 +71,7 @@ function RouterComponent(props: any) {
                 name='ThreadDetails'
                 component = {ThreadDetailComponent}
                 options={headerOptions}
+                initialParams={th}
             />
         </Stack.Navigator>
         

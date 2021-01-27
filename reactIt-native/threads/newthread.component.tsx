@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import style from '../global-styles';
 import { addThread } from '../store/actions';
+import { useNavigation } from '@react-navigation/native';
 
 interface NewThreadProp{
     navigation: any

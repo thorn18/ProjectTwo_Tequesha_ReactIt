@@ -27,10 +27,10 @@ const reducer = (state: ForumState = initialState, action: Actions.AppAction): F
             //Threads [] will need updating here.
             newState.threads = action.payload as Thread[];
             return newState;
-        case Actions.ThreadActions.GetThread:
+        /* case Actions.ThreadActions.GetThread:
             //Threads [] will need updating here.
             newState.thread = action.payload as Thread;
-            return newState;
+            return newState; */
         case Actions.ThreadActions.ChangeThreads:
             newState.thread = action.payload as Thread;
             return newState;
