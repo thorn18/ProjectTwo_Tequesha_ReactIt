@@ -8,7 +8,7 @@ import {
 import style from './homestyle';
 import { SearchBar } from 'react-native-elements';
 import { FlatList } from 'react-native';
-import { getThreads, ThreadAction } from '../store/actions';
+import { getQuery, getThreads, ThreadAction } from '../store/actions';
 import ThreadTableComponent from '../threads/threadtable.component';
 import threadService from '../threads/thread.service';
 import { Thread } from '../threads/thread';
@@ -27,16 +27,14 @@ function HomeComponent({ navigation }: LoginProp) {
     const userSelector = (state: UserState) => state.loginUser;
     const user = useSelector(userSelector);
     const dispatch = useDispatch();
-    const [searchQuery] = React.useState('');
     const selectThread = (state: ThreadState) => state.threads;
     let threads = useSelector(selectThread);
+    const queryThread = (state: UserState) => state.query;
+    let query = useSelector(queryThread);
 
     useEffect(() => {
         handleStuff()
     }, []);
-    function handleSearchInput() {
-        // searchQuery = 
-    }
 
     function createNewThread() {
         navigation.navigate('NewThread');
@@ -75,12 +73,14 @@ function HomeComponent({ navigation }: LoginProp) {
             <SearchBar
                 style={[style.searchBar]}
                 onChangeText={(value) => {
-                    console.log(searchQuery);
-                    //DIspatch needs updating once Thread element exists.
-                    dispatch(searchQuery);
-                    value = searchQuery
+                    console.log(value);
+                    query = value;
+                    dispatch(getQuery(query));
+                    console.log("Query Changed to: " + query);
+                    value = query;
                 }
                 }
+                value = {query}
             />
             <FlatList
                 data={threads}
