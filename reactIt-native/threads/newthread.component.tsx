@@ -11,6 +11,7 @@ import {
 import style from '../global-styles';
 import { addThread } from '../store/actions';
 import { useNavigation } from '@react-navigation/native';
+import threadService from './thread.service';
 
 interface NewThreadProp{
     navigation: any
@@ -21,7 +22,9 @@ export default function NewThreadComponent({ navigation }: NewThreadProp) {
     const th = useSelector((state: ThreadState) => state.thread);
 
     function submitThread() {
-
+        threadService.insertThread();
+        console.log('inserted');
+        console.log(th);
     }
 
     function seeComment() {
