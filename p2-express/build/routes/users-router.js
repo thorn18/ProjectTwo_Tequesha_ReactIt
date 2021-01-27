@@ -14,6 +14,8 @@ router.get('/search/:username', function (req, res, next) {
     console.log('Back-end for Get User');
     user_service_1.default.getUserByName(req.params.username).then(function (returnedUser) {
         res.send(JSON.stringify(returnedUser));
+    }).catch(function (err) {
+        res.sendStatus(404);
     });
 });
 /* GET users listing. */

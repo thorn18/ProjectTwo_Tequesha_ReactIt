@@ -1,18 +1,27 @@
-import {pool,client, quit} from '../pgConn/pgConn';
+import { pool, client, quit } from '../pgConn/pgConn';
 
-export function insert_thread(category:string, title:string, description:string, username:string){
-  pool.connect()
-  pool.query('call insert_thread($1::text,$2::text,$3::text,$4::text)', [category, title,description,username], (data) => {
+class ThreadService {
 
-    quit(); 
-  });
+
+  static insert_thread(category: string, title: string, description: string, username: string) {
+    //pool.connect();
+    pool.query('call insert_thread($1::text,$2::text,$3::text,$4::text)', [category, title, description, username], () => {
+      pool.end();
+    });
   }
 
- export function getThreads(){
-    pool.connect()
-    pool.query('select * from threads)', (data) => {
-          console.log(data);
-      quit(); 
+  async getThreads(): Promise<any> {
+    //pool.connect() //pool.connect returns a promise with a client in it
+    let ret;
+    await pool.query('select * from threads').then((data: any) => {
+      if(data) {
+        ret = data.rows;
+      }
+      // pool.end();
     });
-    }
-  
+
+    return ret;
+  }
+}
+
+export default ThreadService;

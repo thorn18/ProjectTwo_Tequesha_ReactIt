@@ -7,7 +7,6 @@ exports.quit = exports.client = exports.pool = void 0;
 var dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config({ path: '../../../.env' });
 var pg_1 = require("pg");
-var selectFunction_1 = require("../pgFunctions/selectFunction");
 var myConn = new Object({
     user: process.env.PGUSER,
     host: process.env.PGHOST,
@@ -23,5 +22,3 @@ function quit() {
     process.exit();
 }
 exports.quit = quit;
-console.log(exports.pool);
-selectFunction_1.getThreads();

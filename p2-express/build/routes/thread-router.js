@@ -35,35 +35,30 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var pgConn_1 = require("../pgConn/pgConn");
-var ThreadService = /** @class */ (function () {
-    function ThreadService() {
-    }
-    ThreadService.insert_thread = function (category, title, description, username) {
-        //pool.connect();
-        pgConn_1.pool.query('call insert_thread($1::text,$2::text,$3::text,$4::text)', [category, title, description, username], function () {
-            pgConn_1.pool.end();
-        });
-    };
-    ThreadService.prototype.getThreads = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var ret;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, pgConn_1.pool.query('select * from threads').then(function (data) {
-                            if (data) {
-                                ret = data.rows;
-                            }
-                            // pool.end();
+var express_1 = __importDefault(require("express"));
+var selectFunction_1 = __importDefault(require("../pg/pgFunctions/selectFunction"));
+var router = express_1.default.Router();
+var testservice = new selectFunction_1.default();
+/* GET users listing. */
+router.get('/', function (req, res, next) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    console.log("Inside get Thread: " + req);
+                    return [4 /*yield*/, testservice.getThreads().then(function (data) {
+                            console.log(data);
+                            res.send(data);
                         })];
-                    case 1:
-                        _a.sent();
-                        return [2 /*return*/, ret];
-                }
-            });
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
         });
-    };
-    return ThreadService;
-}());
-exports.default = ThreadService;
+    });
+});
+exports.default = router;
