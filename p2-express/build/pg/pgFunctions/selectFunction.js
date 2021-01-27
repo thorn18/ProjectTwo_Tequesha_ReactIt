@@ -40,7 +40,7 @@ var pgConn_1 = require("../pgConn/pgConn");
 var ThreadService = /** @class */ (function () {
     function ThreadService() {
     }
-    ThreadService.insert_thread = function (category, title, description, username) {
+    ThreadService.prototype.insert_thread = function (category, title, description, username) {
         //pool.connect();
         pgConn_1.pool.query('call insert_thread($1::text,$2::text,$3::text,$4::text)', [category, title, description, username], function () {
             pgConn_1.pool.end();
