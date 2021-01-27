@@ -1,24 +1,29 @@
 import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { ThreadState } from '../store/store';
 import { Thread } from './thread';
-
 class ThreadService {
     private URI: string;
 
     constructor() {
-        this.URI = 'http://34.219.142.203:3000/threads';
+        this.URI = 'http://localhost:3000/threads';
     }
 
-    getThreads(): Promise<Thread []> {
-        return axios.get(this.URI).then(result => result.data).catch((err) => {console.log(err)});
+    async getAllThreads() {
+        let ret;
+        await axios.get(this.URI, { withCredentials: true }).then(result => {
+            if (result) {
+                ret =  result.data   
+            } else {
+                console.log("RESULT IS EMPTY");
+            }
+        }).catch((err) => {
+            console.log("Promise Error");
+            console.log(err);
+        });
+        console.log(ret);
+        return ret;
     }
-
-    
-    getThreadById(id:string): Promise<Thread> {
-        return axios.get(this.URI+"/"+id).then(result => result.data).catch((err) => {console.log(err)});
-    }
-
-    
-
 }
 
 export default new ThreadService();

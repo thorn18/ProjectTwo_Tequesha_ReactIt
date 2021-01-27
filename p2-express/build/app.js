@@ -8,7 +8,12 @@ var express_1 = __importDefault(require("express"));
 var path_1 = __importDefault(require("path"));
 var cors_1 = __importDefault(require("cors"));
 var constant_1 = __importDefault(require("./constant"));
+<<<<<<< HEAD
 var users_router_1 = __importDefault(require("../src/routes/users-router"));
+=======
+var users_router_1 = __importDefault(require("./routes/users-router"));
+var thread_router_1 = __importDefault(require("./routes/thread-router"));
+>>>>>>> 888eb23f985c82102464ec30a927e03a0d1f3f5c
 var app = express_1.default();
 var dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
@@ -24,6 +29,7 @@ app.use(express_1.default.static(constant_1.default));
 //   store: new (MemoryStore(session))({checkPeriod: 86400000}),
 //   cookie: {}}));
 app.use('/users', users_router_1.default);
+app.use('/threads', thread_router_1.default);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     next(http_errors_1.default(404));

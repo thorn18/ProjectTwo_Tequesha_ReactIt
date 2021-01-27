@@ -4,13 +4,12 @@ import { createStackNavigator } from '@react-navigation/stack';
 import LoginComponent from '../user/login.component';
 import { StackHeaderOptions } from '@react-navigation/stack/lib/typescript/src/types';
 import NavBarComponent from './navbar.component';
-import { ForumState } from '../store/store';
-import { useSelector } from 'react-redux';
 import RegisterComponent from '../user/register.component';
 import ModifyUserComponent from '../user/modifyUser.component';
 import UserScreenComponent from '../user/userProfile.component';
 import HomeComponent from './home.component';
 import NewThreadComponent from '../threads/newthread.component';
+import ThreadDetailComponent from '../threads/threadtable.component';
 
 /* Parameter list for RouteProp requires a field for the route that we're on. */
 export type StackParams = {
@@ -20,6 +19,7 @@ export type StackParams = {
     Profile: undefined;
     Home:undefined;
     NewThread: undefined;
+    ThreadDetails:undefined;
     /* RestaurantDetail: Restaurant;
     Restaurants: undefined; */
 };
@@ -60,6 +60,11 @@ function RouterComponent(props: any) {
             <Stack.Screen
                 name='NewThread'
                 component = {NewThreadComponent}
+                options={headerOptions}
+            />
+            <Stack.Screen
+                name='ThreadDetails'
+                component = {ThreadDetailComponent}
                 options={headerOptions}
             />
         </Stack.Navigator>

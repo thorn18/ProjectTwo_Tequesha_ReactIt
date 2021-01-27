@@ -1,4 +1,5 @@
-require('dotenv').config({path:'./.env'});  
+import dotenv from 'dotenv';
+dotenv.config({path:'../../../.env'});
 import {Pool, Client} from 'pg';
 let myConn = new Object({
     user: process.env.PGUSER,
@@ -15,5 +16,3 @@ let myConn = new Object({
     pool.end();
     process.exit();
 }
-
-
