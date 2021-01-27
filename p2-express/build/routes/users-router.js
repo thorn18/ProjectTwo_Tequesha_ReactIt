@@ -50,4 +50,11 @@ router.put('/', function (req, res, next) {
         res.send(data);
     });
 });
+router.delete('/:username', function (req, res, next) {
+    user_service_1.default.deleteUser(req.params.username).then(function (data) {
+        res.sendStatus(200);
+    }).catch(function (err) {
+        res.sendStatus(500);
+    });
+});
 exports.default = router;

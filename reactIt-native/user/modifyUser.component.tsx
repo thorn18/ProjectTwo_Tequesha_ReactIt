@@ -10,7 +10,6 @@ import {
     View,
 } from 'react-native';
 import style from '../global-styles';
-import welcomeName from '../router/navbar.component';
 import I18n, { strings } from '../i18n';
 import AccountStatusComponent from './accountStatus.component';
 

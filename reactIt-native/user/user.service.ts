@@ -33,6 +33,10 @@ class UserService {
         return axios.put(this.URI, user).then((result) => null);
     }
 
+    deleteUser(username: string): Promise<null> {
+        return axios.delete(this.URI+'/'+username).then(result => null)
+    }
+
     /* logout(): Promise<null> {
         return axios.delete(this.URI, {withCredentials: true}).then(result => null);
     } */

@@ -89,6 +89,20 @@ class UserService {
                 return false;
             });
         }
+
+        async deleteUser(username: string): Promise<Boolean> {
+            const params = {
+                TableName: 'users',
+                Key: {
+                    'username': username
+                }
+            }
+            return await this.doc.delete(params).promise().then((data) => {
+                return true;
+            }).catch((err) => {
+                return false;
+            });
+        }
 }
 
 const userService = new UserService();

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import userService from './user.service';
 import { UserState } from '../store/store';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUser, loginAction } from '../store/actions';
+import { changeUser, getUser, loginAction } from '../store/actions';
 import {
     Platform,
     Button,
@@ -13,6 +13,7 @@ import {
     TouchableHighlight,
 } from 'react-native';
 import style from '../global-styles';
+import {User} from './user';
 
 // Function Component
 interface LoginProp {
@@ -45,8 +46,12 @@ function LoginComponent({ navigation }: LoginProp) {
             }
             dispatch(getUser(user));
             if(user.accountstatus === 'deactivated'){
-                alert('Your account is currently deactivated.  Re-activate to continue.');
+                alert('This account is currently deactivated.  Re-activate to continue.');
                 navigation.navigate('ModifyUser');
+            } else if(user.accountstatus === 'moderator-deactivated'){
+                dispatch(changeUser(new User));
+                alert('Moderators have deactivated this account.')
+                navigation.navigate('Login');
             } else{
                 navigation.navigate('Home');
             }
@@ -88,6 +93,7 @@ function LoginComponent({ navigation }: LoginProp) {
                 }
                 value={user.password}
             />
+            
             <Button onPress={submitForm} title='Login' color='#880022' />
             <br></br>
             <Button onPress={register} title='Register' color='#880022' />

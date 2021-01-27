@@ -48,27 +48,50 @@ function AccountStatusComponent(prop: statusProp) {
         update();
     }
 
-    function deleteAccount(){
-        console.log('Deleted');
+    function deleteAccount() {
+        userService.deleteUser(prop.user.username).then(() => {});
+        if(currUser === prop.user){
+            dispatch(changeUser(new User()));
+            navigation.navigate('Login');
+        } else{
+            alert(prop.user.username+' has been deleted');
+            navigation.navigate('Home');
+        }
     }
 
     return (
         <View>
             {currUser.username === prop.user.username &&
                 prop.user.accountstatus === 'activated' && (
-                    <Button
-                        onPress={deactivateAccount}
-                        title='Deactivate'
-                        color='#880022'
-                    />
+                    <View>
+                        <Button
+                            onPress={deactivateAccount}
+                            title='Deactivate'
+                            color='#880022'
+                        />
+                        <br></br>
+                        <Button
+                            onPress={deleteAccount}
+                            title='Delete Account'
+                            color='#880022'
+                        />
+                    </View>
                 )}
             {currUser.username === prop.user.username &&
                 prop.user.accountstatus === 'deactivated' && (
-                    <Button
-                        onPress={activateAccount}
-                        title='Activate'
-                        color='#880022'
-                    />
+                    <View>
+                        <Button
+                            onPress={activateAccount}
+                            title='Activate'
+                            color='#880022'
+                        />
+                        <br></br>
+                        <Button
+                            onPress={deleteAccount}
+                            title='Delete Account'
+                            color='#880022'
+                        />
+                    </View>
                 )}
             <br></br>
             {currUser.role === 'Site Moderator' &&

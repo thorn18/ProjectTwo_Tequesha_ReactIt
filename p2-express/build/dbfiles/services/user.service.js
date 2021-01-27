@@ -144,6 +144,28 @@ var UserService = /** @class */ (function () {
             });
         });
     };
+    UserService.prototype.deleteUser = function (username) {
+        return __awaiter(this, void 0, void 0, function () {
+            var params;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        params = {
+                            TableName: 'users',
+                            Key: {
+                                'username': username
+                            }
+                        };
+                        return [4 /*yield*/, this.doc.delete(params).promise().then(function (data) {
+                                return true;
+                            }).catch(function (err) {
+                                return false;
+                            })];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
     return UserService;
 }());
 var userService = new UserService();

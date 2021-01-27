@@ -14,7 +14,9 @@ router.get('/search/:username', function(req, res, next) {
   console.log('Back-end for Get User')
   userservice.getUserByName(req.params.username).then((returnedUser)=>{
       res.send(JSON.stringify(returnedUser));
-  });
+  }).catch((err) => {
+    res.sendStatus(404);
+})
 })
 
 /* GET users listing. */
@@ -54,5 +56,13 @@ router.put('/', (req, res, next) => {
       res.send(data);
   })
 })
+
+router.delete('/:username', function (req, res, next) {
+  userservice.deleteUser(req.params.username).then((data)=> {
+      res.sendStatus(200);
+  }).catch((err) => {
+      res.sendStatus(500);
+  })
+});
 
 export default router;
