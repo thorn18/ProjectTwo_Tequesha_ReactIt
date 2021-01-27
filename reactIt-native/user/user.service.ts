@@ -19,6 +19,10 @@ class UserService {
         return axios.post(this.URI+"/register", user, {withCredentials: true}).then(result => result.data).catch(err => err);
     }
 
+    getUser(username: string): Promise<User>{
+        return axios.get(this.URI+'/search/'+username, {withCredentials: true}).then(result => result.data).catch(err => err);
+    }
+
     getUserByName(user: User): Promise<User> {
         console.log(this.URI+'/login/'+user.username)
         return axios.post(this.URI+'/login'+'/'+user.username, {withCredentials: true}).then(result => result.data).catch(err => err);

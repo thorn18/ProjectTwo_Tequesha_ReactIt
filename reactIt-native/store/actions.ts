@@ -6,6 +6,7 @@ export enum UserActions {
     ChangeUser = 'CHANGE_USER',
     LoginChange = 'CHANGE_LOGIN',
     RegisterChange = 'CHANGE_REGISTER',
+    SearchUserChange = 'CHANGE_SEARCH_USER',
     ChangeLocale = 'CHANGE_LOCALE'
 }
 
@@ -70,9 +71,17 @@ export function loginAction(user: User): UserAction<User> {
     return action;
 }
 
-export function registerAction(user: User): UserAction<User>{
+export function registerAction(user: User): UserAction<User> {
     const action: UserAction<User> = {
         type: UserActions.RegisterChange,
+        payload: user
+    }
+    return action;
+}
+
+export function searchUserAction(user: User): UserAction<User> {
+    const action: UserAction<User> = {
+        type: UserActions.SearchUserChange,
         payload: user
     }
     return action;

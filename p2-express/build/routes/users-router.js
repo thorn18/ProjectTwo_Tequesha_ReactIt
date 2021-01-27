@@ -10,6 +10,12 @@ var router = express_1.default.Router();
 router.get('/', function (req, res, next) {
     res.send('express is working');
 });
+router.get('/search/:username', function (req, res, next) {
+    console.log('Back-end for Get User');
+    user_service_1.default.getUserByName(req.params.username).then(function (returnedUser) {
+        res.send(JSON.stringify(returnedUser));
+    });
+});
 /* GET users listing. */
 router.post('/register', function (req, res, next) {
     user_service_1.default.addUser(req.body).then(function (result) {

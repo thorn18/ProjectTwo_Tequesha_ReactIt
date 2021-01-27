@@ -10,6 +10,12 @@ router.get('/', function(req, res, next) {
   res.send('express is working');
 });
 
+router.get('/search/:username', function(req, res, next) {
+  console.log('Back-end for Get User')
+  userservice.getUserByName(req.params.username).then((returnedUser)=>{
+      res.send(JSON.stringify(returnedUser));
+  });
+})
 
 /* GET users listing. */
 router.post('/register', function(req, res, next) {

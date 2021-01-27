@@ -10,6 +10,7 @@ import RegisterComponent from '../user/register.component';
 import ModifyUserComponent from '../user/modifyUser.component';
 import UserScreenComponent from '../user/userProfile.component';
 import HomeComponent from './home.component';
+import GetProfileComponent from '../user/getProfile.component';
 
 /* Parameter list for RouteProp requires a field for the route that we're on. */
 export type StackParams = {
@@ -17,6 +18,7 @@ export type StackParams = {
     Register: undefined;
     ModifyUser: undefined;
     Profile: undefined;
+    SearchedProfile: undefined;
     Home:undefined;
     /* RestaurantDetail: Restaurant;
     Restaurants: undefined; */
@@ -48,6 +50,11 @@ function RouterComponent(props: any) {
             <Stack.Screen
                 name='Profile'
                 component = {UserScreenComponent}
+                options={headerOptions}
+            />
+            <Stack.Screen
+                name='SearchedProfile'
+                component = {GetProfileComponent}
                 options={headerOptions}
             />
             <Stack.Screen

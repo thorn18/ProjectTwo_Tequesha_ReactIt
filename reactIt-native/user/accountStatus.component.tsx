@@ -44,7 +44,8 @@ function AccountStatusComponent(prop: statusProp) {
     }
 
     function moderatorActivated() {
-        prop.user.accountstatus = 'moderator-activated';
+        prop.user.accountstatus = 'activated';
+        update();
     }
 
     function deleteAccount(){

@@ -12,6 +12,7 @@ import {
     Image
 } from 'react-native';
 import style from './account-styles';
+import FindAccountComponent from './findAccount.component';
 
 interface ModifyUserProp {
     navigation: any;
@@ -21,6 +22,7 @@ function UserProfileComponent({ navigation }: ModifyUserProp) {
     const userSelector = (state: UserState) => state.user;
     const user = useSelector(userSelector);
     const dispatch = useDispatch();
+
     
     function goToModify(){
         navigation.navigate('ModifyUser');
@@ -40,6 +42,10 @@ function UserProfileComponent({ navigation }: ModifyUserProp) {
             <Text style={style.text}>Age: {user.age}</Text>
             <br></br>
             <Button onPress={goToModify} title='Modify Account' color='#880022' />
+            <br></br>
+            {user.role === 'Site Moderator' &&(
+                <FindAccountComponent/>
+            )}
         </View>
     )
 }
