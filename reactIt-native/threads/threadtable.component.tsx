@@ -30,8 +30,8 @@ export default function ThreadTableComponent({data}: ThreadProps) {
     return (
         <View style = {[style.threadCardContainer]}>
             <Text style = {[style.title]}>{data.threadname}</Text>
-            <Text>Author : {data.username}</Text>
-            <Text>Category: {data.threadcategory}</Text>
+            <Text style = {[style.text]}>Author : {data.username}</Text>
+            <Text style = {[style.text]}>Category: {data.threadcategory}</Text>
             {/* <Text>{data.threaddescription}</Text> */}
             {/* {th.comments.forEach((row) => {
                 <Text>row</Text>

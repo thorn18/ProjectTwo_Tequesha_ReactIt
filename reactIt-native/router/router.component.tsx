@@ -14,6 +14,8 @@ import ThreadDetailComponent from '../threads/threadtable.component';
 import { useSelector } from 'react-redux';
 import { ForumState } from '../store/store';
 import { Thread } from '../threads/thread';
+import styles from '../global-styles';
+import routerstyles from './routerstyle'
 
 /* Parameter list for RouteProp requires a field for the route that we're on. */
 export type StackParams = {

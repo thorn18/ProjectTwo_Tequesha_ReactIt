@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { ForumState } from '../store/store';
 import styles from '../global-styles';
+import navstyles from './routerstyle';
 import I18n, { strings } from '../i18n';
 import { changeLocale } from '../store/actions';
 
