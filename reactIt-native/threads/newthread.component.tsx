@@ -27,10 +27,7 @@ export default function NewThreadComponent({ navigation }: NewThreadProp) {
         threadService.insertThread(th);
         console.log('inserted');
         console.log(th);
-    }
-
-    function seeComment() {
-
+        navigation.navigate('Home');
     }
 
     return (
@@ -59,7 +56,6 @@ export default function NewThreadComponent({ navigation }: NewThreadProp) {
                 }
                 value={th.threaddescription}>      
             </TextInput>
-            <Button onPress={seeComment} title='Comments' />
             <br></br>
             <Button onPress={submitThread} title='Add Thread' color='#880022'/>
         </View>
