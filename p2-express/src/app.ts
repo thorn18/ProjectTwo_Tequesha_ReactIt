@@ -5,6 +5,8 @@ import cors from 'cors';
 import publicDir from './constant';
 import usersRouter from "./routes/users-router"
 import threadRouter from './routes/thread-router';
+import emailRouter from './routes/email-router';
+
 var app = express();
 import dotenv from 'dotenv';
 
@@ -23,7 +25,8 @@ app.use(express.static(publicDir));
 //   cookie: {}}));
 
 app.use('/users', usersRouter);
-app.use('/threads', threadRouter)
+app.use('/threads', threadRouter);
+app.use('/emails', emailRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req:any, res:any, next:Function) {

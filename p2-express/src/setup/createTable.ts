@@ -7,6 +7,7 @@ AWS.config.update({ region: 'us-west-2' });
 // Create a DynamoDB service object
 const ddb = new AWS.DynamoDB({ apiVersion: '2012-08-10' });
 
+// USER TABLE (Key: username)
 const removeUsers = {
     TableName: 'users'
 }
@@ -34,6 +35,7 @@ const userSchema = {
     }
 };
 
+// Delete user table
 ddb.deleteTable(removeUsers, function (err, data) {
     if (err) {
         console.error('Unable to delete table. Error JSON:', JSON.stringify(err, null, 2));
@@ -46,7 +48,56 @@ ddb.deleteTable(removeUsers, function (err, data) {
                 // log the error
                 console.log('Error', err);
             } else {
-                // celebrate, I guess
+                // user table successfully created
+                console.log('Table Created', data);
+            }
+        });
+    }, 5000);
+});
+
+
+// EMAIL TABLE - Emails that are banned from site. (Key: address)
+const removeEmails = {
+    TableName: 'emails'
+}
+
+const emailSchema = {
+    AttributeDefinitions: [
+        {
+            AttributeName: 'address',
+            AttributeType: 'S'
+        }
+    ],
+    KeySchema: [
+        {
+            AttributeName: 'address',
+            KeyType: 'HASH'
+        }
+    ],
+    ProvisionedThroughput: {
+        ReadCapacityUnits: 5,
+        WriteCapacityUnits: 5
+    },
+    TableName: 'emails',
+    StreamSpecification: {
+        StreamEnabled: false
+    }
+};
+
+// Delete email table
+ddb.deleteTable(removeEmails, function (err, data) {
+    if (err) {
+        console.error('Unable to delete table. Error JSON:', JSON.stringify(err, null, 2));
+    } else {
+        console.log('Deleted table. Table description JSON:', JSON.stringify(data, null, 2));
+    }
+    setTimeout(()=>{
+        ddb.createTable(emailSchema, (err, data) => {
+            if (err) {
+                // log the error
+                console.log('Error', err);
+            } else {
+                // table successfully created
                 console.log('Table Created', data);
             }
         });
