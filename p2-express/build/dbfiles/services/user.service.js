@@ -123,12 +123,13 @@ var UserService = /** @class */ (function () {
                             Key: {
                                 'username': user.username
                             },
-                            UpdateExpression: 'set password = :password, email = :email, age = :age, phonenumber = :phonenumber',
+                            UpdateExpression: 'set password = :password, email = :email, age = :age, phonenumber = :phonenumber, accountstatus = :accountstatus',
                             ExpressionAttributeValues: {
                                 ':password': user.password,
                                 ':email': user.email,
                                 ':age': user.age,
                                 ':phonenumber': user.phonenumber,
+                                ':accountstatus': user.accountstatus,
                             },
                             ReturnValues: 'UPDATED_NEW'
                         };
@@ -136,6 +137,28 @@ var UserService = /** @class */ (function () {
                                 return true;
                             }).catch(function (err) {
                                 console.log(err);
+                                return false;
+                            })];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    UserService.prototype.deleteUser = function (username) {
+        return __awaiter(this, void 0, void 0, function () {
+            var params;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        params = {
+                            TableName: 'users',
+                            Key: {
+                                'username': username
+                            }
+                        };
+                        return [4 /*yield*/, this.doc.delete(params).promise().then(function (data) {
+                                return true;
+                            }).catch(function (err) {
                                 return false;
                             })];
                     case 1: return [2 /*return*/, _a.sent()];

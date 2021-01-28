@@ -10,6 +10,7 @@ export const initialState: ForumState = {
     user: new User(),
     loginUser: new User(),
     registerUser: new User(),
+    searchUser: new User(),
     threads: [],
     thread: new Thread(),
     query: ""
@@ -50,6 +51,9 @@ const reducer = (state: ForumState = initialState, action: Actions.AppAction): F
             return newState;
         case Actions.UserActions.RegisterChange:
             newState.registerUser = action.payload as User;
+            return newState;
+        case Actions.UserActions.SearchUserChange:
+            newState.searchUser = action.payload as User;
             return newState;
         case Actions.UserActions.ChangeLocale:
             newState.locale = action.payload as string;

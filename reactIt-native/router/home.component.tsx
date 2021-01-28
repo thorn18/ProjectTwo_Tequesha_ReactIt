@@ -1,15 +1,14 @@
-import React, { createRef, useEffect, useRef, useState } from 'react';
-import { ForumState, ThreadState, UserState } from '../store/store';
+import React, { useEffect, useState } from 'react';
+import { ThreadState, UserState } from '../store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import {
     Button,
-    Picker,
     View,
 } from 'react-native';
 import style from './homestyle';
 import { Icon, SearchBar } from 'react-native-elements';
 import { FlatList } from 'react-native';
-import { getQuery, getThreads, ThreadAction } from '../store/actions';
+import { getThreads } from '../store/actions';
 import ThreadTableComponent from '../threads/threadtable.component';
 import threadService from '../threads/thread.service';
 import { Thread } from '../threads/thread';
@@ -17,15 +16,15 @@ import DropDownPicker from 'react-native-dropdown-picker';
 
 
 // Function Component
-interface LoginProp {
+interface HomeProp {
     navigation: any;
 }
 
 interface ThreadProp {
-    data: "hello";
+    data: "hello"
 }
 
-function HomeComponent({ navigation }: LoginProp) {
+function HomeComponent({ navigation }: HomeProp) {
     const userSelector = (state: UserState) => state.user;
     const user = useSelector(userSelector);
     const dispatch = useDispatch();
@@ -33,10 +32,11 @@ function HomeComponent({ navigation }: LoginProp) {
     let threads = useSelector(selectThread);
 
     let [q2, q2setter] = useState("");
+    let [qchooser, qchoosersetter] = useState("");
 
     useEffect(() => {
         handleStuff()
-    }, [q2]);
+    }, [q2, q2setter]);
 
     function createNewThread() {
         navigation.navigate('NewThread');
@@ -68,17 +68,35 @@ function HomeComponent({ navigation }: LoginProp) {
     }
 
     function checkfilter(thread: Thread) {
-        if (threads.includes(thread) && thread.threadname.includes(q2)) {
-            return true;
+        if (qchooser == "Thread Title") {
+            console.log("thread name");
+            if (threads.includes(thread) && thread.threadname.includes(q2)) {
+                return true;
+            } else {
+                return false;
+            }
+        } else if (qchooser == "Author") {
+            console.log("thread name");
+            if (threads.includes(thread) && thread.username.includes(q2)) {
+                return true;
+            } else {
+                return false;
+            }
+        } else if (qchooser == "Category") {
+            console.log("thread name");
+            if (threads.includes(thread) && thread.threadcategory.includes(q2)) {
+                return true;
+            } else {
+                return false;
+            }
         } else {
-            return false;
+            return true;
         }
+
     }
 
     return (
         <View style={[style.homeContainer]}>
-            <Button onPress={handleStuff} title='Get Threads' color='#880022' />
-
             {user.username ? (
                 <Button onPress={createNewThread} title='Create New Thread' color='#880022' />
              ) : (
@@ -87,9 +105,9 @@ function HomeComponent({ navigation }: LoginProp) {
            
             <DropDownPicker
                 items={[
-                    { label: 'Thread Title', value: 'usa', icon: () => <Icon name="flag" size={18} color="#900" />},
-                    { label: 'Author', value: 'uk', icon: () => <Icon name="flag" size={18} color="#900" /> },
-                    { label: 'Category', value: 'france', icon: () => <Icon name="flag" size={18} color="#900" /> },
+                    { label: 'Thread Title', value: 'Thread Title', icon: () => <Icon name="flag" size={18} color="#900" /> },
+                    { label: 'Author', value: 'Author', icon: () => <Icon name="flag" size={18} color="#900" /> },
+                    { label: 'Category', value: 'Category', icon: () => <Icon name="flag" size={18} color="#900" /> },
                 ]}
                 defaultValue=""
                 containerStyle={{ height: 40 }}
@@ -98,7 +116,13 @@ function HomeComponent({ navigation }: LoginProp) {
                     justifyContent: 'flex-start'
                 }}
                 dropDownStyle={{ backgroundColor: '#fafafa' }}
-                onChangeItem={()=>""}
+                onChangeItem={(value) => {
+                    console.log(value.value)
+                    qchoosersetter(value.value)
+                    console.log("changed category to: " + qchooser)
+
+                }
+                }
             />
             <SearchBar
                 style={[style.searchBar]}

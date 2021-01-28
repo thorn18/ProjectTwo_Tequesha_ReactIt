@@ -12,27 +12,11 @@ function NavBarComponent() {
     const user = useSelector((state: ForumState) => state.user);
     //const locale = useSelector((state: GrubState) => state.locale);
     const dispatch = useDispatch();
+    
 
     // dispatch(changeLocale('en')); // infinite re-render
     return (
         <View style={styles.row}>
-            { I18n.locale === 'fr' ? (
-                <Button
-                    onPress={() => {
-                        I18n.locale = 'en';
-                        dispatch(changeLocale('en'))
-                    }}
-                    title='EN'
-                />
-            ) : (
-                <Button
-                    onPress={() => {
-                        I18n.locale = 'fr';
-                        dispatch(changeLocale('fr'))
-                    }}
-                    title='FR'
-                />
-            )}
             {user.username?(
                 <Button
                 onPress={() => {
