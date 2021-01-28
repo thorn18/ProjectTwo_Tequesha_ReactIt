@@ -16,6 +16,7 @@ import { ForumState } from '../store/store';
 import { Thread } from '../threads/thread';
 import styles from '../global-styles';
 import routerstyles from './routerstyle'
+import style from './navstyle'
 
 /* Parameter list for RouteProp requires a field for the route that we're on. */
 export type StackParams = {
@@ -32,7 +33,7 @@ export type StackParams = {
 
 const Stack = createStackNavigator<StackParams>();
 const headerOptions: StackHeaderOptions = {
-    headerTitle: () => <Text>ReactIt: Your Favorite Online Forum</Text>,
+    headerTitle: () => <Text style = {[style.row]}>ReactIt: Your Favorite Online Forum</Text>,
     headerRight: () => <NavBarComponent />,
 };
 function RouterComponent(props: any) {
