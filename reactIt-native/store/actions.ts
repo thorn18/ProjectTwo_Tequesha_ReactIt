@@ -23,7 +23,7 @@ export interface AppAction {
 
 export interface ThreadAction<P> extends AppAction{
     type:ThreadActions;
-    payload:P;
+    payload: P;
 }
 
 export interface UserAction<P> extends AppAction {
@@ -50,7 +50,7 @@ export function getThreads(threads: Thread[]): ThreadAction<Thread[]> {
 
 export function getThread(thread: Thread): ThreadAction<Thread> {
     const action: ThreadAction<Thread> = {
-        type: ThreadActions.GetThreads,
+        type: ThreadActions.GetThread,
         payload: thread
     }
     return action;

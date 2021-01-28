@@ -26,7 +26,7 @@ interface ThreadProp {
 }
 
 function HomeComponent({ navigation }: LoginProp) {
-    const userSelector = (state: UserState) => state.loginUser;
+    const userSelector = (state: UserState) => state.user;
     const user = useSelector(userSelector);
     const dispatch = useDispatch();
     const selectThread = (state: ThreadState) => state.threads;
@@ -100,7 +100,12 @@ function HomeComponent({ navigation }: LoginProp) {
         <View style={[style.homeContainer]}>
             <Button onPress={handleStuff} title='Get Threads' color='#880022' />
 
-            <Button onPress={createNewThread} title='Create New Thread' color='#880022' />
+            {user.username ? (
+                <Button onPress={createNewThread} title='Create New Thread' color='#880022' />
+             ) : (
+                  <></>
+             )}
+           
             <DropDownPicker
                 items={[
                     { label: 'Thread Title', value: 'Thread Title', icon: () => <Icon name="flag" size={18} color="#900" /> },

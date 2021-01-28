@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { ThreadState } from '../store/store';
 import { Thread } from './thread';
+
 class ThreadService {
     private URI: string;
 
@@ -23,6 +24,11 @@ class ThreadService {
         });
         console.log(ret);
         return ret;
+    }
+
+    insertThread(thread: Thread) {
+        console.log('attempt to insert');
+        axios.post(this.URI+'/thread', thread);
     }
 }
 

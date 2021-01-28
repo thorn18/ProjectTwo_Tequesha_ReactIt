@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ThreadState } from '../store/store';
+import { ThreadState, UserState } from '../store/store';
 import {
     Button,
     TextInput,
@@ -10,6 +10,8 @@ import {
 } from 'react-native';
 import style from '../global-styles';
 import { addThread } from '../store/actions';
+import { useNavigation } from '@react-navigation/native';
+import threadService from './thread.service';
 
 interface NewThreadProp{
     navigation: any
@@ -18,17 +20,20 @@ interface NewThreadProp{
 export default function NewThreadComponent({ navigation }: NewThreadProp) {
     const dispatch = useDispatch();
     const th = useSelector((state: ThreadState) => state.thread);
+    const user = useSelector((state: UserState) => state.user);
+    const author = th.username = user.username;
 
     function submitThread() {
-
-    }
-
-    function seeComment() {
-
+        threadService.insertThread(th);
+        console.log('inserted');
+        console.log(th);
+        navigation.navigate('Home');
     }
 
     return (
         <View>
+            <Text>Author: {author}</Text>
+            <br></br>
             <Text>Title: </Text>
             <TextInput style={style.input}
                 onChangeText={(value) =>
@@ -51,7 +56,6 @@ export default function NewThreadComponent({ navigation }: NewThreadProp) {
                 }
                 value={th.threaddescription}>      
             </TextInput>
-            <Button onPress={seeComment} title='Comments' />
             <br></br>
             <Button onPress={submitThread} title='Add Thread' color='#880022'/>
         </View>

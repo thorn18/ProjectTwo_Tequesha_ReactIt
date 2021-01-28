@@ -61,4 +61,10 @@ router.get('/', function (req, res, next) {
         });
     });
 });
+router.post('/newThread', function (req, res, next) {
+    console.log(req.query);
+    testservice.insert_thread('', '', '', '');
+    console.log('Inserted thread');
+    res.send('insert');
+});
 exports.default = router;

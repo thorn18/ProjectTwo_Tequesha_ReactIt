@@ -1,7 +1,5 @@
 import express from 'express'
-import userservice from '../dbfiles/services/user.service'
 import ThreadService from '../pg/pgFunctions/selectFunction';
-import * as user from '../user/user';
 
 var router = express.Router();
 var testservice = new ThreadService();
@@ -15,4 +13,10 @@ router.get('/', async function(req, res, next) {
    });
 });
 
+router.post('/newThread', function(req, res, next){
+   console.log(req.query);
+   testservice.insert_thread('','','','');
+   console.log('Inserted thread');
+   res.send('insert');
+});
 export default router;
