@@ -98,8 +98,6 @@ function HomeComponent({ navigation }: LoginProp) {
 
     return (
         <View style={[style.homeContainer]}>
-            <Button onPress={handleStuff} title='Get Threads' color='#880022' />
-
             {user.username ? (
                 <Button onPress={createNewThread} title='Create New Thread' color='#880022' />
              ) : (

@@ -40,11 +40,12 @@ function LoginComponent({ navigation }: LoginProp) {
         userService.getUserByName(user).then((user) => {
             if(user) {
                 console.log(user);
+                navigation.navigate('Home');
+
             } else {
                 console.log("No user");
             }
             dispatch(getUser(user));
-            navigation.navigate('Home');
         }).catch((err) => {
             console.log(err);
         });
