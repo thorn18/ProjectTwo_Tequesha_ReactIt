@@ -39,23 +39,22 @@ function LoginComponent({ navigation }: LoginProp) {
 
     function submitForm() {
         userService.login(user).then((user) => {
-            if(user) {
-                console.log(user);
-                navigation.navigate('Home');
-
-            } else {
-                console.log("No user");
-            }
-            dispatch(getUser(user));
-            if(user.accountstatus === 'deactivated'){
+            if(user?.accountstatus === 'deactivated'){
                 alert('This account is currently deactivated.  Re-activate to continue.');
                 navigation.navigate('ModifyUser');
-            } else if(user.accountstatus === 'moderator-deactivated'){
+            } else if(user?.accountstatus === 'moderator-deactivated'){
                 dispatch(changeUser(new User));
                 alert('Moderators have deactivated this account.')
                 navigation.navigate('Login');
             } else{
-                navigation.navigate('Home');
+                if(user) {
+                    console.log(user);
+                    navigation.navigate('Home');
+    
+                } else {
+                    console.log("No user");
+                }
+                dispatch(getUser(user));
             }
         }).catch((err) => {
             console.log(err);
@@ -99,28 +98,7 @@ function LoginComponent({ navigation }: LoginProp) {
             <Button onPress={submitForm} title='Login' color='#880022' />
             <br></br>
             <Button onPress={register} title='Register' color='#880022' />
-            <Button onPress={home} title='Home(Temporary)' color='#880022' />
-            <Text>{Platform.OS}</Text>
-            {Platform.OS === 'android' ? (
-                <TouchableNativeFeedback
-                    background={TouchableNativeFeedback.SelectableBackground()}
-                >
-                    <View>
-                        <Text>OnlyAndroid</Text>
-                    </View>
-                </TouchableNativeFeedback>
-            ) : (
-                <TouchableHighlight onPress={handle} underlayColor='white'>
-                    <View>
-                        <Text>Everyone Else</Text>
-                    </View>
-                </TouchableHighlight>
-            )}
-            <TouchableHighlight onLongPress={longHandle} underlayColor='white'>
-                <View>
-                    <Text>Everyone Else</Text>
-                </View>
-            </TouchableHighlight>
+            {/* <Button onPress={home} title='Home(Temporary)' color='#880022' /> */}
         </View>
     );
     // TouchableNativeFeedback - Android specific api

@@ -67,7 +67,11 @@ function RouterComponent(props: any) {
                 name='Home'
                 component = {HomeComponent}
                 options={headerOptions}
-                initialParams={th}
+            />
+            <Stack.Screen
+                name='NewThread'
+                component = {NewThreadComponent}
+                options={headerOptions}
             />
         </Stack.Navigator>
         

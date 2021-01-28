@@ -9,7 +9,7 @@ import {
 
 } from 'react-native';
 import style from '../global-styles';
-import { addThread } from '../store/actions';
+import { addThread, getThreads } from '../store/actions';
 import { useNavigation } from '@react-navigation/native';
 import threadService from './thread.service';
 
@@ -20,13 +20,16 @@ interface NewThreadProp{
 export default function NewThreadComponent({ navigation }: NewThreadProp) {
     const dispatch = useDispatch();
     const th = useSelector((state: ThreadState) => state.thread);
+    const threads = useSelector((state: ThreadState) => state.threads);
     const user = useSelector((state: UserState) => state.user);
     const author = th.username = user.username;
 
-    function submitThread() {
-        threadService.insertThread(th);
+    async function submitThread() {
+        await threadService.insertThread(th);
         console.log('inserted');
         console.log(th);
+        threads.push(th);
+        dispatch(getThreads(threads));
         navigation.navigate('Home');
     }
 

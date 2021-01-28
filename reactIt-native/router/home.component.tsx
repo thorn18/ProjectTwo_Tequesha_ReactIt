@@ -1,15 +1,14 @@
-import React, { createRef, useEffect, useRef, useState } from 'react';
-import { ForumState, ThreadState, UserState } from '../store/store';
+import React, { useEffect, useState } from 'react';
+import { ThreadState, UserState } from '../store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import {
     Button,
-    Picker,
     View,
 } from 'react-native';
 import style from './homestyle';
 import { Icon, SearchBar } from 'react-native-elements';
 import { FlatList } from 'react-native';
-import { getQuery, getThreads, ThreadAction } from '../store/actions';
+import { getThreads } from '../store/actions';
 import ThreadTableComponent from '../threads/threadtable.component';
 import threadService from '../threads/thread.service';
 import { Thread } from '../threads/thread';
@@ -17,15 +16,15 @@ import DropDownPicker from 'react-native-dropdown-picker';
 
 
 // Function Component
-interface LoginProp {
+interface HomeProp {
     navigation: any;
 }
 
 interface ThreadProp {
-    data: "hello";
+    data: "hello"
 }
 
-function HomeComponent({ navigation }: LoginProp) {
+function HomeComponent({ navigation }: HomeProp) {
     const userSelector = (state: UserState) => state.user;
     const user = useSelector(userSelector);
     const dispatch = useDispatch();
@@ -118,8 +117,8 @@ function HomeComponent({ navigation }: LoginProp) {
                 }}
                 dropDownStyle={{ backgroundColor: '#fafafa' }}
                 onChangeItem={(value) => {
-                    console.log(value)
-                    qchoosersetter(value)
+                    console.log(value.value)
+                    qchoosersetter(value.value)
                     console.log("changed category to: " + qchooser)
 
                 }
