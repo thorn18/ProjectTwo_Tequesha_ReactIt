@@ -27,6 +27,7 @@ const homestyles = StyleSheet.create({
     },
     searchBar: {
         // textAlign: "center"
+        color:"white",
     }
 
 });

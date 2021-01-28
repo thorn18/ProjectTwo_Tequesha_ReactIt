@@ -6,7 +6,9 @@ export enum UserActions {
     ChangeUser = 'CHANGE_USER',
     LoginChange = 'CHANGE_LOGIN',
     RegisterChange = 'CHANGE_REGISTER',
-    ChangeLocale = 'CHANGE_LOCALE'
+    ChangeLocale = 'CHANGE_LOCALE',
+    GetQuery = 'GET_QUERY',
+    SearchUserChange = 'CHANGE_SEARCH_USER',
 }
 
 export enum ThreadActions {
@@ -22,7 +24,7 @@ export interface AppAction {
 
 export interface ThreadAction<P> extends AppAction{
     type:ThreadActions;
-    payload:P;
+    payload: P;
 }
 
 export interface UserAction<P> extends AppAction {
@@ -30,7 +32,15 @@ export interface UserAction<P> extends AppAction {
     payload: P;
 }
 
-//TODO: MODIFY AFTER THREAD OBJECT CREATED.
+export function getQuery(query: string): ThreadAction<string> {
+    const action: ThreadAction<string> = {
+        type: ThreadActions.GetThreads,
+        payload: query
+    }
+    return action;
+}
+
+
 export function getThreads(threads: Thread[]): ThreadAction<Thread[]> {
     const action: ThreadAction<Thread[]> = {
         type: ThreadActions.GetThreads,
@@ -41,7 +51,7 @@ export function getThreads(threads: Thread[]): ThreadAction<Thread[]> {
 
 export function getThread(thread: Thread): ThreadAction<Thread> {
     const action: ThreadAction<Thread> = {
-        type: ThreadActions.GetThreads,
+        type: ThreadActions.GetThread,
         payload: thread
     }
     return action;
@@ -79,9 +89,17 @@ export function loginAction(user: User): UserAction<User> {
     return action;
 }
 
-export function registerAction(user: User): UserAction<User>{
+export function registerAction(user: User): UserAction<User> {
     const action: UserAction<User> = {
         type: UserActions.RegisterChange,
+        payload: user
+    }
+    return action;
+}
+
+export function searchUserAction(user: User): UserAction<User> {
+    const action: UserAction<User> = {
+        type: UserActions.SearchUserChange,
         payload: user
     }
     return action;

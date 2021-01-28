@@ -51,7 +51,7 @@ var PersonalSettings = /** @class */ (function () {
 }());
 exports.PersonalSettings = PersonalSettings;
 var User = /** @class */ (function () {
-    function User(username, password, role, name, email, age, personalsettings, emailvalidated, phonenumber) {
+    function User(username, password, role, name, email, age, personalsettings, emailvalidated, accountstatus, phonenumber) {
         if (username === void 0) { username = ""; }
         if (password === void 0) { password = ""; }
         if (role === void 0) { role = ""; }
@@ -60,6 +60,7 @@ var User = /** @class */ (function () {
         if (age === void 0) { age = -1; }
         if (personalsettings === void 0) { personalsettings = new PersonalSettings(); }
         if (emailvalidated === void 0) { emailvalidated = false; }
+        if (accountstatus === void 0) { accountstatus = 'activated'; }
         this.username = username;
         this.password = password;
         this.role = role;
@@ -69,15 +70,16 @@ var User = /** @class */ (function () {
         this.phonenumber = phonenumber;
         this.personalsettings = personalsettings;
         this.emailvalidated = emailvalidated;
+        this.accountstatus = accountstatus;
     }
     return User;
 }());
 exports.User = User;
-function login(name, password) {
+function login(username, password) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, user_service_1.default.getUserByName(name).then(function (user) {
+                case 0: return [4 /*yield*/, user_service_1.default.getUserByName(username).then(function (user) {
                         if (user && user.password === password) {
                             return user;
                         }
