@@ -3,6 +3,7 @@ import { ThreadState, UserState } from '../store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import {
     Button,
+    ImageBackground,
     View,
 } from 'react-native';
 import style from './homestyle';
@@ -13,7 +14,7 @@ import ThreadTableComponent from '../threads/threadtable.component';
 import threadService from '../threads/thread.service';
 import { Thread } from '../threads/thread';
 import DropDownPicker from 'react-native-dropdown-picker';
-
+import image from './alien.jpg';
 
 // Function Component
 interface HomeProp {
@@ -96,51 +97,54 @@ function HomeComponent({ navigation }: HomeProp) {
     }
 
     return (
-        <View style={[style.homeContainer]}>
-            {user.username ? (
-                <Button onPress={createNewThread} title='Create New Thread' color='#880022' />
-             ) : (
-                  <></>
-             )}
-           
-            <DropDownPicker
-                items={[
-                    { label: 'Thread Title', value: 'Thread Title', icon: () => <Icon name="flag" size={18} color="#900" /> },
-                    { label: 'Author', value: 'Author', icon: () => <Icon name="flag" size={18} color="#900" /> },
-                    { label: 'Category', value: 'Category', icon: () => <Icon name="flag" size={18} color="#900" /> },
-                ]}
-                defaultValue=""
-                containerStyle={{ height: 40 }}
-                style={{ backgroundColor: '#fafafa' }}
-                itemStyle={{
-                    justifyContent: 'flex-start'
-                }}
-                dropDownStyle={{ backgroundColor: '#fafafa' }}
-                onChangeItem={(value) => {
-                    console.log(value.value)
-                    qchoosersetter(value.value)
-                    console.log("changed category to: " + qchooser)
+        <ImageBackground source = {image} style={[style.image]}>
+            <View style={[style.homeContainer]}>
+                {user.username ? (
+                    <Button onPress={createNewThread} title='Create New Thread' color='navy' />
+                ) : (
+                        <></>
+                    )}
 
-                }
-                }
-            />
-            <SearchBar
-                style={[style.searchBar]}
-                onChangeText={(value) => {
-                    q2setter(value);
-                    console.log("Query Changed to: " + value);
-                    value = q2;
-                }
-                }
-                value={q2}
-            />
+                <DropDownPicker
+                    items={[
+                        { label: 'Thread Title', value: 'Thread Title', icon: () => <Icon name="flag" size={18} color="#900" /> },
+                        { label: 'Author', value: 'Author', icon: () => <Icon name="flag" size={18} color="#900" /> },
+                        { label: 'Category', value: 'Category', icon: () => <Icon name="flag" size={18} color="#900" /> },
+                    ]}
+                    defaultValue=""
+                    containerStyle={{ height: 40 }}
+                    style={{ backgroundColor: '#fafafa' }}
+                    itemStyle={{
+                        justifyContent: 'flex-start'
+                    }}
+                    dropDownStyle={{ backgroundColor: '#fafafa' }}
+                    onChangeItem={(value) => {
+                        console.log(value.value)
+                        qchoosersetter(value.value)
+                        console.log("changed category to: " + qchooser)
 
-            <FlatList
-                data={threads}
-                renderItem={({ item }) => ((checkfilter(item) && <ThreadTableComponent data={item}></ThreadTableComponent>))}
-                keyExtractor={(item) => item.thread_id}
-            />
-        </View>
+                    }
+                    }
+                />
+                <SearchBar
+                    style={[style.searchBar]}
+                    onChangeText={(value) => {
+                        q2setter(value);
+                        console.log("Query Changed to: " + value);
+                        value = q2;
+                    }
+                    }
+                    value={q2}
+                />
+
+                <FlatList
+                    data={threads}
+                    renderItem={({ item }) => ((checkfilter(item) && <ThreadTableComponent data={item}></ThreadTableComponent>))}
+                    keyExtractor={(item) => item.thread_id}
+                />
+            </View>
+        </ImageBackground>
+
     );
 }
 

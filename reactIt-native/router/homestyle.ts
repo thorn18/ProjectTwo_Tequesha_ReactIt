@@ -28,7 +28,11 @@ const homestyles = StyleSheet.create({
     searchBar: {
         // textAlign: "center"
         color:"white",
-    }
+    },image: {
+        flex: 1,
+        resizeMode: "cover",
+        justifyContent: "center",
+    },
 
 });
 
