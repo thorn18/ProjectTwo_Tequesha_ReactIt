@@ -10,6 +10,14 @@ router.get('/', function(req, res, next) {
   res.send('express is working');
 });
 
+router.get('/search/:username', function(req, res, next) {
+  console.log('Back-end for Get User')
+  userservice.getUserByName(req.params.username).then((returnedUser)=>{
+      res.send(JSON.stringify(returnedUser));
+  }).catch((err) => {
+    res.sendStatus(404);
+})
+})
 
 /* GET users listing. */
 router.post('/register', function(req, res, next) {
@@ -22,25 +30,32 @@ router.post('/register', function(req, res, next) {
   })
 });
 
-router.post('/login/:username', function(req, res, next) {
+router.post('/login', function(req, res, next) {
   console.log("Getting user on login!");
-  userservice.getUserByName(req.params.username).then((returnedUser)=>{
-    if(res && returnedUser) {
+  userservice.getUserByName(req.body.username).then((returnedUser)=>{
+    console.log(returnedUser?.password);
+    console.log(req.body.password);
+    if(returnedUser && returnedUser.password === req.body.password){
       res.send(JSON.stringify(returnedUser));
     }
-  if(returnedUser && req.body) {
-    if(returnedUser.username == req.body.username && returnedUser.password == req.body.password){
-      res.send("200"); 
-    }
     else{
-      res.send("400"); 
+      res.send("404"); 
     }
-  }
-   
- }).catch((err)=>{
-   console.log("404");
-   res.send(err); 
- });
+  });
+});
+
+router.put('/', (req, res, next) => {
+  userservice.updateUser(req.body).then((data)=> {
+      res.send(data);
+  })
+})
+
+router.delete('/:username', function (req, res, next) {
+  userservice.deleteUser(req.params.username).then((data)=> {
+      res.sendStatus(200);
+  }).catch((err) => {
+      res.sendStatus(500);
+  })
 });
 
 export default router;

@@ -8,6 +8,7 @@ export enum UserActions {
     RegisterChange = 'CHANGE_REGISTER',
     ChangeLocale = 'CHANGE_LOCALE',
     GetQuery = 'GET_QUERY',
+    SearchUserChange = 'CHANGE_SEARCH_USER',
 }
 
 export enum ThreadActions {
@@ -88,9 +89,17 @@ export function loginAction(user: User): UserAction<User> {
     return action;
 }
 
-export function registerAction(user: User): UserAction<User>{
+export function registerAction(user: User): UserAction<User> {
     const action: UserAction<User> = {
         type: UserActions.RegisterChange,
+        payload: user
+    }
+    return action;
+}
+
+export function searchUserAction(user: User): UserAction<User> {
+    const action: UserAction<User> = {
+        type: UserActions.SearchUserChange,
         payload: user
     }
     return action;

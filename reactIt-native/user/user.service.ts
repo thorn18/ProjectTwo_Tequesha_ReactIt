@@ -19,14 +19,22 @@ class UserService {
         return axios.post(this.URI+"/register", user, {withCredentials: true}).then(result => result.data).catch(err => err);
     }
 
-    getUserByName(user: User): Promise<User> {
+    getUser(username: string): Promise<User>{
+        return axios.get(this.URI+'/search/'+username, {withCredentials: true}).then(result => result.data).catch(err => err);
+    }
+
+    login(user: User): Promise<User> {
         console.log(this.URI+'/login/'+user.username)
-        return axios.post(this.URI+'/login'+'/'+user.username, {withCredentials: true}).then(result => result.data).catch(err => err);
+        return axios.post(this.URI+'/login', user, {withCredentials: true}).then(result => result.data).catch(err => err);
     }
 
     updateUser(user: User): Promise<null> {
         console.log('Update User: ', user);
         return axios.put(this.URI, user).then((result) => null);
+    }
+
+    deleteUser(username: string): Promise<null> {
+        return axios.delete(this.URI+'/'+username).then(result => null)
     }
 
     /* logout(): Promise<null> {

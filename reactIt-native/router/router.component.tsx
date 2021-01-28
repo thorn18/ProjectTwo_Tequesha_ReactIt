@@ -8,6 +8,7 @@ import RegisterComponent from '../user/register.component';
 import ModifyUserComponent from '../user/modifyUser.component';
 import UserScreenComponent from '../user/userProfile.component';
 import HomeComponent from './home.component';
+import GetProfileComponent from '../user/getProfile.component';
 import NewThreadComponent from '../threads/newthread.component';
 import ThreadDetailComponent from '../threads/threadtable.component';
 import { useSelector } from 'react-redux';
@@ -20,11 +21,11 @@ export type StackParams = {
     Register: undefined;
     ModifyUser: undefined;
     Profile: undefined;
+    SearchedProfile: undefined;
     Home:undefined;
     NewThread: undefined;
     ThreadDetails: Thread;
-    /* RestaurantDetail: Restaurant;
-    Restaurants: undefined; */
+
 };
 
 const Stack = createStackNavigator<StackParams>();
@@ -58,18 +59,13 @@ function RouterComponent(props: any) {
                 options={headerOptions}
             />
             <Stack.Screen
+                name='SearchedProfile'
+                component = {GetProfileComponent}
+                options={headerOptions}
+            />
+            <Stack.Screen
                 name='Home'
                 component = {HomeComponent}
-                options={headerOptions}
-            />
-            <Stack.Screen
-                name='NewThread'
-                component = {NewThreadComponent}
-                options={headerOptions}
-            />
-            <Stack.Screen
-                name='ThreadDetails'
-                component = {ThreadDetailComponent}
                 options={headerOptions}
                 initialParams={th}
             />

@@ -11,6 +11,7 @@ export interface UserState {
     user: User;
     loginUser: User;
     registerUser: User;
+    searchUser: User;
     locale?: string;
     query:string
 }
