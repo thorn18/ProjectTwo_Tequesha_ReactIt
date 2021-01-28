@@ -26,9 +26,9 @@ class ThreadService {
         return ret;
     }
 
-    insertThread() {
+    insertThread(thread: Thread) {
         console.log('attempt to insert');
-        return axios.post(this.URI+'/thread');
+        axios.post(this.URI+'/thread', thread);
     }
 }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ThreadState } from '../store/store';
+import { ThreadState, UserState } from '../store/store';
 import {
     Button,
     TextInput,
@@ -20,9 +20,11 @@ interface NewThreadProp{
 export default function NewThreadComponent({ navigation }: NewThreadProp) {
     const dispatch = useDispatch();
     const th = useSelector((state: ThreadState) => state.thread);
+    const user = useSelector((state: UserState) => state.user);
+    const author = th.username = user.username;
 
     function submitThread() {
-        threadService.insertThread();
+        threadService.insertThread(th);
         console.log('inserted');
         console.log(th);
     }
@@ -33,6 +35,8 @@ export default function NewThreadComponent({ navigation }: NewThreadProp) {
 
     return (
         <View>
+            <Text>Author: {author}</Text>
+            <br></br>
             <Text>Title: </Text>
             <TextInput style={style.input}
                 onChangeText={(value) =>

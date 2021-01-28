@@ -32,9 +32,9 @@ const reducer = (state: ForumState = initialState, action: Actions.AppAction): F
         case Actions.ThreadActions.GetThread:
             newState.thread = action.payload as Thread;
             return newState;
-       /*  case Actions.ThreadActions.ChangeThreads:
+        case Actions.ThreadActions.ChangeThreads:
             newState.thread = action.payload as Thread;
-            return newState; */
+            return newState;
         case Actions.UserActions.GetUser:
             newState.user = action.payload as User;
             newState.loginUser = new User();
