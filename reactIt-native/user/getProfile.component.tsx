@@ -34,34 +34,41 @@ function GetProfileComponent() {
     return (
         <View style={[style.container, style.login]}>
             <br></br>
-            {searchUser.accountstatus !== 'deactivated' &&(
+            {searchUser !== null &&(
                 <>
-                    <Text style={style.text}>{searchUser.username}</Text>
-                    <br></br>
-                    <Image 
-                        source={{uri:'https://icon-library.com/images/default-profile-icon/default-profile-icon-24.jpg'}}
-                        style = {{width: 100, height: 100}}
-                        />
-                    <br></br>
-                    <Text style={style.text}>Name: {searchUser.name}</Text>
-                    <Text style={style.text}>Age: {searchUser.age}</Text>
-                    <br></br>
-                    {currUser === searchUser &&(
-                        <Button onPress={goToModify} title='Modify Account' color='#880022' />
+                    {searchUser.accountstatus !== 'deactivated' &&(
+                    <>
+                        <Text style={style.text}>{searchUser.username}</Text>
+                        <br></br>
+                        <Image 
+                            source={{uri:'https://icon-library.com/images/default-profile-icon/default-profile-icon-24.jpg'}}
+                            style = {{width: 100, height: 100}}
+                            />
+                        <br></br>
+                        <Text style={style.text}>Name: {searchUser.name}</Text>
+                        <Text style={style.text}>Age: {searchUser.age}</Text>
+                        <br></br>
+                        {currUser === searchUser &&(
+                            <Button onPress={goToModify} title='Modify Account' color='#880022' />
+                        )}
+                        <br></br>
+                        {currUser !== searchUser && currUser.role === 'Site Moderator' &&(
+                            <AccountStatusComponent user={searchUser}/>
+                        )}
+                    </>
                     )}
-                    <br></br>
-                    {currUser !== searchUser && currUser.role === 'Site Moderator' &&(
-                        <AccountStatusComponent user={searchUser}/>
+                    {searchUser.accountstatus === 'deactivated' && (
+                        <Text>This account has been deactivated</Text>
+                    )}
+                    {searchUser.accountstatus === 'moderator-deactivated' && currUser.role !== 'Site Moderator' &&(
+                        <Text>This account has been deactivated</Text>
                     )}
                 </>
             )}
-            {searchUser.accountstatus === 'deactivated' && (
-                <Text>This account has been deactivated</Text>
+            {searchUser === null &&(
+                <Text>No account found</Text>
             )}
-            {searchUser.accountstatus === 'moderator-deactivated' && currUser.role !== 'Site Moderator' &&(
-                <Text>This account has been deactivated</Text>
-            )}
-            
+
         </View>
     )
 }

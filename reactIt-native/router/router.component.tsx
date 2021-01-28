@@ -20,8 +20,6 @@ export type StackParams = {
     Profile: undefined;
     SearchedProfile: undefined;
     Home:undefined;
-    /* RestaurantDetail: Restaurant;
-    Restaurants: undefined; */
 };
 
 const Stack = createStackNavigator<StackParams>();
