@@ -33,7 +33,7 @@ export type StackParams = {
 
 const Stack = createStackNavigator<StackParams>();
 const headerOptions: StackHeaderOptions = {
-    headerTitle: () => <Text style = {[style.row]}>ReactIt: Your Favorite Online Forum</Text>,
+    headerTitle: () => <Text style = {[style.row]}>ReactIt</Text>,
     headerRight: () => <NavBarComponent />,
 };
 function RouterComponent(props: any) {

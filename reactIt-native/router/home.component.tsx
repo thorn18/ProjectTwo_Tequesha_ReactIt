@@ -53,10 +53,6 @@ function HomeComponent({ navigation }: HomeProp) {
         });
     }
 
-    function rerender() {
-        console.log("calling rerender");
-    }
-
     function populateThreads(thr: any) {
         console.log("calling populatae thread");
         let temp: Thread[] = [];
@@ -65,7 +61,6 @@ function HomeComponent({ navigation }: HomeProp) {
         })
         threads = temp;
         dispatch(getThreads(threads));
-        rerender();
     }
 
     function checkfilter(thread: Thread) {
@@ -100,7 +95,7 @@ function HomeComponent({ navigation }: HomeProp) {
         <ImageBackground source = {image} style={[style.image]}>
             <View style={[style.homeContainer]}>
                 {user.username ? (
-                    <Button onPress={createNewThread} title='Create New Thread' color='navy' />
+                    <Button onPress={createNewThread} title='Create New Thread' color='green' />
                 ) : (
                         <></>
                     )}
