@@ -16,6 +16,7 @@ var Thread = /** @class */ (function () {
         this.threadname = '';
         this.threaddescription = '';
         this.username = '';
+        this.tags = '';
         this.admincomments = '';
 >>>>>>> 888eb23f985c82102464ec30a927e03a0d1f3f5c
     }

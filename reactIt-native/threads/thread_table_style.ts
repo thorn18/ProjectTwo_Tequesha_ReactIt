@@ -19,19 +19,24 @@ const threadtablestyle = StyleSheet.create({
         width: perfectSize(1300),
         height: perfectSize(200),
         borderStyle: 'solid',
-        borderColor: 'red',
-        borderWidth: perfectSize(4),
+        borderColor: 'green',
+        borderWidth: perfectSize(6),
         textAlign:'center',
-        backgroundColor:'white',
-        color:'black',
+        backgroundColor:'black',
+        borderRadius: 8,
+
     },
     title: {
         fontSize: 25,
+        fontFamily: "sans",
         fontWeight: "bold",
         borderStyle: "dashed",
         borderColor: "black",
         borderWidth: perfectSize(4),
-
+        color:"yellow",
+    },
+    text: {
+        color:"green",
 
     }
 

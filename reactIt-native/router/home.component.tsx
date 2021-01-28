@@ -1,42 +1,43 @@
-import React, { createRef, useEffect, useRef, useState } from 'react';
-import { ForumState, ThreadState, UserState } from '../store/store';
+import React, { useEffect, useState } from 'react';
+import { ThreadState, UserState } from '../store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import {
     Button,
+    ImageBackground,
     View,
 } from 'react-native';
 import style from './homestyle';
-import { SearchBar } from 'react-native-elements';
+import { Icon, SearchBar } from 'react-native-elements';
 import { FlatList } from 'react-native';
-import { getThreads, ThreadAction } from '../store/actions';
+import { getThreads } from '../store/actions';
 import ThreadTableComponent from '../threads/threadtable.component';
 import threadService from '../threads/thread.service';
 import { Thread } from '../threads/thread';
-
+import DropDownPicker from 'react-native-dropdown-picker';
+import image from './alien.jpg';
 
 // Function Component
-interface LoginProp {
+interface HomeProp {
     navigation: any;
 }
 
 interface ThreadProp {
-    data: "hello";
+    data: "hello"
 }
 
-function HomeComponent({ navigation }: LoginProp) {
-    const userSelector = (state: UserState) => state.loginUser;
+function HomeComponent({ navigation }: HomeProp) {
+    const userSelector = (state: UserState) => state.user;
     const user = useSelector(userSelector);
     const dispatch = useDispatch();
-    const [searchQuery] = React.useState('');
     const selectThread = (state: ThreadState) => state.threads;
     let threads = useSelector(selectThread);
 
+    let [q2, q2setter] = useState("");
+    let [qchooser, qchoosersetter] = useState("");
+
     useEffect(() => {
         handleStuff()
-    }, []);
-    function handleSearchInput() {
-        // searchQuery = 
-    }
+    }, [q2, q2setter]);
 
     function createNewThread() {
         navigation.navigate('NewThread');
@@ -67,28 +68,83 @@ function HomeComponent({ navigation }: LoginProp) {
         rerender();
     }
 
-    return (
-        <View style={[style.homeContainer]}>
-            <Button onPress={handleStuff} title='Get Threads' color='#880022' />
+    function checkfilter(thread: Thread) {
+        if (qchooser == "Thread Title") {
+            console.log("thread name");
+            if (threads.includes(thread) && thread.threadname.includes(q2)) {
+                return true;
+            } else {
+                return false;
+            }
+        } else if (qchooser == "Author") {
+            console.log("thread name");
+            if (threads.includes(thread) && thread.username.includes(q2)) {
+                return true;
+            } else {
+                return false;
+            }
+        } else if (qchooser == "Category") {
+            console.log("thread name");
+            if (threads.includes(thread) && thread.threadcategory.includes(q2)) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return true;
+        }
 
-            <Button onPress={createNewThread} title='Create New Thread' color='#880022' />
-            <SearchBar
-                style={[style.searchBar]}
-                onChangeText={(value) => {
-                    console.log(searchQuery);
-                    //DIspatch needs updating once Thread element exists.
-                    dispatch(searchQuery);
-                    value = searchQuery
-                }
-                }
-            />
-            <FlatList
-                data={threads}
-                renderItem={({ item }) =>
-                    (<ThreadTableComponent data={item}></ThreadTableComponent>)}
-                keyExtractor={(item) => item.thread_id}
-            />
-        </View>
+    }
+
+    return (
+        <ImageBackground source = {image} style={[style.image]}>
+            <View style={[style.homeContainer]}>
+                {user.username ? (
+                    <Button onPress={createNewThread} title='Create New Thread' color='navy' />
+                ) : (
+                        <></>
+                    )}
+
+                <DropDownPicker
+                    items={[
+                        { label: 'Thread Title', value: 'Thread Title', icon: () => <Icon name="flag" size={18} color="#900" /> },
+                        { label: 'Author', value: 'Author', icon: () => <Icon name="flag" size={18} color="#900" /> },
+                        { label: 'Category', value: 'Category', icon: () => <Icon name="flag" size={18} color="#900" /> },
+                    ]}
+                    defaultValue=""
+                    containerStyle={{ height: 40 }}
+                    style={{ backgroundColor: '#fafafa' }}
+                    itemStyle={{
+                        justifyContent: 'flex-start'
+                    }}
+                    dropDownStyle={{ backgroundColor: '#fafafa' }}
+                    onChangeItem={(value) => {
+                        console.log(value.value)
+                        qchoosersetter(value.value)
+                        console.log("changed category to: " + qchooser)
+
+                    }
+                    }
+                />
+                <SearchBar
+                    style={[style.searchBar]}
+                    onChangeText={(value) => {
+                        q2setter(value);
+                        console.log("Query Changed to: " + value);
+                        value = q2;
+                    }
+                    }
+                    value={q2}
+                />
+
+                <FlatList
+                    data={threads}
+                    renderItem={({ item }) => ((checkfilter(item) && <ThreadTableComponent data={item}></ThreadTableComponent>))}
+                    keyExtractor={(item) => item.thread_id}
+                />
+            </View>
+        </ImageBackground>
+
     );
 }
 

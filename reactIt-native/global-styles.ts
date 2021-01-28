@@ -19,7 +19,9 @@ const styles = StyleSheet.create({
     },
     input: {
         backgroundColor: '#fff',
-        borderRadius: 20
+        borderRadius: 20,
+        textAlignVertical: 'top',
+        paddingLeft: 10
     },
     login: {
         backgroundColor: '#aaa'

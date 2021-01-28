@@ -72,12 +72,13 @@ class UserService {
             Key: {
                 'username': user.username
             },
-            UpdateExpression: 'set password = :password, email = :email, age = :age, phonenumber = :phonenumber',
+            UpdateExpression: 'set password = :password, email = :email, age = :age, phonenumber = :phonenumber, accountstatus = :accountstatus',
             ExpressionAttributeValues: {
                 ':password': user.password,
                 ':email': user.email,
                 ':age': user.age,
                 ':phonenumber': user.phonenumber,
+                ':accountstatus': user.accountstatus,
             },
             ReturnValues: 'UPDATED_NEW'
             };
@@ -85,6 +86,20 @@ class UserService {
                 return true;
             }).catch((err) => {
                 console.log(err)
+                return false;
+            });
+        }
+
+        async deleteUser(username: string): Promise<Boolean> {
+            const params = {
+                TableName: 'users',
+                Key: {
+                    'username': username
+                }
+            }
+            return await this.doc.delete(params).promise().then((data) => {
+                return true;
+            }).catch((err) => {
                 return false;
             });
         }

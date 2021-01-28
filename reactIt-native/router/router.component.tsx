@@ -8,8 +8,15 @@ import RegisterComponent from '../user/register.component';
 import ModifyUserComponent from '../user/modifyUser.component';
 import UserScreenComponent from '../user/userProfile.component';
 import HomeComponent from './home.component';
+import GetProfileComponent from '../user/getProfile.component';
 import NewThreadComponent from '../threads/newthread.component';
 import ThreadDetailComponent from '../threads/threadtable.component';
+import { useSelector } from 'react-redux';
+import { ForumState } from '../store/store';
+import { Thread } from '../threads/thread';
+import styles from '../global-styles';
+import routerstyles from './routerstyle'
+import style from './navstyle'
 
 /* Parameter list for RouteProp requires a field for the route that we're on. */
 export type StackParams = {
@@ -17,19 +24,21 @@ export type StackParams = {
     Register: undefined;
     ModifyUser: undefined;
     Profile: undefined;
+    SearchedProfile: undefined;
     Home:undefined;
     NewThread: undefined;
-    ThreadDetails:undefined;
-    /* RestaurantDetail: Restaurant;
-    Restaurants: undefined; */
+    ThreadDetails: Thread;
+
 };
 
 const Stack = createStackNavigator<StackParams>();
 const headerOptions: StackHeaderOptions = {
-    headerTitle: () => <Text>ReactIt: Your Favorite Online Forum</Text>,
+    headerTitle: () => <Text style = {[style.row]}>ReactIt: Your Favorite Online Forum</Text>,
     headerRight: () => <NavBarComponent />,
 };
 function RouterComponent(props: any) {
+    const th = useSelector((state: ForumState) => state.thread);
+
     return (
         <Stack.Navigator initialRouteName='Login'>
             <Stack.Screen
@@ -53,6 +62,11 @@ function RouterComponent(props: any) {
                 options={headerOptions}
             />
             <Stack.Screen
+                name='SearchedProfile'
+                component = {GetProfileComponent}
+                options={headerOptions}
+            />
+            <Stack.Screen
                 name='Home'
                 component = {HomeComponent}
                 options={headerOptions}
@@ -60,11 +74,6 @@ function RouterComponent(props: any) {
             <Stack.Screen
                 name='NewThread'
                 component = {NewThreadComponent}
-                options={headerOptions}
-            />
-            <Stack.Screen
-                name='ThreadDetails'
-                component = {ThreadDetailComponent}
                 options={headerOptions}
             />
         </Stack.Navigator>

@@ -19,7 +19,7 @@ const homestyles = StyleSheet.create({
     homeContainer: {
         backgroundColor: "grey",
         width:  perfectSize(1500),
-        height: perfectSize(1500),
+        height: "fitcontent",
         position:"relative",
         marginLeft: "auto",
         marginRight: "auto",
@@ -27,7 +27,12 @@ const homestyles = StyleSheet.create({
     },
     searchBar: {
         // textAlign: "center"
-    }
+        color:"white",
+    },image: {
+        flex: 1,
+        resizeMode: "cover",
+        justifyContent: "center",
+    },
 
 });
 
