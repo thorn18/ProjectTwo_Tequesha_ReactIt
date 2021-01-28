@@ -6,24 +6,26 @@ import publicDir from './constant';
 import usersRouter from "./routes/users-router"
 import threadRouter from './routes/thread-router';
 import emailRouter from './routes/email-router';
-
-var app = express();
+import session from 'express-session';
+import MemoryStore from 'memorystore';
 import dotenv from 'dotenv';
-
+import indexRouter from './routes/index-router';
 dotenv.config();
+var app = express();
 
 // view engine setup
-app.use(cors({origin:process.env.CLIENT, credentials: true}));
+app.use(cors({origin: [process.env.CLIENT as string, process.env.MOBILE as string, process.env.ANDROID as string], credentials: true}));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(publicDir));
-// app.use(session({
-//   secret: 'whatever',
-//   store: new (MemoryStore(session))({checkPeriod: 86400000}),
-//   cookie: {}}));
+app.use(session({
+  secret: 'whatever',
+  store: new (MemoryStore(session))({checkPeriod: 86400000}),
+  cookie: {}}));
 
+app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/threads', threadRouter);
 app.use('/emails', emailRouter);

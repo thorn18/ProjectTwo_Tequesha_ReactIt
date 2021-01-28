@@ -11,20 +11,25 @@ var constant_1 = __importDefault(require("./constant"));
 var users_router_1 = __importDefault(require("./routes/users-router"));
 var thread_router_1 = __importDefault(require("./routes/thread-router"));
 var email_router_1 = __importDefault(require("./routes/email-router"));
-var app = express_1.default();
+var express_session_1 = __importDefault(require("express-session"));
+var memorystore_1 = __importDefault(require("memorystore"));
 var dotenv_1 = __importDefault(require("dotenv"));
+var index_router_1 = __importDefault(require("./routes/index-router"));
 dotenv_1.default.config();
+var app = express_1.default();
 // view engine setup
-app.use(cors_1.default({ origin: process.env.CLIENT, credentials: true }));
+app.use(cors_1.default({ origin: [process.env.CLIENT, process.env.MOBILE, process.env.ANDROID], credentials: true }));
 app.set('views', path_1.default.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: false }));
 app.use(express_1.default.static(constant_1.default));
-// app.use(session({
-//   secret: 'whatever',
-//   store: new (MemoryStore(session))({checkPeriod: 86400000}),
-//   cookie: {}}));
+app.use(express_session_1.default({
+    secret: 'whatever',
+    store: new (memorystore_1.default(express_session_1.default))({ checkPeriod: 86400000 }),
+    cookie: {}
+}));
+app.use('/', index_router_1.default);
 app.use('/users', users_router_1.default);
 app.use('/threads', thread_router_1.default);
 app.use('/emails', email_router_1.default);

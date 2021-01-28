@@ -5,12 +5,12 @@ import * as user from '../user/user';
 var router = express.Router();
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-
-  res.send('express is working');
+router.get('/', function(req: any, res, next) {
+  let u = { ...req.session.user };
+    res.send(JSON.stringify(u));
 });
 
-router.get('/search/:username', function(req, res, next) {
+router.get('/:username', function(req, res, next) {
   console.log('Back-end for Get User')
   userservice.getUserByName(req.params.username).then((returnedUser)=>{
       res.send(JSON.stringify(returnedUser));
@@ -30,12 +30,13 @@ router.post('/register', function(req, res, next) {
   })
 });
 
-router.post('/login', function(req, res, next) {
+router.post('/', function(req, res, next) {
   console.log("Getting user on login!");
   userservice.getUserByName(req.body.username).then((returnedUser)=>{
     console.log(returnedUser?.password);
     console.log(req.body.password);
     if(returnedUser && returnedUser.password === req.body.password){
+      // TODO: Save session here
       res.send(JSON.stringify(returnedUser));
     }
     else{

@@ -19,7 +19,7 @@ function FindAccountComponent() {
     const navigation = useNavigation();
  
     function submitForm() {
-        userService.getUser(user.username).then((returnedUser) => {
+        userService.getUserByName(user.username).then((returnedUser) => {
             dispatch(searchUserAction(returnedUser));
         });
         navigation.navigate('SearchedProfile');
