@@ -68,7 +68,6 @@ function GetProfileComponent() {
             {searchUser === null &&(
                 <Text>No account found</Text>
             )}
-
         </View>
     )
 }

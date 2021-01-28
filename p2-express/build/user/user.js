@@ -75,11 +75,11 @@ var User = /** @class */ (function () {
     return User;
 }());
 exports.User = User;
-function login(name, password) {
+function login(username, password) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, user_service_1.default.getUserByName(name).then(function (user) {
+                case 0: return [4 /*yield*/, user_service_1.default.getUserByName(username).then(function (user) {
                         if (user && user.password === password) {
                             return user;
                         }

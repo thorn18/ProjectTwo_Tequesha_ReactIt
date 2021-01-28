@@ -32,8 +32,8 @@ export class User{
     public phonenumber?: string;
 }
 
-export async function login(name: string, password: string): Promise<User|null> {
-    return await userService.getUserByName(name).then((user)=> {
+export async function login(username: string, password: string): Promise<User|null> {
+    return await userService.getUserByName(username).then((user)=> {
         if (user && user.password === password) {
             return user
         } else {

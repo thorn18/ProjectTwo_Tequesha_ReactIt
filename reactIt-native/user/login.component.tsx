@@ -38,7 +38,7 @@ function LoginComponent({ navigation }: LoginProp) {
     }, []);
 
     function submitForm() {
-        userService.getUserByName(user).then((user) => {
+        userService.login(user).then((user) => {
             if(user) {
                 console.log(user);
             } else {

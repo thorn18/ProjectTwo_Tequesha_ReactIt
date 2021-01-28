@@ -28,23 +28,17 @@ router.post('/register', function (req, res, next) {
         console.log("NotRegistered!");
     });
 });
-router.post('/login/:username', function (req, res, next) {
+router.post('/login', function (req, res, next) {
     console.log("Getting user on login!");
-    user_service_1.default.getUserByName(req.params.username).then(function (returnedUser) {
-        if (res && returnedUser) {
+    user_service_1.default.getUserByName(req.body.username).then(function (returnedUser) {
+        console.log(returnedUser === null || returnedUser === void 0 ? void 0 : returnedUser.password);
+        console.log(req.body.password);
+        if (returnedUser && returnedUser.password === req.body.password) {
             res.send(JSON.stringify(returnedUser));
         }
-        if (returnedUser && req.body) {
-            if (returnedUser.username == req.body.username && returnedUser.password == req.body.password) {
-                res.send("200");
-            }
-            else {
-                res.send("400");
-            }
+        else {
+            res.send("404");
         }
-    }).catch(function (err) {
-        console.log("404");
-        res.send(err);
     });
 });
 router.put('/', function (req, res, next) {
