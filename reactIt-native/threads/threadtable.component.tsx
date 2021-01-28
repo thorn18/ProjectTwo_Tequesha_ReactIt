@@ -8,18 +8,19 @@ import {
 } from 'react-native';
 import style from './thread_table_style';
 import { Thread } from './thread';
+import { useNavigation } from '@react-navigation/native';
 
 interface ThreadProps{
-    data:Thread
-    
+    data: Thread;
 }
 
-export default function ThreadDetailComponent({data}: ThreadProps) {
+export default function ThreadTableComponent({data}: ThreadProps) {
     const dispatch = useDispatch();
     const th = useSelector((state: ThreadState) => state.thread);
+    const nav = useNavigation();
 
-    function GoToDetailComponent() {
-
+    function goToDetailComponent() {
+        nav.navigate('ThreadDetails', data);
     }
 
     function seeComment() {
@@ -29,13 +30,13 @@ export default function ThreadDetailComponent({data}: ThreadProps) {
     return (
         <View style = {[style.threadCardContainer]}>
             <Text style = {[style.title]}>{data.threadname}</Text>
-            <Text>Author : {data.username}</Text>
-            <Text>Category: {data.threadcategory}</Text>
+            <Text style = {[style.text]}>Author : {data.username}</Text>
+            <Text style = {[style.text]}>Category: {data.threadcategory}</Text>
             {/* <Text>{data.threaddescription}</Text> */}
             {/* {th.comments.forEach((row) => {
                 <Text>row</Text>
             })} */}
-            <Button onPress = {GoToDetailComponent} title = "Go To Thread"/>
+            <Button onPress = {goToDetailComponent} title = "Go To Thread"/>
         </View>
     )
 }

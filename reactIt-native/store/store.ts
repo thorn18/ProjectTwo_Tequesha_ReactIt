@@ -13,6 +13,7 @@ export interface UserState {
     registerUser: User;
     searchUser: User;
     locale?: string;
+    query:string
 }
 export interface ThreadState {
     //TEMP NEEDS CHANGING

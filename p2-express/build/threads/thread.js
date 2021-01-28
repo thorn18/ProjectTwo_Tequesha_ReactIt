@@ -9,6 +9,7 @@ var Thread = /** @class */ (function () {
         this.threadname = '';
         this.threaddescription = '';
         this.username = '';
+        this.tags = '';
         this.admincomments = '';
     }
     return Thread;
