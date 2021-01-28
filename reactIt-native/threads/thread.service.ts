@@ -7,7 +7,7 @@ class ThreadService {
     private URI: string;
 
     constructor() {
-        this.URI = 'http://localhost:3000/threads';
+        this.URI = 'https://hn2j9rkruh.execute-api.us-west-2.amazonaws.com/salmanFirst';
     }
 
     async getAllThreads() {
@@ -28,7 +28,7 @@ class ThreadService {
 
     insertThread() {
         console.log('attempt to insert');
-        return axios.post(this.URI+'/newThread');
+        return axios.post(this.URI+'/thread');
     }
 }
 
