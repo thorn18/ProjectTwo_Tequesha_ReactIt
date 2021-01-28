@@ -12,12 +12,12 @@ class ThreadService {
 
     async getAllThreads() {
         let ret;
-        await axios.get(this.URI, { withCredentials: true }).then(result => {
+        await axios.get(this.URI).then(result => {
             if (result) {
                 ret =  result.data   
             } else {
                 console.log("RESULT IS EMPTY");
-            }
+            }   
         }).catch((err) => {
             console.log("Promise Error");
             console.log(err);

@@ -11,7 +11,8 @@ export const initialState: ForumState = {
     loginUser: new User(),
     registerUser: new User(),
     threads: [],
-    thread: new Thread()
+    thread: new Thread(),
+    query: ""
 }
 
 // Make sure that the reducer has a default argument of the inital state or it will not work.
@@ -21,22 +22,25 @@ const reducer = (state: ForumState = initialState, action: Actions.AppAction): F
     const newState = { ...state }; // If we return this, it will re render the application. (call setState)
 
     switch (action.type) {
+
         case Actions.ThreadActions.GetThreads:
             console.log("Calling action getThreads");
             console.log(action.payload);
             //Threads [] will need updating here.
             newState.threads = action.payload as Thread[];
             return newState;
-        /* case Actions.ThreadActions.GetThread:
-            //Threads [] will need updating here.
-            newState.thread = action.payload as Thread;
-            return newState; */
-        case Actions.ThreadActions.ChangeThreads:
+        case Actions.ThreadActions.GetThread:
             newState.thread = action.payload as Thread;
             return newState;
+       /*  case Actions.ThreadActions.ChangeThreads:
+            newState.thread = action.payload as Thread;
+            return newState; */
         case Actions.UserActions.GetUser:
             newState.user = action.payload as User;
             newState.loginUser = new User();
+            return newState;
+        case Actions.UserActions.GetQuery:
+            newState.query = action.payload as string;
             return newState;
         case Actions.UserActions.ChangeUser:
             newState.user = action.payload as User;

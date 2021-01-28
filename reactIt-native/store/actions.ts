@@ -6,7 +6,8 @@ export enum UserActions {
     ChangeUser = 'CHANGE_USER',
     LoginChange = 'CHANGE_LOGIN',
     RegisterChange = 'CHANGE_REGISTER',
-    ChangeLocale = 'CHANGE_LOCALE'
+    ChangeLocale = 'CHANGE_LOCALE',
+    GetQuery = 'GET_QUERY',
 }
 
 export enum ThreadActions {
@@ -20,9 +21,9 @@ export interface AppAction {
     payload: any;
 }
 
-export interface ThreadAction extends AppAction{
+export interface ThreadAction<P> extends AppAction{
     type:ThreadActions;
-    payload: Thread | Thread[];
+    payload: P;
 }
 
 export interface UserAction<P> extends AppAction {
@@ -30,25 +31,33 @@ export interface UserAction<P> extends AppAction {
     payload: P;
 }
 
-//TODO: MODIFY AFTER THREAD OBJECT CREATED.
-export function getThreads(threads: Thread[]): ThreadAction {
-    const action: ThreadAction = {
+export function getQuery(query: string): ThreadAction<string> {
+    const action: ThreadAction<string> = {
+        type: ThreadActions.GetThreads,
+        payload: query
+    }
+    return action;
+}
+
+
+export function getThreads(threads: Thread[]): ThreadAction<Thread[]> {
+    const action: ThreadAction<Thread[]> = {
         type: ThreadActions.GetThreads,
         payload: threads
     }
     return action;
 }
 
-export function getThread(thread: Thread): ThreadAction {
-    const action: ThreadAction = {
-        type: ThreadActions.GetThreads,
+export function getThread(thread: Thread): ThreadAction<Thread> {
+    const action: ThreadAction<Thread> = {
+        type: ThreadActions.GetThread,
         payload: thread
     }
     return action;
 }
 
-export function addThread(thread: Thread): ThreadAction {
-    const action: ThreadAction = {
+export function addThread(thread: Thread): ThreadAction<Thread> {
+    const action: ThreadAction<Thread> = {
         type: ThreadActions.ChangeThreads,
         payload: thread
     }
