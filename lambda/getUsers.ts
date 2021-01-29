@@ -9,14 +9,16 @@ interface MyEvent {
     path: string;
 }
 
-export const handler = async (event: MyEvent): Promise<any> => {
-    let username = event.path.substring(event.path.lastIndexOf('/')+1, event.path.length);
+export const handler = async (event: MyEvent) => {
+    let username = event.path;
+    //let username = event.path.substring(event.path.lastIndexOf('/')+1, event.path.length);
     const user = await getUserByName(username);
     if (user) {
         return {statusCode: 200, body: JSON.stringify(user)};
     } else {
         return {statusCode: 404, body: JSON.stringify({})};
     }
+    //return JSON.stringify(event);
 }
 
 async function getUserByName(username: string): Promise<User | null> {

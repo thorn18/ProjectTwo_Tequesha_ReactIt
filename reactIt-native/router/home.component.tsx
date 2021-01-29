@@ -22,7 +22,7 @@ interface HomeProp {
 }
 
 interface ThreadProp {
-    data: "hello"
+    data: Thread
 }
 
 function HomeComponent({ navigation }: HomeProp) {
@@ -54,7 +54,7 @@ function HomeComponent({ navigation }: HomeProp) {
     }
 
     function populateThreads(thr: any) {
-        console.log("calling populatae thread");
+        console.log("calling populate thread");
         let temp: Thread[] = [];
         thr.forEach((row: Thread) => {
             temp.push(row);
@@ -142,5 +142,6 @@ function HomeComponent({ navigation }: HomeProp) {
 
     );
 }
+
 
 export default HomeComponent;
