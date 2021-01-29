@@ -32,8 +32,7 @@ class ThreadService {
 
     async insertTags(thread: Thread) {
         let ret;
-        let tags = thread.tags;
-        await axios.post(this.URI2, tags).then(result => {
+        await axios.post(this.URI2, thread).then(result => {
             if (result) {
                 ret =  result.data   
             } else {
@@ -46,8 +45,6 @@ class ThreadService {
         console.log(ret);
         return ret;
     }
-
-    
 
     insertThread(thread: Thread) {
         console.log('attempt to insert');

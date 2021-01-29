@@ -10,6 +10,8 @@ import session from 'express-session';
 import MemoryStore from 'memorystore';
 import dotenv from 'dotenv';
 import indexRouter from './routes/index-router';
+import tagRouter from './routes/tag-router';
+
 dotenv.config();
 var app = express();
 
@@ -29,6 +31,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/threads', threadRouter);
 app.use('/emails', emailRouter);
+app.use('/tags', tagRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req:any, res:any, next:Function) {

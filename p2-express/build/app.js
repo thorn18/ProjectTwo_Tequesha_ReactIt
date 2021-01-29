@@ -15,6 +15,7 @@ var express_session_1 = __importDefault(require("express-session"));
 var memorystore_1 = __importDefault(require("memorystore"));
 var dotenv_1 = __importDefault(require("dotenv"));
 var index_router_1 = __importDefault(require("./routes/index-router"));
+var tag_router_1 = __importDefault(require("./routes/tag-router"));
 dotenv_1.default.config();
 var app = express_1.default();
 // view engine setup
@@ -33,6 +34,7 @@ app.use('/', index_router_1.default);
 app.use('/users', users_router_1.default);
 app.use('/threads', thread_router_1.default);
 app.use('/emails', email_router_1.default);
+app.use('/tags', tag_router_1.default);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     next(http_errors_1.default(404));

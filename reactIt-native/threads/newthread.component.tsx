@@ -27,11 +27,9 @@ export default function NewThreadComponent({ navigation }: NewThreadProp) {
 
     async function submitThread() {
         await threadService.insertThread(th);
-        await threadService.insertTags(th);
-        console.log('inserted');
         threads.push(th);
         dispatch(getThreads(threads));
-        console.log(threads);
+        threadService.insertTags(th);
         navigation.navigate("Home");
     }
 
@@ -62,7 +60,7 @@ export default function NewThreadComponent({ navigation }: NewThreadProp) {
                     dispatch(addThread({...th, tags: value.split(',')}))
                     }
                 }
-                value={th.threadcategory}>
+                value={th.tags.toLocaleString()}>
             </TextInput>
             <Text>{th.tags}</Text>
             <br></br>
