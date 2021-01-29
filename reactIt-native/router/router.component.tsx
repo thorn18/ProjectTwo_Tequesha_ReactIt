@@ -10,7 +10,7 @@ import UserScreenComponent from '../user/userProfile.component';
 import HomeComponent from './home.component';
 import GetProfileComponent from '../user/getProfile.component';
 import NewThreadComponent from '../threads/newthread.component';
-import ThreadDetailComponent from '../threads/threadtable.component';
+import ThreadDetailComponent from '../threads/thread.detail.component';
 import { useSelector } from 'react-redux';
 import { ForumState } from '../store/store';
 import { Thread } from '../threads/thread';
@@ -23,8 +23,9 @@ export type StackParams = {
     Profile: undefined;
     SearchedProfile: undefined;
     Home:undefined;
+    Threads:undefined;
     NewThread: undefined;
-    ThreadDetails: Thread;
+    ThreadDetail: Thread;
 
 };
 
@@ -63,6 +64,12 @@ function RouterComponent(props: any) {
                 component = {GetProfileComponent}
                 options={headerOptions}
             />
+             <Stack.Screen
+                name='ThreadDetail'
+                component = {ThreadDetailComponent}
+                options={headerOptions}
+                initialParams={th}
+            />
             <Stack.Screen
                 name='Home'
                 component = {HomeComponent}
@@ -73,6 +80,7 @@ function RouterComponent(props: any) {
                 component = {NewThreadComponent}
                 options={headerOptions}
             />
+            
         </Stack.Navigator>
         
     );

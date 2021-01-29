@@ -16,11 +16,14 @@ interface ThreadProps{
 
 export default function ThreadTableComponent({data}: ThreadProps) {
     const dispatch = useDispatch();
-    const th = useSelector((state: ThreadState) => state.thread);
+    //const th = useSelector((state: ThreadState) => state.threads);
     const nav = useNavigation();
+    //console.log(th);
 
     function goToDetailComponent() {
-        nav.navigate('ThreadDetails', data);
+        //dispatch(getThreads(th));
+        console.log('button is pressed');
+        nav.navigate('ThreadDetail', data);
     }
 
     function seeComment() {
@@ -32,10 +35,7 @@ export default function ThreadTableComponent({data}: ThreadProps) {
             <Text style = {[style.title]}>{data.threadname}</Text>
             <Text>Author : {data.username}</Text>
             <Text>Category: {data.threadcategory}</Text>
-            {/* <Text>{data.threaddescription}</Text> */}
-            {/* {th.comments.forEach((row) => {
-                <Text>row</Text>
-            })} */}
+            
             <Button onPress = {goToDetailComponent} title = "Go To Thread"/>
         </View>
     )
