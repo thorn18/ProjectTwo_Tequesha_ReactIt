@@ -8,12 +8,8 @@ var express_1 = __importDefault(require("express"));
 var path_1 = __importDefault(require("path"));
 var cors_1 = __importDefault(require("cors"));
 var constant_1 = __importDefault(require("./constant"));
-<<<<<<< HEAD
-var users_router_1 = __importDefault(require("../src/routes/users-router"));
-=======
 var users_router_1 = __importDefault(require("./routes/users-router"));
 var thread_router_1 = __importDefault(require("./routes/thread-router"));
->>>>>>> 888eb23f985c82102464ec30a927e03a0d1f3f5c
 var app = express_1.default();
 var dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();

@@ -9,7 +9,7 @@ class ThreadService {
       pool.end();
     });
   }
-  console.log(process.env);
+  //console.log(process.env);
 
   async getThreads(): Promise<any> {
     //pool.connect() //pool.connect returns a promise with a client in it
