@@ -12,8 +12,6 @@ dotenv.config();
 
 // view engine setup
 app.use(cors({origin:process.env.CLIENT, credentials: true}));
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(publicDir));
