@@ -16,6 +16,7 @@ import { ForumState } from '../store/store';
 import { Thread } from '../threads/thread';
 import styles from '../global-styles';
 import routerstyles from './routerstyle'
+import BanEmailComponent from '../user/email/banEmail.component';
 
 /* Parameter list for RouteProp requires a field for the route that we're on. */
 export type StackParams = {
@@ -27,6 +28,7 @@ export type StackParams = {
     Home:undefined;
     NewThread: undefined;
     ThreadDetails: Thread;
+    BannedEmails: undefined;
 
 };
 
@@ -73,6 +75,11 @@ function RouterComponent(props: any) {
             <Stack.Screen
                 name='NewThread'
                 component = {NewThreadComponent}
+                options={headerOptions}
+            />
+            <Stack.Screen
+                name='BannedEmails'
+                component = {BanEmailComponent}
                 options={headerOptions}
             />
         </Stack.Navigator>

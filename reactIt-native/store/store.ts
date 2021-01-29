@@ -4,6 +4,7 @@ import { User } from "../user/user";
 import { Thread } from "../threads/thread";
 import { AppAction } from "./actions";
 import reducer from "./reducer";
+import {Email} from '../user/email/email';
 
 // Define the items that are in our state
 
@@ -13,7 +14,7 @@ export interface UserState {
     registerUser: User;
     searchUser: User;
     locale?: string;
-    query:string
+    query:string;
 }
 export interface ThreadState {
     //TEMP NEEDS CHANGING
@@ -21,7 +22,12 @@ export interface ThreadState {
     thread: Thread
 }
 
-export interface ForumState extends UserState,ThreadState{ }
+export interface EmailState {
+    email: Email;
+    emails: Email[];
+}
+
+export interface ForumState extends UserState,ThreadState, EmailState { }
 // <> is generics: Generic arguments allow us to define the type of a thing at runtime instead of when we write it,
 // creating a reusable object.
 const store: Store<ForumState, AppAction> = createStore(reducer, applyMiddleware(thunk));

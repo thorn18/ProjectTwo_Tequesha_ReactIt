@@ -49,7 +49,7 @@ function GetProfileComponent() {
                         <Text style={style.text}>Age: {searchUser.age}</Text>
                         <br></br>
                         {currUser === searchUser &&(
-                            <Button onPress={goToModify} title='Modify Account' color='#880022' />
+                            <Button onPress={goToModify} title='Modify Account' color='green' />
                         )}
                         <br></br>
                         {currUser !== searchUser && currUser.role === 'Site Moderator' &&(

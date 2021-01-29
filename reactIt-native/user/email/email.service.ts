@@ -14,7 +14,7 @@ class EmailService {
     }
 
 
-    getAllBanned(): Promise<Email>{
+    getAllBanned(): Promise<Email[]>{
         return axios.get(this.URI, {withCredentials: true}).then(result => result.data).catch(err => err);
     }
 

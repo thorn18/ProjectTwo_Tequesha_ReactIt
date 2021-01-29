@@ -1,14 +1,10 @@
-import React, { useEffect } from 'react';
-import userService from '../user.service';
+import React from 'react';
 import { UserState } from '../../store/store';
 import { useDispatch, useSelector } from 'react-redux';
-import {changeUser, getUser, registerAction} from '../../store/actions';
 import {
     Button,
-    TextInput,
     Text,
     View,
-    StyleSheet,
     Image
 } from 'react-native';
 import style from './account-styles';
@@ -21,11 +17,14 @@ interface ModifyUserProp {
 function UserProfileComponent({ navigation }: ModifyUserProp) {
     const userSelector = (state: UserState) => state.user;
     const user = useSelector(userSelector);
-    const dispatch = useDispatch();
 
     
     function goToModify(){
         navigation.navigate('ModifyUser');
+    }
+
+    function goToBanEmail(){
+        navigation.navigate('BannedEmails');
     }
 
     return (
@@ -41,10 +40,14 @@ function UserProfileComponent({ navigation }: ModifyUserProp) {
             <Text style={style.text}>Name: {user.name}</Text>
             <Text style={style.text}>Age: {user.age}</Text>
             <br></br>
-            <Button onPress={goToModify} title='Modify Account' color='#880022' />
+            <Button onPress={goToModify} title='Modify Account' color='green' />
             <br></br>
             {user.role === 'Site Moderator' &&(
+                <>
                 <FindAccountComponent/>
+                <br></br>
+                <Button onPress={goToBanEmail} title='View Banned Emails' color='green'/>
+                </>
             )}
         </View>
     )

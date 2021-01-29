@@ -36,7 +36,7 @@ function FindAccountComponent() {
                 placeholder='Find User'
             />
             <br></br>
-            <Button onPress={submitForm} title='Submit' color='#880022' />
+            <Button onPress={submitForm} title='Submit' color='green' />
         </View>
     )
 }

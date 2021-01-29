@@ -67,13 +67,13 @@ function AccountStatusComponent(prop: statusProp) {
                         <Button
                             onPress={deactivateAccount}
                             title='Deactivate'
-                            color='#880022'
+                            color='green'
                         />
                         <br></br>
                         <Button
                             onPress={deleteAccount}
                             title='Delete Account'
-                            color='#880022'
+                            color='green'
                         />
                     </View>
                 )}
@@ -83,13 +83,13 @@ function AccountStatusComponent(prop: statusProp) {
                         <Button
                             onPress={activateAccount}
                             title='Activate'
-                            color='#880022'
+                            color='green'
                         />
                         <br></br>
                         <Button
                             onPress={deleteAccount}
                             title='Delete Account'
-                            color='#880022'
+                            color='green'
                         />
                     </View>
                 )}
@@ -101,13 +101,13 @@ function AccountStatusComponent(prop: statusProp) {
                         <Button
                             onPress={moderatorDeactivated}
                             title='Deactivate as Moderator'
-                            color='#880022'
+                            color='green'
                         />
                         <br></br>
                         <Button
                             onPress={deleteAccount}
                             title='Delete Account'
-                            color='#880022'
+                            color='green'
                         />
                     </View>
                 )}
@@ -118,13 +118,13 @@ function AccountStatusComponent(prop: statusProp) {
                         <Button
                             onPress={moderatorActivated}
                             title='Activate as Moderator'
-                            color='#880022'
+                            color='green'
                         />
                         <br></br>
                         <Button
                             onPress={deleteAccount}
                             title='Delete Account'
-                            color='#880022'
+                            color='green'
                         />
                     </View>
                 )}
