@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'flex-start',
-        borderColor: '#880022',
+        borderColor: 'yellow',
         borderStyle: 'solid',
         borderWidth: 3,
     },

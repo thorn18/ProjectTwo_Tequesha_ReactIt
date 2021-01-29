@@ -40,19 +40,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var dynamo_1 = __importDefault(require("../conn/dynamo"));
-var UserService = /** @class */ (function () {
-    function UserService() {
+var EmailService = /** @class */ (function () {
+    function EmailService() {
         // The documentClient. This is our interface with DynamoDB
         this.doc = dynamo_1.default; // We imported the DocumentClient from dyamo.ts
     }
-    UserService.prototype.getUsers = function () {
+    // Get every email on the banned email list
+    EmailService.prototype.getBannedEmails = function () {
         return __awaiter(this, void 0, void 0, function () {
             var params;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         params = {
-                            TableName: 'users'
+                            TableName: 'emails'
                         };
                         return [4 /*yield*/, this.doc.scan(params).promise().then(function (data) {
                                 return data.Items;
@@ -62,17 +63,17 @@ var UserService = /** @class */ (function () {
             });
         });
     };
-    //getUser
-    UserService.prototype.getUserByName = function (username) {
+    // Get a specific email address from banned list
+    EmailService.prototype.getEmailAddress = function (address) {
         return __awaiter(this, void 0, void 0, function () {
             var params;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         params = {
-                            TableName: 'users',
+                            TableName: 'emails',
                             Key: {
-                                'username': username
+                                'address': address
                             }
                         };
                         return [4 /*yield*/, this.doc.get(params).promise().then(function (data) {
@@ -89,17 +90,17 @@ var UserService = /** @class */ (function () {
             });
         });
     };
-    UserService.prototype.addUser = function (user) {
+    // Add an email address to the database - ban email
+    EmailService.prototype.addEmailAddress = function (email) {
         return __awaiter(this, void 0, void 0, function () {
             var params;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         params = {
-                            // TableName - the name of the table we are sending it to
-                            TableName: 'users',
-                            // Item - the object we are sending
-                            Item: user,
+                            TableName: 'emails',
+                            // Email address being put on banned list
+                            Item: email,
                         };
                         return [4 /*yield*/, this.doc.put(params).promise().then(function (result) {
                                 return true;
@@ -112,57 +113,17 @@ var UserService = /** @class */ (function () {
             });
         });
     };
-    UserService.prototype.updateUser = function (user) {
+    // Take an email off of the list (by deleting it)
+    EmailService.prototype.deleteEmail = function (address) {
         return __awaiter(this, void 0, void 0, function () {
             var params;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         params = {
-                            TableName: 'users',
+                            TableName: 'emails',
                             Key: {
-                                'username': user.username
-                            },
-                            UpdateExpression: 'set #password = :password, #email = :email, #age = :age, #phonenumber = :phonenumber, #accountstatus = :accountstatus, #name =:name',
-                            ExpressionAttributeNames: {
-                                '#password': 'password',
-                                '#email': 'email',
-                                '#age': 'age',
-                                '#phonenumber': 'phonenumber',
-                                '#accountstatus': 'accountstatus',
-                                '#name': 'name'
-                            },
-                            ExpressionAttributeValues: {
-                                ':password': user.password,
-                                ':email': user.email,
-                                ':age': user.age,
-                                ':phonenumber': user.phonenumber,
-                                ':accountstatus': user.accountstatus,
-                                ':name': user.name,
-                            },
-                            ReturnValues: 'UPDATED_NEW'
-                        };
-                        return [4 /*yield*/, this.doc.update(params).promise().then(function (data) {
-                                return true;
-                            }).catch(function (err) {
-                                console.log(err);
-                                return false;
-                            })];
-                    case 1: return [2 /*return*/, _a.sent()];
-                }
-            });
-        });
-    };
-    UserService.prototype.deleteUser = function (username) {
-        return __awaiter(this, void 0, void 0, function () {
-            var params;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        params = {
-                            TableName: 'users',
-                            Key: {
-                                'username': username
+                                'address': address
                             }
                         };
                         return [4 /*yield*/, this.doc.delete(params).promise().then(function (data) {
@@ -175,7 +136,7 @@ var UserService = /** @class */ (function () {
             });
         });
     };
-    return UserService;
+    return EmailService;
 }());
-var userService = new UserService();
-exports.default = userService;
+var emailService = new EmailService();
+exports.default = emailService;

@@ -1,5 +1,6 @@
 import {User} from './../user/user';
 import { Thread } from './../threads/thread';
+import {Email} from '../user/email/email';
 
 export enum UserActions {
     GetUser = 'GET_USER',
@@ -8,13 +9,18 @@ export enum UserActions {
     RegisterChange = 'CHANGE_REGISTER',
     ChangeLocale = 'CHANGE_LOCALE',
     GetQuery = 'GET_QUERY',
-    SearchUserChange = 'CHANGE_SEARCH_USER',
+    SearchUserChange = 'CHANGE_SEARCH_USER'
 }
 
 export enum ThreadActions {
     GetThreads = 'GET_THREADS',
     GetThread = 'GET_THREAD',
     ChangeThreads = 'CHANGE_THREADS'
+}
+
+export enum EmailActions {
+    ChangeEmail = 'CHANGE_EMAIL',
+    GetAllBanned = 'GET_ALL_BANNED'
 }
 
 export interface AppAction {
@@ -29,6 +35,11 @@ export interface ThreadAction<P> extends AppAction{
 
 export interface UserAction<P> extends AppAction {
     type: UserActions;
+    payload: P;
+}
+
+export interface EmailAction<P> extends AppAction{
+    type: EmailActions;
     payload: P;
 }
 
@@ -109,6 +120,22 @@ export function changeLocale(locale: string): UserAction<string> {
     const action: UserAction<string> = {
         type: UserActions.ChangeLocale,
         payload: locale
+    }
+    return action;
+}
+
+export function changeEmail(email: Email): EmailAction<Email> {
+    const action: EmailAction<Email> = {
+        type: EmailActions.ChangeEmail,
+        payload: email
+    }
+    return action;
+}
+
+export function getAllBanned(emails: Email[]): EmailAction<Email[]> {
+    const action: EmailAction<Email[]> = {
+        type: EmailActions.ChangeEmail,
+        payload: emails
     }
     return action;
 }

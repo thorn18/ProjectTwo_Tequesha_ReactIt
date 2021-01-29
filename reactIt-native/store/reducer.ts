@@ -2,6 +2,7 @@ import * as Actions from './actions';
 import { User } from './../user/user';
 import { ForumState } from './store';
 import { Thread } from '../threads/thread';
+import {Email} from '../user/email/email';
 
 // We need to define the initial state of the application and that
 // state should include everything that the application might keep track of.
@@ -13,7 +14,9 @@ export const initialState: ForumState = {
     searchUser: new User(),
     threads: [],
     thread: new Thread(),
-    query: ""
+    query: "",
+    email: new Email(),
+    emails: [],
 }
 
 // Make sure that the reducer has a default argument of the inital state or it will not work.
@@ -57,6 +60,12 @@ const reducer = (state: ForumState = initialState, action: Actions.AppAction): F
             return newState;
         case Actions.UserActions.ChangeLocale:
             newState.locale = action.payload as string;
+            return newState;
+        case Actions.EmailActions.ChangeEmail:
+            newState.email = action.payload as Email;
+            return newState;
+        case Actions.EmailActions.GetAllBanned:
+            newState.emails = action.payload as Email [];
             return newState;
         default:
             return state;

@@ -24,6 +24,7 @@ var AWS = __importStar(require("aws-sdk"));
 AWS.config.update({ region: 'us-west-2' });
 // Create a DynamoDB service object
 var ddb = new AWS.DynamoDB({ apiVersion: '2012-08-10' });
+// USER TABLE (Key: username)
 var removeUsers = {
     TableName: 'users'
 };
@@ -49,6 +50,7 @@ var userSchema = {
         StreamEnabled: false
     }
 };
+// Delete user table
 ddb.deleteTable(removeUsers, function (err, data) {
     if (err) {
         console.error('Unable to delete table. Error JSON:', JSON.stringify(err, null, 2));
@@ -63,7 +65,54 @@ ddb.deleteTable(removeUsers, function (err, data) {
                 console.log('Error', err);
             }
             else {
-                // celebrate, I guess
+                // user table successfully created
+                console.log('Table Created', data);
+            }
+        });
+    }, 5000);
+});
+// EMAIL TABLE - Emails that are banned from site. (Key: address)
+var removeEmails = {
+    TableName: 'emails'
+};
+var emailSchema = {
+    AttributeDefinitions: [
+        {
+            AttributeName: 'address',
+            AttributeType: 'S'
+        }
+    ],
+    KeySchema: [
+        {
+            AttributeName: 'address',
+            KeyType: 'HASH'
+        }
+    ],
+    ProvisionedThroughput: {
+        ReadCapacityUnits: 5,
+        WriteCapacityUnits: 5
+    },
+    TableName: 'emails',
+    StreamSpecification: {
+        StreamEnabled: false
+    }
+};
+// Delete email table
+ddb.deleteTable(removeEmails, function (err, data) {
+    if (err) {
+        console.error('Unable to delete table. Error JSON:', JSON.stringify(err, null, 2));
+    }
+    else {
+        console.log('Deleted table. Table description JSON:', JSON.stringify(data, null, 2));
+    }
+    setTimeout(function () {
+        ddb.createTable(emailSchema, function (err, data) {
+            if (err) {
+                // log the error
+                console.log('Error', err);
+            }
+            else {
+                // table successfully created
                 console.log('Table Created', data);
             }
         });
