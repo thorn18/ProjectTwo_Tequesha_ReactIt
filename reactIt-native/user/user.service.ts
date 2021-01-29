@@ -9,27 +9,25 @@ class UserService {
     }
     getLogin(): Promise<User> {
         // withCredentials sends our cookies with the request.
-        return axios.get(this.URI+'/login', {withCredentials: true}).then(result=>{
+        return axios.get(this.URI, {withCredentials: true}).then(result=>{
             console.log(result);
             return result.data
         });
     }
     
     register(user: User): Promise<User>{
-        return axios.post(this.URI+"/register", user, {withCredentials: true}).then(result => result.data).catch(err => err);
+        return axios.post(this.URI+'/'+user.username, user, {withCredentials: true}).then(result => result.data).catch(err => err);
     }
 
-    getUser(username: string): Promise<User>{
-        return axios.get(this.URI+'/search/'+username, {withCredentials: true}).then(result => result.data).catch(err => err);
+    getUserByName(username: string): Promise<User>{
+        return axios.get(this.URI+'/'+username, {withCredentials: true}).then(result => result.data).catch(err => err);
     }
 
     login(user: User): Promise<User> {
-        console.log(this.URI+'/login/'+user.username)
-        return axios.post(this.URI+'/login', user, {withCredentials: true}).then(result => result.data).catch(err => err);
+        return axios.post(this.URI, user, {withCredentials: true}).then(result => result.data).catch(err => err);
     }
 
     updateUser(user: User): Promise<null> {
-        console.log('Update User: ', user);
         return axios.put(this.URI, user).then((result) => null);
     }
 

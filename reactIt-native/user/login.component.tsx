@@ -4,16 +4,15 @@ import { UserState } from '../store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeUser, getUser, loginAction } from '../store/actions';
 import {
-    Platform,
     Button,
     TextInput,
     Text,
     View,
-    TouchableNativeFeedback,
-    TouchableHighlight,
+    ImageBackground,
 } from 'react-native';
-import style from '../global-styles';
-import {User} from './user';
+import style from './loginstyle';
+import { User } from './user';
+import image from './portal.jpg'
 
 // Function Component
 interface LoginProp {
@@ -39,20 +38,21 @@ function LoginComponent({ navigation }: LoginProp) {
 
     function submitForm() {
         userService.login(user).then((user) => {
-            if(user?.accountstatus === 'deactivated'){
+            if (user?.accountstatus === 'deactivated') {
                 alert('This account is currently deactivated.  Re-activate to continue.');
                 navigation.navigate('ModifyUser');
-            } else if(user?.accountstatus === 'moderator-deactivated'){
+            } else if (user?.accountstatus === 'moderator-deactivated') {
                 dispatch(changeUser(new User));
                 alert('Moderators have deactivated this account.')
                 navigation.navigate('Login');
-            } else{
-                if(user) {
-                    console.log(user);
+            } else {
+                if (user) {
+                    console.log('Login User: ', user);
                     navigation.navigate('Home');
-    
+
                 } else {
                     console.log("No user");
+                    alert('Login Failed. Please Try Again.')
                 }
                 dispatch(getUser(user));
             }
@@ -60,46 +60,38 @@ function LoginComponent({ navigation }: LoginProp) {
             console.log(err);
         });
     }
-    function handle() {
-        alert('why?');
-    }
-    function longHandle(){
-        alert('long press');
-    }
 
-    function register(){
+    function register() {
         navigation.navigate('Register');
     }
-
-    function home() {
-        navigation.navigate('Home');
-    }
-
     return (
-        <View style={[style.container, style.login]}>
-            <Text>Username: </Text>
-            <TextInput
-                style={style.input}
-                onChangeText={(value) =>
-                    dispatch(loginAction({ ...user, username: value }))
-                }
-                value={user.username}
-            />
-            <Text>Password: </Text>
-            <TextInput
-                secureTextEntry={true}
-                style={style.input}
-                onChangeText={(value) =>
-                    dispatch(loginAction({ ...user, password: value }))
-                }
-                value={user.password}
-            />
-            
-            <Button onPress={submitForm} title='Login' color='#880022' />
-            <br></br>
-            <Button onPress={register} title='Register' color='#880022' />
-            {/* <Button onPress={home} title='Home(Temporary)' color='#880022' /> */}
-        </View>
+        <ImageBackground source = {image} style={[style.image]}>
+            <View style={[style.innercontainer]}>
+                <Text style={style.text}>Username: </Text>
+                <TextInput
+                    style={style.input}
+                    onChangeText={(value) =>
+                        dispatch(loginAction({ ...user, username: value }))
+                    }
+                    value={user.username}
+                />
+                <Text style={style.text}>Password: </Text>
+                <TextInput
+                    secureTextEntry={true}
+                    style={style.input}
+                    onChangeText={(value) =>
+                        dispatch(loginAction({ ...user, password: value }))
+                    }
+                    value={user.password}
+                />
+
+                <Button onPress={submitForm} title='Login' color='green' />
+                <br></br>
+                <Button onPress={register} title='Register' color='green' />
+                {/* <Button onPress={home} title='Home(Temporary)' color='#880022' /> */}
+            </View>
+        </ImageBackground>
+
     );
     // TouchableNativeFeedback - Android specific api
     // TouchableHighlight - less specific version

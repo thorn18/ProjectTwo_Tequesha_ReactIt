@@ -8,7 +8,7 @@ import {
     View,
 
 } from 'react-native';
-import style from '../global-styles';
+import style from './thread_table_style';
 import { addThread, getThreads } from '../store/actions';
 import { useNavigation } from '@react-navigation/native';
 import threadService from './thread.service';
@@ -24,13 +24,15 @@ export default function NewThreadComponent({ navigation }: NewThreadProp) {
     const user = useSelector((state: UserState) => state.user);
     const author = th.username = user.username;
 
+
     async function submitThread() {
         await threadService.insertThread(th);
+        await threadService.insertTags(th);
         console.log('inserted');
-        console.log(th);
         threads.push(th);
         dispatch(getThreads(threads));
-        navigation.navigate('Home');
+        console.log(threads);
+        navigation.navigate("Home");
     }
 
     return (
@@ -38,7 +40,7 @@ export default function NewThreadComponent({ navigation }: NewThreadProp) {
             <Text>Author: {author}</Text>
             <br></br>
             <Text>Title: </Text>
-            <TextInput style={style.input}
+            <TextInput style={style.t}
                 onChangeText={(value) =>
                     dispatch(addThread({ ...th, threadname: value }))
                 }
@@ -46,14 +48,25 @@ export default function NewThreadComponent({ navigation }: NewThreadProp) {
             </TextInput>
             <br></br>
             <Text>Category: </Text>
-            <TextInput style={style.input}
+            <TextInput style={style.t}
                 onChangeText={(value) => 
                     dispatch(addThread({...th, threadcategory: value}))
                 }
                 value={th.threadcategory}>
             </TextInput>
             <br></br>
-            <TextInput style={style.input} multiline numberOfLines={4}
+            <Text>Tags(Comma Seperated): </Text>
+            <TextInput style={[style.t,style.tag]}
+                onChangeText={(value) =>
+                    {
+                    dispatch(addThread({...th, tags: value.split(',')}))
+                    }
+                }
+                value={th.threadcategory}>
+            </TextInput>
+            <Text>{th.tags}</Text>
+            <br></br>
+            <TextInput style={style.t} multiline numberOfLines={4}
                 onChangeText={(value) => 
                     dispatch(addThread({...th, threaddescription: value}))
                 }

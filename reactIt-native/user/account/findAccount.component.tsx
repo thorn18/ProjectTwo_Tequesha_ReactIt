@@ -1,15 +1,15 @@
 import React from 'react';
-import userService from './user.service';
-import { UserState } from '../store/store';
+import userService from '../user.service';
+import { UserState } from '../../store/store';
 import { useDispatch, useSelector } from 'react-redux';
-import {searchUserAction} from '../store/actions';
+import {searchUserAction} from '../../store/actions';
 import {
     Button,
     TextInput,
     Text,
     View,
 } from 'react-native';
-import style from '../global-styles';
+import style from '../../global-styles';
 import {useNavigation} from '@react-navigation/native';
 
 function FindAccountComponent() {
@@ -19,7 +19,7 @@ function FindAccountComponent() {
     const navigation = useNavigation();
  
     function submitForm() {
-        userService.getUser(user.username).then((returnedUser) => {
+        userService.getUserByName(user.username).then((returnedUser) => {
             dispatch(searchUserAction(returnedUser));
         });
         navigation.navigate('SearchedProfile');
@@ -36,7 +36,7 @@ function FindAccountComponent() {
                 placeholder='Find User'
             />
             <br></br>
-            <Button onPress={submitForm} title='Submit' color='#880022' />
+            <Button onPress={submitForm} title='Submit' color='green' />
         </View>
     )
 }
