@@ -36,7 +36,7 @@ function HomeComponent({ navigation }: HomeProp) {
 
     useEffect(() => {
         handleStuff()
-    }, [q2, threads]);
+    }, [q2]);
 
     function createNewThread() {
         navigation.navigate('NewThread');

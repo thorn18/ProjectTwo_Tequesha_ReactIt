@@ -6,8 +6,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation, RouteProp } from '@react-navigation/native';
 import { StackParams } from '../router/router.component';
 import threadService from './thread.service';
-import { ThreadState } from '../store/store';
+import { ThreadState, UserState } from '../store/store';
 import { getThreads } from '../store/actions';
+import { State } from 'react-native-gesture-handler';
 
 interface DetailProps {
     route: RouteProp<StackParams, 'ThreadDetail'>;
@@ -18,7 +19,9 @@ export default function ThreadDetailComponent(props: DetailProps) {
     const dispatch = useDispatch();
 
     const thr = props.route.params;
+    const user = useSelector((state: UserState) => state.user);
     const threads = useSelector((state: ThreadState) => state.threads);
+    console.log(user);
 
     function deleteThread(){
         threadService.deleteThread(thr.thread_id);
@@ -37,7 +40,9 @@ export default function ThreadDetailComponent(props: DetailProps) {
             <Text>{thr.threaddescription}</Text>
             <br></br>
 
-            <Button title='Delete Thread' onPress={deleteThread}/>
+            { (user.role === 'Site Moderator' || user.username === thr.username) && (
+                 <Button title='Delete Thread' onPress={deleteThread}/>
+            )}
         </View>
     );
 }
