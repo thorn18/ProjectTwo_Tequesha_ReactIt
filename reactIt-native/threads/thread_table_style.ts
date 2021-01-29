@@ -39,6 +39,13 @@ const threadtablestyle = StyleSheet.create({
         paddingLeft:perfectSize(550),
         color:"yellow",
 
+    },
+    t: {
+        
+    },
+
+    tag: {
+
     }
 
 

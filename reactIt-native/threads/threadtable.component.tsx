@@ -26,9 +26,6 @@ export default function ThreadTableComponent({data}: ThreadProps) {
         nav.navigate('ThreadDetail', data);
     }
 
-    function seeComment() {
-    }
-
     return (
         <View style = {[style.threadCardContainer]}>
             <Text style = {[style.title]}>{data.threadname}</Text>
