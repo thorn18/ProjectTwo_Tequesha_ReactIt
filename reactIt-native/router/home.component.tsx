@@ -21,7 +21,7 @@ interface HomeProp {
 }
 
 interface ThreadProp {
-    data: "hello"
+    data: Thread
 }
 
 function HomeComponent({ navigation }: HomeProp) {
@@ -57,7 +57,7 @@ function HomeComponent({ navigation }: HomeProp) {
     }
 
     function populateThreads(thr: any) {
-        console.log("calling populatae thread");
+        console.log("calling populate thread");
         let temp: Thread[] = [];
         thr.forEach((row: Thread) => {
             temp.push(row);
@@ -99,10 +99,10 @@ function HomeComponent({ navigation }: HomeProp) {
         <View style={[style.homeContainer]}>
             {user.username ? (
                 <Button onPress={createNewThread} title='Create New Thread' color='#880022' />
-             ) : (
-                  <></>
-             )}
-           
+            ) : (
+                    <></>
+                )}
+
             <DropDownPicker
                 items={[
                     { label: 'Thread Title', value: 'Thread Title', icon: () => <Icon name="flag" size={18} color="#900" /> },
@@ -134,14 +134,17 @@ function HomeComponent({ navigation }: HomeProp) {
                 }
                 value={q2}
             />
-
-            <FlatList
+            { threads && threads.length ? (
+                <FlatList
                 data={threads}
-                renderItem={({ item }) => ((checkfilter(item) && <ThreadTableComponent data={item}></ThreadTableComponent>))}
-                keyExtractor={(item) => item.thread_id}
-            />
+                renderItem={({ item }) => (checkfilter(item) && <ThreadTableComponent data={item}></ThreadTableComponent>)}
+                keyExtractor={(item) => item.thread_id.toString()} />
+            ) : (
+                <></>
+            )}
         </View>
     );
 }
+
 
 export default HomeComponent;

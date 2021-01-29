@@ -10,7 +10,7 @@ import UserScreenComponent from '../user/account/userProfile.component';
 import HomeComponent from './home.component';
 import GetProfileComponent from '../user/account/getProfile.component';
 import NewThreadComponent from '../threads/newthread.component';
-import ThreadDetailComponent from '../threads/threadtable.component';
+import ThreadDetailComponent from '../threads/thread.detail.component';
 import { useSelector } from 'react-redux';
 import { ForumState } from '../store/store';
 import { Thread } from '../threads/thread';
@@ -26,9 +26,11 @@ export type StackParams = {
     Profile: undefined;
     SearchedProfile: undefined;
     Home:undefined;
+    Threads:undefined;
     NewThread: undefined;
     ThreadDetails: Thread;
     BannedEmails: undefined;
+    ThreadDetail: Thread;
 
 };
 
@@ -67,6 +69,12 @@ function RouterComponent(props: any) {
                 component = {GetProfileComponent}
                 options={headerOptions}
             />
+             <Stack.Screen
+                name='ThreadDetail'
+                component = {ThreadDetailComponent}
+                options={headerOptions}
+                initialParams={th}
+            />
             <Stack.Screen
                 name='Home'
                 component = {HomeComponent}
@@ -82,6 +90,7 @@ function RouterComponent(props: any) {
                 component = {BanEmailComponent}
                 options={headerOptions}
             />
+            
         </Stack.Navigator>
         
     );
