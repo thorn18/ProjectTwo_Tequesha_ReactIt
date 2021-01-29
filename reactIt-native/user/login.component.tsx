@@ -60,21 +60,10 @@ function LoginComponent({ navigation }: LoginProp) {
             console.log(err);
         });
     }
-    function handle() {
-        alert('why?');
-    }
-    function longHandle() {
-        alert('long press');
-    }
 
     function register() {
         navigation.navigate('Register');
     }
-
-    function home() {
-        navigation.navigate('Home');
-    }
-
     return (
         <ImageBackground source = {image} style={[style.image]}>
             <View style={[style.innercontainer]}>
