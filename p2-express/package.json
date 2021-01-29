@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npx tsc && node bin/www",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "setup": "node build/setup/createTable.js"
+    "setup": "npx tsc && node build/setup/createTable.js"
   },
   "author": "",
   "license": "ISC",
@@ -21,7 +21,6 @@
     "express": "~4.16.1",
     "express-session": "^1.17.1",
     "http-errors": "~1.6.3",
-    "jade": "^1.11.0",
     "log4js": "^6.3.0",
     "memorystore": "^1.6.4",
     "pg": "^8.5.1",

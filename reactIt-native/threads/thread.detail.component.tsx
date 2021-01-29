@@ -1,24 +1,36 @@
 import React from 'react'
-import { StackParams } from '../router/router.component';
-import { RouteProp } from '@react-navigation/native';
-import { View, Text } from 'react-native';
+import { View, Text, Button } from 'react-native';
 import styles from '../global-styles';
+import style from './thread_table_style';
+import { Thread } from './thread';
+import { useNavigation, RouteProp } from '@react-navigation/native';
+import { StackParams } from '../router/router.component';
 
-interface Props {
-    route: RouteProp<StackParams, 'ThreadDetails'>;
+interface DetailProps {
+    route: RouteProp<StackParams, 'ThreadDetail'>;
 }
 
-export default function ThreadDetailComponent(props: Props) {
+export default function ThreadDetailComponent(props: DetailProps) {
+    const nav = useNavigation();
+
     const thr = props.route.params;
-    console.log(thr);
+
+    function deleteThread(){
+        
+    }
 
     return (
         <View>
-            <Text>hello</Text>
-            {/* <Text>Author: {thr.username}</Text>
+            <Text style={style.title}>{thr.threadname}</Text>
+            <br></br>
+            <Text>Author: {thr.username}</Text>
+            <br></br>
             <Text>Category: {thr.threadcategory}</Text>
+            <br></br>
             <Text>{thr.threaddescription}</Text>
-            <Text>Tags: {thr.tags}</Text> */}
+            <br></br>
+
+            <Button title='Delete Thread' onPress={deleteThread}/>
         </View>
     );
 }
