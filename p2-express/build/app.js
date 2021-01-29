@@ -17,9 +17,8 @@ var index_router_1 = __importDefault(require("./routes/index-router"));
 dotenv_1.default.config();
 var app = express_1.default();
 // view engine setup
-//app.use(cors_1.default({ origin: process.env.CLIENT, credentials: true }));
+//app.use(cors({origin:process.env.CLIENT, credentials: true}));
 app.use(cors_1.default({ origin: [process.env.CLIENT, process.env.MOBILE, process.env.ANDROID], credentials: true }));
-
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: false }));
 app.use(express_1.default.static(constant_1.default));
