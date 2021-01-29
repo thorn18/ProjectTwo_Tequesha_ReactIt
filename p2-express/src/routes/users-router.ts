@@ -1,13 +1,13 @@
 import express from 'express'
+import {Cookie} from 'express-session';
 import userservice from '../dbfiles/services/user.service'
 import * as user from '../user/user';
 
 var router = express.Router();
-
 /* GET users listing. */
-router.get('/', function(req: any, res, next) {
-  let u = { ...req.session.user };
-    res.send(JSON.stringify(u));
+router.get('/', function(req, res, next) {
+  // TODO: Get the session information to check if there is a user and send back
+  //res.send('express is working');
 });
 
 router.get('/:username', function(req, res, next) {
@@ -20,7 +20,7 @@ router.get('/:username', function(req, res, next) {
 })
 
 /* GET users listing. */
-router.post('/register', function(req, res, next) {
+router.post('/:username', function(req, res, next) {
   userservice.addUser(req.body).then((result) => {
     console.log(result);
     console.log("Registered!");
@@ -36,7 +36,7 @@ router.post('/', function(req, res, next) {
     console.log(returnedUser?.password);
     console.log(req.body.password);
     if(returnedUser && returnedUser.password === req.body.password){
-      // TODO: Save session here
+      // TODO: Save session
       res.send(JSON.stringify(returnedUser));
     }
     else{

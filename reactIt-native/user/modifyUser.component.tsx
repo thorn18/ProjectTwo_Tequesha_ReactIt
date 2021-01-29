@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import style from '../global-styles';
 import I18n, { strings } from '../i18n';
-import AccountStatusComponent from './accountStatus.component';
+import AccountStatusComponent from './account/accountStatus.component';
 
 export interface ModifyUserProp {
     navigation: any;

@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import userService from './user.service';
-import { UserState } from '../store/store';
+import userService from '../user.service';
+import { UserState } from '../../store/store';
 import { useDispatch, useSelector } from 'react-redux';
-import {changeUser, getUser, registerAction, searchUserAction} from '../store/actions';
+import {changeUser, getUser, registerAction, searchUserAction} from '../../store/actions';
 import {
     Button,
     TextInput,
@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import style from './account-styles';
 import FindAccountComponent from './findAccount.component';
-import {User} from './user';
+import {User} from '../user';
 import {useNavigation} from '@react-navigation/native';
 import AccountStatusComponent from './accountStatus.component';
 

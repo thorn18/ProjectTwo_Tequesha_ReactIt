@@ -6,9 +6,9 @@ import { StackHeaderOptions } from '@react-navigation/stack/lib/typescript/src/t
 import NavBarComponent from './navbar.component';
 import RegisterComponent from '../user/register.component';
 import ModifyUserComponent from '../user/modifyUser.component';
-import UserScreenComponent from '../user/userProfile.component';
+import UserScreenComponent from '../user/account/userProfile.component';
 import HomeComponent from './home.component';
-import GetProfileComponent from '../user/getProfile.component';
+import GetProfileComponent from '../user/account/getProfile.component';
 import NewThreadComponent from '../threads/newthread.component';
 import ThreadDetailComponent from '../threads/threadtable.component';
 import { useSelector } from 'react-redux';

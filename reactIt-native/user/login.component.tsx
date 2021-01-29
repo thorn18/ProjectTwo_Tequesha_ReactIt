@@ -47,11 +47,12 @@ function LoginComponent({ navigation }: LoginProp) {
                 navigation.navigate('Login');
             } else {
                 if (user) {
-                    console.log(user);
+                    console.log('Login User: ', user);
                     navigation.navigate('Home');
 
                 } else {
                     console.log("No user");
+                    alert('Login Failed. Please Try Again.')
                 }
                 dispatch(getUser(user));
             }

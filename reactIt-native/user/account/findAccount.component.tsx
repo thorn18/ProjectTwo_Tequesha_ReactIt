@@ -1,15 +1,15 @@
 import React from 'react';
-import userService from './user.service';
-import { UserState } from '../store/store';
+import userService from '../user.service';
+import { UserState } from '../../store/store';
 import { useDispatch, useSelector } from 'react-redux';
-import {searchUserAction} from '../store/actions';
+import {searchUserAction} from '../../store/actions';
 import {
     Button,
     TextInput,
     Text,
     View,
 } from 'react-native';
-import style from '../global-styles';
+import style from '../../global-styles';
 import {useNavigation} from '@react-navigation/native';
 
 function FindAccountComponent() {

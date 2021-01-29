@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import userService from './user.service';
-import { UserState } from '../store/store';
+import userService from '../user.service';
+import { UserState } from '../../store/store';
 import { useDispatch, useSelector } from 'react-redux';
-import {changeUser, getUser, registerAction} from '../store/actions';
+import {changeUser, getUser, registerAction} from '../../store/actions';
 import {
     Button,
     TextInput,

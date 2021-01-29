@@ -1,10 +1,10 @@
 import React from 'react';
-import userService from './user.service';
-import { UserState } from '../store/store';
+import userService from '../user.service';
+import { UserState } from '../../store/store';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeUser } from '../store/actions';
+import { changeUser } from '../../store/actions';
 import { Button, View } from 'react-native';
-import { User } from './user';
+import { User } from '../user';
 import {useNavigation} from '@react-navigation/native';
 
 interface statusProp {

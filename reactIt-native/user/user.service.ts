@@ -16,7 +16,7 @@ class UserService {
     }
     
     register(user: User): Promise<User>{
-        return axios.post(this.URI+"/register", user, {withCredentials: true}).then(result => result.data).catch(err => err);
+        return axios.post(this.URI+'/'+user.username, user, {withCredentials: true}).then(result => result.data).catch(err => err);
     }
 
     getUserByName(username: string): Promise<User>{
