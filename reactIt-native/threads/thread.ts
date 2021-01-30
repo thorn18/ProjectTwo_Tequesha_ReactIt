@@ -6,6 +6,6 @@ export class Thread {
     threadname:string = '';
     threaddescription:string = '';
     username:string = '';
-    tags:string = '';
+    tags:string[] = [];
     admincomments:string = '';
 }

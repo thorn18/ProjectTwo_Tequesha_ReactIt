@@ -16,26 +16,21 @@ interface ThreadProps{
 
 export default function ThreadTableComponent({data}: ThreadProps) {
     const dispatch = useDispatch();
-    const th = useSelector((state: ThreadState) => state.thread);
+    //const th = useSelector((state: ThreadState) => state.threads);
     const nav = useNavigation();
+    //console.log(th);
 
     function goToDetailComponent() {
-        nav.navigate('ThreadDetails', data);
-    }
-
-    function seeComment() {
-
+        //dispatch(getThreads(th));
+        console.log('button is pressed');
+        nav.navigate('ThreadDetail', data);
     }
 
     return (
         <View style = {[style.threadCardContainer]}>
             <Text style = {[style.title]}>{data.threadname}</Text>
-            <Text style = {[style.text]}>Author : {data.username}</Text>
-            <Text style = {[style.text]}>Category: {data.threadcategory}</Text>
-            {/* <Text>{data.threaddescription}</Text> */}
-            {/* {th.comments.forEach((row) => {
-                <Text>row</Text>
-            })} */}
+            <Text>Author : {data.username}</Text>
+            <Text>Category: {data.threadcategory}</Text>
             <Button onPress = {goToDetailComponent} title = "Go To Thread"/>
         </View>
     )

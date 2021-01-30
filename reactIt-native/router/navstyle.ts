@@ -19,11 +19,12 @@ const routerstyles = StyleSheet.create({
         position:"relative",
         marginTop:perfectSize(0),
         height:perfectSize(90),
+        width:"100%",
         justifyContent:'center',
         color:"white",
         fontFamily:'sans',
-        backgroundColor:"navy",
-        width:"fitcontent",
+        backgroundColor:'darkgreen',
+        fontSize: 25,
     }
 
 });

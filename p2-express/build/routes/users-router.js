@@ -8,9 +8,10 @@ var user_service_1 = __importDefault(require("../dbfiles/services/user.service")
 var router = express_1.default.Router();
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-    res.send('express is working');
+    // TODO: Get the session information to check if there is a user and send back
+    //res.send('express is working');
 });
-router.get('/search/:username', function (req, res, next) {
+router.get('/:username', function (req, res, next) {
     console.log('Back-end for Get User');
     user_service_1.default.getUserByName(req.params.username).then(function (returnedUser) {
         res.send(JSON.stringify(returnedUser));
@@ -19,7 +20,7 @@ router.get('/search/:username', function (req, res, next) {
     });
 });
 /* GET users listing. */
-router.post('/register', function (req, res, next) {
+router.post('/:username', function (req, res, next) {
     user_service_1.default.addUser(req.body).then(function (result) {
         console.log(result);
         console.log("Registered!");
@@ -28,12 +29,13 @@ router.post('/register', function (req, res, next) {
         console.log("NotRegistered!");
     });
 });
-router.post('/login', function (req, res, next) {
+router.post('/', function (req, res, next) {
     console.log("Getting user on login!");
     user_service_1.default.getUserByName(req.body.username).then(function (returnedUser) {
         console.log(returnedUser === null || returnedUser === void 0 ? void 0 : returnedUser.password);
         console.log(req.body.password);
         if (returnedUser && returnedUser.password === req.body.password) {
+            // TODO: Save session
             res.send(JSON.stringify(returnedUser));
         }
         else {

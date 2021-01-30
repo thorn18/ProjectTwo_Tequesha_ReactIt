@@ -22,7 +22,7 @@ interface HomeProp {
 }
 
 interface ThreadProp {
-    data: "hello"
+    data: Thread
 }
 
 function HomeComponent({ navigation }: HomeProp) {
@@ -34,10 +34,11 @@ function HomeComponent({ navigation }: HomeProp) {
 
     let [q2, q2setter] = useState("");
     let [qchooser, qchoosersetter] = useState("");
+    let [a, achooser] = useState(0);
 
     useEffect(() => {
         handleStuff()
-    }, [q2, q2setter]);
+    }, [q2]);
 
     function createNewThread() {
         navigation.navigate('NewThread');
@@ -53,21 +54,19 @@ function HomeComponent({ navigation }: HomeProp) {
         });
     }
 
-    function rerender() {
-        console.log("calling rerender");
-    }
-
     function populateThreads(thr: any) {
-        console.log("calling populatae thread");
+        console.log("calling populate thread");
         let temp: Thread[] = [];
         thr.forEach((row: Thread) => {
             temp.push(row);
         })
         threads = temp;
         dispatch(getThreads(threads));
-        rerender();
     }
 
+    function refresh() {
+        handleStuff();
+    }
     function checkfilter(thread: Thread) {
         if (qchooser == "Thread Title") {
             console.log("thread name");
@@ -97,10 +96,10 @@ function HomeComponent({ navigation }: HomeProp) {
     }
 
     return (
-        <ImageBackground source = {image} style={[style.image]}>
+        <ImageBackground source={image} style={[style.image]}>
             <View style={[style.homeContainer]}>
                 {user.username ? (
-                    <Button onPress={createNewThread} title='Create New Thread' color='navy' />
+                    <Button onPress={createNewThread} title='Create New Thread' color='green' />
                 ) : (
                         <></>
                     )}
@@ -142,10 +141,13 @@ function HomeComponent({ navigation }: HomeProp) {
                     renderItem={({ item }) => ((checkfilter(item) && <ThreadTableComponent data={item}></ThreadTableComponent>))}
                     keyExtractor={(item) => item.thread_id}
                 />
+                <Button onPress={refresh} title='Refresh Thread List' color='green' />
+
             </View>
         </ImageBackground>
 
     );
 }
+
 
 export default HomeComponent;

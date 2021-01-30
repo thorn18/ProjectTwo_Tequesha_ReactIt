@@ -23,6 +23,7 @@ function NavBarComponent() {
                     nav.navigate('Profile')
                 }}
                 title={strings('nav.welcome', { name: user.name })}
+                color='navy'
             />
             ):(
                 <></>

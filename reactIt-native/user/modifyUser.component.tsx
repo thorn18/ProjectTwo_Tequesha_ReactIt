@@ -11,8 +11,8 @@ import {
 } from 'react-native';
 import style from '../global-styles';
 import I18n, { strings } from '../i18n';
-import AccountStatusComponent from './accountStatus.component';
-
+import AccountStatusComponent from './account/accountStatus.component';
+import styles from './loginstyle'
 export interface ModifyUserProp {
     navigation: any;
 }
@@ -94,10 +94,11 @@ function ModifyUserComponent({ navigation }: ModifyUserProp) {
                         dispatch(changeLocale('fr'))
                     }}
                     title='FR'
+                    color='green'
                 />
             )}
             <br></br>
-            <Button onPress={submitForm} title='Update' color='#880022' />
+            <Button onPress={submitForm} title='Update' color='green' />
             <br></br>
             <AccountStatusComponent user={user}/>
         </View>
