@@ -33,7 +33,7 @@ export type StackParams = {
     ThreadDetails: Thread;
     BannedEmails: undefined;
     ThreadDetail: Thread;
-    Reply: undefined;
+    Reply: undefined | Thread;
 };
 
 const Stack = createStackNavigator<StackParams>();

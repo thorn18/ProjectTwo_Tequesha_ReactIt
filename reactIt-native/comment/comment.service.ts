@@ -8,7 +8,9 @@ class CommentService {
         this.URI = 'https://hn2j9rkruh.execute-api.us-west-2.amazonaws.com/secondStage/replies'
     }
 
-    insertReply(){
-        axios.post(this.URI);
+    insertReply(comment: Comment){
+        axios.post(this.URI, comment);
     }
 }
+
+export default new CommentService();

@@ -1,6 +1,7 @@
 import {User} from './../user/user';
 import { Thread } from './../threads/thread';
 import {Email} from '../user/email/email';
+import { Comment } from './../comment/comment';
 
 export enum UserActions {
     GetUser = 'GET_USER',
