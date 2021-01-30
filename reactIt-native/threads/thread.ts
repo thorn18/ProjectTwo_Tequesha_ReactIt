@@ -8,4 +8,5 @@ export class Thread {
     username:string = '';
     tags:string[] = [];
     admincomments:string = '';
+    repliesdisabled:boolean = false;
 }

@@ -11,6 +11,7 @@ var Thread = /** @class */ (function () {
         this.username = '';
         this.tags = [];
         this.admincomments = '';
+        this.repliesdisabled = false;
     }
     return Thread;
 }());

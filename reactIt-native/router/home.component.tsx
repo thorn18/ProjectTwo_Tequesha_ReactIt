@@ -69,22 +69,25 @@ function HomeComponent({ navigation }: HomeProp) {
     }
     function checkfilter(thread: Thread) {
         if (qchooser == "Thread Title") {
-            console.log("thread name");
             if (threads.includes(thread) && thread.threadname.includes(q2)) {
                 return true;
             } else {
                 return false;
             }
         } else if (qchooser == "Author") {
-            console.log("thread name");
             if (threads.includes(thread) && thread.username.includes(q2)) {
                 return true;
             } else {
                 return false;
             }
         } else if (qchooser == "Category") {
-            console.log("thread name");
             if (threads.includes(thread) && thread.threadcategory.includes(q2)) {
+                return true;
+            } else {
+                return false;
+            }
+        } else if (qchooser == "Tags") {
+            if (threads.includes(thread) && thread.tags.includes(q2)) {
                 return true;
             } else {
                 return false;
@@ -109,6 +112,8 @@ function HomeComponent({ navigation }: HomeProp) {
                         { label: 'Thread Title', value: 'Thread Title', icon: () => <Icon name="flag" size={18} color="#900" /> },
                         { label: 'Author', value: 'Author', icon: () => <Icon name="flag" size={18} color="#900" /> },
                         { label: 'Category', value: 'Category', icon: () => <Icon name="flag" size={18} color="#900" /> },
+                        { label: 'Tags', value: 'Tags', icon: () => <Icon name="flag" size={18} color="#900" /> },
+
                     ]}
                     defaultValue=""
                     containerStyle={{ height: 40 }}
@@ -135,7 +140,6 @@ function HomeComponent({ navigation }: HomeProp) {
                     }
                     value={q2}
                 />
-
                 <FlatList
                     data={threads}
                     renderItem={({ item }) => ((checkfilter(item) && <ThreadTableComponent data={item}></ThreadTableComponent>))}

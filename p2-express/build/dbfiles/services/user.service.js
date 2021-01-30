@@ -96,9 +96,7 @@ var UserService = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         params = {
-                            // TableName - the name of the table we are sending it to
                             TableName: 'users',
-                            // Item - the object we are sending
                             Item: user,
                         };
                         return [4 /*yield*/, this.doc.put(params).promise().then(function (result) {
