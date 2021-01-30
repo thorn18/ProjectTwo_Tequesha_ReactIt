@@ -6,4 +6,5 @@ export class Comment {
     thread_reply_description: string = '';
     threads_id: number = 0;
     admincomments: string = '';
+    username: string = '';
 }

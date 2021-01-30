@@ -150,3 +150,11 @@ export function getAllBanned(emails: Email[]): EmailAction<Email[]> {
     }
     return action;
 }
+
+export function addReply(comment: Comment): CommentAction<Comment>{
+    const action: CommentAction<Comment> = {
+        type: CommentActions.ChangeComments,
+        payload: comment
+    }
+    return action;
+}

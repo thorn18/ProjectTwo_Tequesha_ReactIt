@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import style from './thread_table_style';
 import { addThread, getThreads } from '../store/actions';
-import { useNavigation } from '@react-navigation/native';
 import threadService from './thread.service';
 
 interface NewThreadProp{

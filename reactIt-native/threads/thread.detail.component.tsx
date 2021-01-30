@@ -34,7 +34,7 @@ export default function ThreadDetailComponent(props: DetailProps) {
     }
 
     function insertReply() {
-        
+        nav.navigate('Reply');
     }
 
     return (
@@ -49,6 +49,9 @@ export default function ThreadDetailComponent(props: DetailProps) {
             <br></br>
 
             <Button title='Add a reply' onPress={insertReply}/>
+            
+            <Text>Replies: </Text>
+            <br></br>
             <FlatList
                 data={com}
                 renderItem={({ item }) => (<CommentTableComponent data={item}></CommentTableComponent>)}

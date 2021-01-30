@@ -18,6 +18,7 @@ export interface UserState {
     locale?: string;
     query:string;
 }
+
 export interface ThreadState {
     threads: Thread[];
     thread: Thread
