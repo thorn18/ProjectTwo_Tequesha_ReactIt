@@ -7,8 +7,6 @@ import { useNavigation, RouteProp } from '@react-navigation/native';
 import { StackParams } from '../router/router.component';
 import threadService from './thread.service';
 import { ThreadState, UserState } from '../store/store';
-import { getThreads } from '../store/actions';
-import { State } from 'react-native-gesture-handler';
 
 interface DetailProps {
     route: RouteProp<StackParams, 'ThreadDetail'>;
@@ -39,6 +37,7 @@ export default function ThreadDetailComponent(props: DetailProps) {
             <br></br>
             <Text>{thr.threaddescription}</Text>
             <br></br>
+
 
             { (user.role === 'Site Moderator' || user.username === thr.username) && (
                  <Button title='Delete Thread' onPress={deleteThread}/>

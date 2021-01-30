@@ -18,6 +18,12 @@ export enum ThreadActions {
     ChangeThreads = 'CHANGE_THREADS'
 }
 
+export enum CommentActions {
+    GetComments = 'GET_COMMENTS',
+    GetComment = 'GET_COMMENT',
+    ChangeComments = 'CHANGE_COMMENTS'
+}
+
 export enum EmailActions {
     ChangeEmail = 'CHANGE_EMAIL',
     GetAllBanned = 'GET_ALL_BANNED'
@@ -40,6 +46,11 @@ export interface UserAction<P> extends AppAction {
 
 export interface EmailAction<P> extends AppAction{
     type: EmailActions;
+    payload: P;
+}
+
+export interface CommentAction<P> extends AppAction{
+    type: CommentActions;
     payload: P;
 }
 
