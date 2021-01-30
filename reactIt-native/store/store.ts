@@ -19,7 +19,6 @@ export interface UserState {
     query:string;
 }
 export interface ThreadState {
-    //TEMP NEEDS CHANGING
     threads: Thread[];
     thread: Thread
 }

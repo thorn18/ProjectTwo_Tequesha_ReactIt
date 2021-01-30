@@ -1,15 +1,21 @@
 import React from 'react'
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, FlatList } from 'react-native';
 import styles from '../global-styles';
 import style from './thread_table_style';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation, RouteProp } from '@react-navigation/native';
 import { StackParams } from '../router/router.component';
 import threadService from './thread.service';
-import { ThreadState, UserState } from '../store/store';
+import { UserState, CommentState } from '../store/store';
+import { Comment } from '../comment/comment';
+import CommentTableComponent from '../comment/commenttable.component';
 
 interface DetailProps {
     route: RouteProp<StackParams, 'ThreadDetail'>;
+}
+
+interface CommentProp {
+    data: Comment
 }
 
 export default function ThreadDetailComponent(props: DetailProps) {
@@ -18,13 +24,17 @@ export default function ThreadDetailComponent(props: DetailProps) {
 
     const thr = props.route.params;
     const user = useSelector((state: UserState) => state.user);
-    const threads = useSelector((state: ThreadState) => state.threads);
+    const com = useSelector((state: CommentState) => state.comments);
     console.log(user);
 
-    function deleteThread(){
+    function deleteThread() {
         threadService.deleteThread(thr.thread_id);
         console.log('successfully deleted');
         nav.navigate('Home');
+    }
+
+    function insertReply() {
+        
     }
 
     return (
@@ -38,9 +48,15 @@ export default function ThreadDetailComponent(props: DetailProps) {
             <Text>{thr.threaddescription}</Text>
             <br></br>
 
+            <Button title='Add a reply' onPress={insertReply}/>
+            <FlatList
+                data={com}
+                renderItem={({ item }) => (<CommentTableComponent data={item}></CommentTableComponent>)}
+                keyExtractor={(item) => item.thread_reply_id}
+            />
 
-            { (user.role === 'Site Moderator' || user.username === thr.username) && (
-                 <Button title='Delete Thread' onPress={deleteThread}/>
+            {(user.role === 'Site Moderator' || user.username === thr.username) && (
+                <Button title='Delete Thread' onPress={deleteThread} />
             )}
         </View>
     );
