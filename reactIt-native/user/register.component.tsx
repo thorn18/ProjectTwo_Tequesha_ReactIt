@@ -1,26 +1,23 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import userService from './user.service';
 import { UserState } from '../store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser, registerAction } from '../store/actions';
 import {
-    Platform,
     Button,
     TextInput,
     Text,
     View,
-    TouchableNativeFeedback,
-    TouchableHighlight,
 } from 'react-native';
 import style from './account/account-styles';
 import emailService from './email/email.service';
-import {Email} from './email/email';
 import {User} from './user';
 
-// Function Component
 interface RegisterProp {
     navigation: any;
 }
+
+// User can register for a new account
 function RegisterComponent({ navigation }: RegisterProp) {
     const userSelector = (state: UserState) => state.registerUser;
     const user = useSelector(userSelector);
@@ -28,6 +25,7 @@ function RegisterComponent({ navigation }: RegisterProp) {
 
     function submitForm() {
         let emailBanned: boolean;
+        // check to make sure user is not using a banned email
         emailService.getEmailAddress(user.email).then((email) =>{
             if(email){
                 emailBanned = true;
@@ -36,6 +34,7 @@ function RegisterComponent({ navigation }: RegisterProp) {
                 emailBanned = false;
             }
 
+            // if the email is not banned, create an account
             if(emailBanned === false){
                 userService.register(user).then((user) => {
                     dispatch(getUser(user));
@@ -47,12 +46,7 @@ function RegisterComponent({ navigation }: RegisterProp) {
             dispatch(registerAction(new User()));
         });  
     }
-    function handle() {
-        alert('press');
-    }
-    function longHandle() {
-        alert('long press');
-    }
+    
     return (
         <View style={style.container}>
         <View style={[style.innercontainer]}>
@@ -69,6 +63,7 @@ function RegisterComponent({ navigation }: RegisterProp) {
             <br></br>
             <Text style={style.text}>Password: </Text>
             <TextInput
+                secureTextEntry
                 style={[style.input, style.text]}
                 onChangeText={(value) =>
                     dispatch(registerAction({ ...user, password: value }))

@@ -2,25 +2,28 @@ import React from 'react';
 import userService from './user.service';
 import { UserState } from '../store/store';
 import { useDispatch, useSelector } from 'react-redux';
-import {changeLocale, changeUser, registerAction} from '../store/actions';
+import {changeLocale, changeUser} from '../store/actions';
 import {
     Button,
     TextInput,
     Text,
     View,
 } from 'react-native';
-import I18n, { strings } from '../i18n';
+import I18n from '../i18n';
 import AccountStatusComponent from './account/accountStatus.component';
 import style from './account/account-styles'
+
 export interface ModifyUserProp {
     navigation: any;
 }
 
+// Account holder can make modifications to their own account information
 function ModifyUserComponent({ navigation }: ModifyUserProp) {
     const userSelector = (state: UserState) => state.user;
     const user = useSelector(userSelector);
     const dispatch = useDispatch();
  
+    // Update the state and navigate back to home page
     function submitForm() {
         userService.updateUser(user).then(() => {
             navigation.navigate('Home');
@@ -29,12 +32,14 @@ function ModifyUserComponent({ navigation }: ModifyUserProp) {
 
     }
 
+    // Account status component called to give options regarding activating and deactivating account
     return (
         <View style={style.container}>
             <br></br>
             <View style={style.innercontainer}>
                 <Text style={style.text}>Password: </Text>
                 <TextInput
+                    secureTextEntry
                     style={[style.input, style.text]}
                     onChangeText={(value) =>
                         dispatch(changeUser({ ...user, password: value }))
@@ -78,6 +83,8 @@ function ModifyUserComponent({ navigation }: ModifyUserProp) {
                     placeholder={user.phonenumber}
                 />
                 <br></br>
+                <Button onPress={submitForm} title='Update' color='green' />
+                <br></br>
                 <Text style={style.text}>Language Options: </Text>
                 {I18n.locale === 'fr' ? (
                     <Button
@@ -98,8 +105,7 @@ function ModifyUserComponent({ navigation }: ModifyUserProp) {
                     />
                 )}
                 <br></br>
-                <Button onPress={submitForm} title='Update' color='green' />
-                <br></br>
+                <Text style={style.text}>Account Options: </Text>
                 <AccountStatusComponent user={user}/>
             </View>
         </View>

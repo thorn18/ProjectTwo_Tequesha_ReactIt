@@ -14,15 +14,17 @@ interface ModifyUserProp {
     navigation: any;
 }
 
+// Display profile of current user and user options
 function UserProfileComponent({ navigation }: ModifyUserProp) {
     const userSelector = (state: UserState) => state.user;
     const user = useSelector(userSelector);
 
-    
+    // Account holder modifications to account
     function goToModify(){
         navigation.navigate('ModifyUser');
     }
 
+    // Site moderators can ban specific emails and view emails already banned
     function goToBanEmail(){
         navigation.navigate('BannedEmails');
     }

@@ -1,14 +1,12 @@
 import React, {useEffect} from 'react';
 import emailService from '../email/email.service';
-import { Button, View, Text } from 'react-native';
-import { Email } from './email';
-import {useNavigation} from '@react-navigation/native';
-import {UserState, EmailState} from '../../store/store';
+import { View, Text } from 'react-native';
+import { EmailState} from '../../store/store';
 import {useSelector, useDispatch} from 'react-redux';
 import {getAllBanned} from '../../store/actions';
 import style from '../account/account-styles';
 
-
+// Display list of emails banned from registration
 function DisplayEmailComponent() {
     const emailSelector = (state: EmailState) => state.emails;
     const emails = useSelector(emailSelector);
@@ -17,7 +15,6 @@ function DisplayEmailComponent() {
     useEffect(() => {
         emailService.getAllBanned().then((emailAddresses) =>{
             dispatch(getAllBanned(emailAddresses));
-            console.log(emails);
         });        
     }, []);
 

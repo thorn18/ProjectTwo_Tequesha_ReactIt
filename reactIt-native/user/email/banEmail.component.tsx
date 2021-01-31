@@ -1,8 +1,6 @@
 import React from 'react';
 import emailService from '../email/email.service';
 import { Button, TextInput, View, Text } from 'react-native';
-import { Email } from './email';
-import {useNavigation} from '@react-navigation/native';
 import {UserState, EmailState} from '../../store/store';
 import {useDispatch, useSelector} from 'react-redux';
 import DisplayEmailComponent from './displayEmails.component';
@@ -13,6 +11,7 @@ export interface EmailProp {
     navigation: any;
 }
 
+// Ban email address from registration
 function BanEmailComponent({navigation}: EmailProp) {
     const userSelector = (state: UserState) => state.user;
     const emailSelector = (state: EmailState) => state.email;
@@ -21,11 +20,13 @@ function BanEmailComponent({navigation}: EmailProp) {
     const dispatch = useDispatch();
 
     function submitForm() {
-        console.log('prop');
+        // Set current user as the moderator that banned email
         email.bannedBy = currUser.username;
+        // Add banned email to the database and update state for confirmation
         emailService.addEmailAddress(email).then((bannedEmail) => {
             dispatch(changeEmail(bannedEmail));
         });
+        //Confirmation of ban
         alert(`${email.address} has been banned from registration.`)
         navigation.navigate('Home');
     }
