@@ -134,7 +134,7 @@ export function changeEmail(email: Email): EmailAction<Email> {
 
 export function getAllBanned(emails: Email[]): EmailAction<Email[]> {
     const action: EmailAction<Email[]> = {
-        type: EmailActions.ChangeEmail,
+        type: EmailActions.GetAllBanned,
         payload: emails
     }
     return action;

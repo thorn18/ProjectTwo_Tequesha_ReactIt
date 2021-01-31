@@ -9,7 +9,7 @@ import {
     Text,
     View,
 } from 'react-native';
-import style from '../../global-styles';
+import style from './account-styles';
 import {useNavigation} from '@react-navigation/native';
 
 function FindAccountComponent() {

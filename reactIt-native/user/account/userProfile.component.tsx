@@ -46,7 +46,7 @@ function UserProfileComponent({ navigation }: ModifyUserProp) {
                 <>
                 <FindAccountComponent/>
                 <br></br>
-                <Button onPress={goToBanEmail} title='View Banned Emails' color='green'/>
+                <Button onPress={goToBanEmail} title='Ban Email Address' color='green'/>
                 </>
             )}
         </View>

@@ -12,7 +12,10 @@ import {
     TouchableNativeFeedback,
     TouchableHighlight,
 } from 'react-native';
-import style from '../global-styles';
+import style from './account/account-styles';
+import emailService from './email/email.service';
+import {Email} from './email/email';
+import {User} from './user';
 
 // Function Component
 interface RegisterProp {
@@ -24,13 +27,25 @@ function RegisterComponent({ navigation }: RegisterProp) {
     const dispatch = useDispatch();
 
     function submitForm() {
+        let emailBanned: boolean;
+        emailService.getEmailAddress(user.email).then((email) =>{
+            if(email){
+                emailBanned = true;
+            } else{
+                console.log('null');
+                emailBanned = false;
+            }
 
-        userService.register(user).then((user) => {
-            console.log(user);
-            dispatch(getUser(user));
-        });
-        navigation.navigate('Login');
-
+            if(emailBanned === false){
+                userService.register(user).then((user) => {
+                    dispatch(getUser(user));
+                });
+            } else if (emailBanned === true){
+                alert('Email banned. Unable to register.')
+            }
+            navigation.navigate('Login');
+            dispatch(registerAction(new User()));
+        });  
     }
     function handle() {
         alert('press');
@@ -39,59 +54,67 @@ function RegisterComponent({ navigation }: RegisterProp) {
         alert('long press');
     }
     return (
-        <View style={[style.container, style.login]}>
-            <Text>Username: </Text>
+        <View style={style.container}>
+        <View style={[style.innercontainer]}>
+            <br></br>
+            <Text style={style.text}>Username: </Text>
             <TextInput
-                style={style.input}
+                style={[style.input, style.text]}
                 onChangeText= {(value) => {
                     user.username = value;
                     dispatch(registerAction({ ...user, username: value }))
                 }}
                 value={user.username}
             />
-            <Text>Password: </Text>
+            <br></br>
+            <Text style={style.text}>Password: </Text>
             <TextInput
-                style={style.input}
+                style={[style.input, style.text]}
                 onChangeText={(value) =>
                     dispatch(registerAction({ ...user, password: value }))
                 }
                 value={user.password}
             />
-            <Text>Name: </Text>
+            <br></br>
+            <Text style={style.text}>Name: </Text>
             <TextInput
-                style={style.input}
+                style={[style.input, style.text]}
                 onChangeText={(value) =>
                     dispatch(registerAction({ ...user, name: value }))
                 }
                 value={user.name}
             />
-            <Text>Email: </Text>
+            <br></br>
+            <Text style={style.text}>Email: </Text>
             <TextInput
-                style={style.input}
+                style={[style.input, style.text]}
                 onChangeText={(value) =>
                     dispatch(registerAction({ ...user, email: value }))
                 }
                 value={user.email}
             />
-            <Text>Age: </Text>
+            <br></br>
+            <Text style={style.text}>Age: </Text>
             <TextInput
                 
-                style={style.input}
+                style={[style.input, style.text]}
                 onChangeText={(value) =>
 
                     dispatch(registerAction({ ...user, age: Number(value) }))
                 }
             />
-            <Text>Phone Number: </Text>
+            <br></br>
+            <Text style={style.text}>Phone Number: </Text>
             <TextInput
-                style={style.input}
+                style={[style.input, style.text]}
                 onChangeText={(value) =>
                     dispatch(registerAction({ ...user, phonenumber: value }))
                 }
                 value={user.phonenumber}
             />
-            <Button onPress={submitForm} title='Register' color='#880022' />
-
+            <br></br>
+            <Button onPress={submitForm} title='Register' color='green' />
+            </View>
         </View>
     );
 }

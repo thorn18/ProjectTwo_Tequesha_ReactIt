@@ -16,10 +16,22 @@ const styles = StyleSheet.create({
         borderColor: 'yellow',
         borderStyle: 'solid',
         borderWidth: 3,
+        backgroundColor: '#aaa'
+    },
+    innercontainer: {
+        width: perfectSize(750),
+        position: "relative",
+        marginLeft: "auto",
+        marginRight: "auto",
+        marginTop: perfectSize(0),
+        backgroundColor: '#aaa'
+
+
     },
     input: {
         backgroundColor: '#fff',
-        borderRadius: 20
+        borderRadius: 20,
+        textAlign: "center",
     },
     login: {
         backgroundColor: '#aaa'
