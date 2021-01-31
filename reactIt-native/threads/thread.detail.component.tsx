@@ -39,24 +39,32 @@ export default function ThreadDetailComponent(props: DetailProps) {
         nav.navigate('Reply', thr);
     }
     
-    let co: any;
-
     useEffect(() => {
+        gettingReplies();
+    },[]);
+
+    function gettingReplies(){
+        let co: any;
         commentService.getReplies(thr.thread_id).then((result) => {
             co = result;
             populateReplies(co);
-        })
-    },[]);
+        });
+    }
 
     function populateReplies(reply: any) {
+        console.log('populating replies');
         let rep: Comment[] = [];
-        co.forEach((row: Comment) => {
+        reply.forEach((row: Comment) => {
             rep.push(row);
         })
         com = rep;
         dispatch(getComments(com));
     }
-    
+
+    function refresh() {
+        gettingReplies();
+    }
+
     return (
         <View>
             <Text style={style.title}>{thr.threadname}</Text>
@@ -78,6 +86,9 @@ export default function ThreadDetailComponent(props: DetailProps) {
                 renderItem={({ item }) => (<CommentTableComponent data={item}></CommentTableComponent>)}
                 keyExtractor={(item) => item.thread_reply_id}
             />
+
+            <Button title='Refresh replies' onPress={refresh} />
+            <br></br>
 
             {(user.role === 'Site Moderator' || user.username === thr.username) && (
                 <Button title='Delete Thread' onPress={deleteThread} />

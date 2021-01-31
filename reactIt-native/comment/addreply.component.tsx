@@ -24,7 +24,6 @@ export function AddReplyComponent(props: ReplyProp) {
     const comment = useSelector((state: CommentState) => state.comment);
     const dispatch = useDispatch();
 
-
     const author = comment.username = userContext.username;
     const parentId = comment.threads_id = Number(parentThread?.thread_id);
 
