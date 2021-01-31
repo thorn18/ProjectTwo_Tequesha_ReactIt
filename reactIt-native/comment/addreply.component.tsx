@@ -36,6 +36,7 @@ export function AddReplyComponent(props: ReplyProp) {
         }catch {
             console.log('insert failed');
         }
+        props.navigation.navigate('ThreadDetail');
     }
 
     return (
