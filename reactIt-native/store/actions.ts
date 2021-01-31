@@ -152,6 +152,14 @@ export function getAllBanned(emails: Email[]): EmailAction<Email[]> {
     return action;
 }
 
+export function getComments(comments: Comment[]): CommentAction<Comment[]> {
+    const action: CommentAction<Comment[]> = {
+        type: CommentActions.GetComments,
+        payload: comments
+    }
+    return action;
+}
+
 export function addReply(comment: Comment): CommentAction<Comment>{
     const action: CommentAction<Comment> = {
         type: CommentActions.ChangeComments,

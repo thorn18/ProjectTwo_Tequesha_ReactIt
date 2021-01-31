@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { View, Text, Button, FlatList } from 'react-native';
 import styles from '../global-styles';
 import style from './thread_table_style';
@@ -8,7 +8,9 @@ import { StackParams } from '../router/router.component';
 import threadService from './thread.service';
 import { UserState, CommentState } from '../store/store';
 import { Comment } from '../comment/comment';
+import { getComments } from '../store/actions';
 import CommentTableComponent from '../comment/commenttable.component';
+import commentService from '../comment/comment.service';
 
 interface DetailProps {
     route: RouteProp<StackParams, 'ThreadDetail'>;
@@ -24,7 +26,7 @@ export default function ThreadDetailComponent(props: DetailProps) {
 
     const thr = props.route.params;
     const user = useSelector((state: UserState) => state.user);
-    const com = useSelector((state: CommentState) => state.comments);
+    let com = useSelector((state: CommentState) => state.comments);
     console.log(user);
 
     function deleteThread() {
@@ -36,7 +38,25 @@ export default function ThreadDetailComponent(props: DetailProps) {
     function insertReply() {
         nav.navigate('Reply', thr);
     }
+    
+    let co: any;
 
+    useEffect(() => {
+        commentService.getReplies(thr.thread_id).then((result) => {
+            co = result;
+            populateReplies(co);
+        })
+    },[]);
+
+    function populateReplies(reply: any) {
+        let rep: Comment[] = [];
+        co.forEach((row: Comment) => {
+            rep.push(row);
+        })
+        com = rep;
+        dispatch(getComments(com));
+    }
+    
     return (
         <View>
             <Text style={style.title}>{thr.threadname}</Text>
@@ -52,6 +72,7 @@ export default function ThreadDetailComponent(props: DetailProps) {
 
             <Text>Replies: </Text>
             <br></br>
+
             <FlatList
                 data={com}
                 renderItem={({ item }) => (<CommentTableComponent data={item}></CommentTableComponent>)}
