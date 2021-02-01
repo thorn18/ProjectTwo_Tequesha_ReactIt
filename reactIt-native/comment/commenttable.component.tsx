@@ -14,7 +14,7 @@ export default function CommentTableComponent({data}: CommentProps) {
 
     return (
         <View>
-            <Text>{data.thread_reply_description}</Text>
+            <Text>{data.username + ': ' + data.thread_reply_description}</Text>
         </View>
     )
 }
