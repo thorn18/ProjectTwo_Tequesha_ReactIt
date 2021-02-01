@@ -82,6 +82,19 @@ const threadtablestyle = StyleSheet.create({
         color: "red",
         textAlign: "center",
     },
+    image: {
+        flex: 1,
+        resizeMode: "cover",
+        justifyContent: "center",
+    },
+    add: {
+        backgroundColor:"white",
+        borderStyle:"inset",
+        borderWidth: 2,
+        borderColor:"black",
+        fontSize:16,
+        fontWeight:"bold",
+    },
 
 
 

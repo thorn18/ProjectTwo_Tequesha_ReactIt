@@ -6,12 +6,15 @@ import {
     TextInput,
     Text,
     View,
+    ImageBackground,
 
 } from 'react-native';
 import { addReply } from '../store/actions';
 import commentService from './comment.service';
 import { RouteProp } from '@react-navigation/native';
 import { StackParams } from '../router/router.component';
+import style from './thread_comment_style';
+import image from '../threads/alien.jpg'
 
 interface ReplyProp {
     navigation: any,
@@ -32,31 +35,35 @@ export function AddReplyComponent(props: ReplyProp) {
         try {
             console.log('attempting to insert')
             commentService.insertReply(comment);
-        }catch {
+        } catch {
             console.log('insert failed');
         }
         props.navigation.navigate('ThreadDetail');
     }
 
     return (
-        <View>
-            <Text>Author: {author}</Text>
-            <Text>Reply Title: </Text>
-            <TextInput 
-            onChangeText={(value) =>
-                dispatch(addReply({...comment, thread_reply_name: value}))
-                }
-                value={comment.thread_reply_name}>
-            </TextInput>
-            <Text>Reply: </Text>
-            <TextInput multiline numberOfLines={4} 
-                onChangeText={(value) => 
-                    dispatch(addReply({...comment, thread_reply_description: value}))
-                }
-                value={comment.thread_reply_description}>
-            </TextInput>
+        <ImageBackground source={image} style={[style.image]}>
+            <View style={[style.container]}>
+                <Text style={[style.add]}>Author: {author}</Text>
+                <Text style={[style.add]}>Reply Title: </Text>
+                <TextInput
+                    style={[style.add]}
+                    onChangeText={(value) =>
+                        dispatch(addReply({ ...comment, thread_reply_name: value }))
+                    }
+                    value={comment.thread_reply_name}>
+                </TextInput>
+                <Text style={[style.add]}>Reply: </Text>
+                <TextInput multiline numberOfLines={4} style={[style.add]}
+                    onChangeText={(value) =>
+                        dispatch(addReply({ ...comment, thread_reply_description: value }))
+                    }
+                    value={comment.thread_reply_description}>
+                </TextInput>
 
-            <Button title='Add Reply' onPress={submitReply} />
-        </View>
+                <Button title='Add Reply' onPress={submitReply} />
+            </View>
+
+        </ImageBackground>
     )
 }
