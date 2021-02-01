@@ -43,9 +43,7 @@ export default function NewThreadComponent({ navigation }: NewThreadProp) {
             setSelection(true);
         } 
         dispatch(addThread({ ...th, repliesdisabled: isSelected }))
-
     }
-
     return (
         <View>
             <Text>Author: {author}</Text>
