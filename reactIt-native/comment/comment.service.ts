@@ -26,6 +26,10 @@ class CommentService {
     insertReply(comment: Comment){
         axios.post(this.URI, comment);
     }
+
+    deleteReply(id: string){
+        axios.get(this.URI + '/replied?replied=' + id);
+    }
 }
 
 export default new CommentService();
