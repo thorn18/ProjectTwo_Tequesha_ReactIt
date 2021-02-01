@@ -6,12 +6,13 @@ import {
     TextInput,
     Text,
     View,
-
+    ImageBackground,
 } from 'react-native';
 import style from './thread_table_style';
 import { addThread, getThreads } from '../store/actions';
 import threadService from './thread.service';
 import { Switch } from 'react-native';
+import background from './alien.jpg'
 
 interface NewThreadProp {
     navigation: any
@@ -27,6 +28,7 @@ export default function NewThreadComponent({ navigation }: NewThreadProp) {
 
 
 
+
     async function submitThread() {
         await threadService.insertThread(th);
         threads.push(th);
@@ -36,49 +38,50 @@ export default function NewThreadComponent({ navigation }: NewThreadProp) {
     }
 
     function setRepliesDisabled() {
-        if(isSelected){
+        if (isSelected) {
             setSelection(false);
         } else {
             setSelection(true);
-        } 
+        }
         dispatch(addThread({ ...th, repliesdisabled: isSelected }))
     }
     return (
-        <View>
-            <Text>Author: {author}</Text>
-            <br></br>
-            <Text>Title: </Text>
-            <TextInput style={style.t}
-                onChangeText={(value) =>
-                    dispatch(addThread({ ...th, threadname: value }))
-                }
-                value={th.threadname}>
-            </TextInput>
-            <br></br>
-            <Text>Category: </Text>
-            <TextInput style={style.t}
-                onChangeText={(value) =>
-                    dispatch(addThread({ ...th, threadcategory: value }))
-                }
-                value={th.threadcategory}>
-            </TextInput>
-            <br></br>
-            <TextInput style={style.t} multiline numberOfLines={4}
-                onChangeText={(value) =>
-                    dispatch(addThread({ ...th, threaddescription: value }))
-                }
-                value={th.threaddescription}>
-            </TextInput>
-            <br></br>
-            <Text>Do you want to disable comments on this thread?</Text>
-            <Switch
-                value={isSelected}
-                onValueChange={setRepliesDisabled}
+        <ImageBackground source={background} style={[style.vac]}>
+            <View style={[style.container]}>
+                <Text style={[style.disabled]}>Disable Comments?</Text>
+                <Switch
+                    style={[style.switch]}
+                    value={isSelected}
+                    onValueChange={setRepliesDisabled}
+                >                </Switch>
 
-            />
-            <br></br>
-
-            <Button onPress={submitThread} title='Add Thread' color='#880022' />
-        </View>
+                <Text style={style.t}>Author: {author}</Text>
+                <br></br>
+                <Text style={style.t}>Title: </Text>
+                <TextInput style={style.t}
+                    onChangeText={(value) =>
+                        dispatch(addThread({ ...th, threadname: value }))
+                    }
+                    value={th.threadname}>
+                </TextInput>
+                <br></br>
+                <Text style={style.t}>Category: </Text>
+                <TextInput style={style.t}
+                    onChangeText={(value) =>
+                        dispatch(addThread({ ...th, threadcategory: value }))
+                    }
+                    value={th.threadcategory}>
+                </TextInput>
+                <br></br>
+                <TextInput style={style.t} multiline numberOfLines={4}
+                    onChangeText={(value) =>
+                        dispatch(addThread({ ...th, threaddescription: value }))
+                    }
+                    value={th.threaddescription}>
+                </TextInput>
+                <br></br>
+                <Button onPress={submitThread} title='Add Thread' color='green' />
+            </View>
+        </ImageBackground >
     )
 }

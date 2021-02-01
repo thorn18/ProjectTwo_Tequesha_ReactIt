@@ -46,7 +46,7 @@ function LoginComponent({ navigation }: LoginProp) {
                 alert('Moderators have deactivated this account.')
                 navigation.navigate('Login');
             } else {
-                if (user) {
+                if (user.username.length > 0) {
                     console.log('Login User: ', user);
                     navigation.navigate('Home');
 

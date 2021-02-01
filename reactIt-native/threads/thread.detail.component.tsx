@@ -83,7 +83,7 @@ export default function ThreadDetailComponent(props: DetailProps) {
             <br></br>
             <FlatList
                 data={com}
-                renderItem={({ item }) => (<CommentTableComponent data={item} ></CommentTableComponent>)}
+                renderItem={({ item }) => (<CommentTableComponent data={item}  ></CommentTableComponent>)}
                 keyExtractor={(item) => item.thread_reply_id}
             />
             <Button title='Refresh replies' onPress={refresh} color = "green" />

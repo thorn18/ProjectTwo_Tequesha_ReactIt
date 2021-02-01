@@ -14,8 +14,8 @@ import ThreadDetailComponent from '../threads/thread.detail.component';
 import { useSelector } from 'react-redux';
 import { ForumState } from '../store/store';
 import { Thread } from '../threads/thread';
-import styles from '../global-styles';
-import routerstyles from './routerstyle'
+import alien from './alien.jpg'
+
 import BanEmailComponent from '../user/email/banEmail.component';
 import style from './navstyle'
 import { AddReplyComponent } from '../comment/addreply.component';
@@ -39,7 +39,11 @@ export type StackParams = {
 const Stack = createStackNavigator<StackParams>();
 const headerOptions: StackHeaderOptions = {
     headerTitle: () => <Text style={[style.row]}>ReactIt</Text>,
-    headerRight: () => <NavBarComponent />,
+    headerRight: () => <NavBarComponent/>,
+    headerTintColor:"yellow",
+    headerStyle: {
+        backgroundColor: 'darkgreen',
+      },
 };
 function RouterComponent(props: any) {
     const th = useSelector((state: ForumState) => state.thread);
