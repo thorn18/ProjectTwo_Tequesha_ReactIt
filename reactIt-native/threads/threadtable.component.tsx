@@ -29,8 +29,8 @@ export default function ThreadTableComponent({data}: ThreadProps) {
     return (
         <View style = {[style.threadCardContainer]}>
             <Text style = {[style.title]}>{data.threadname}</Text>
-            <Text>Author : {data.username}</Text>
-            <Text>Category: {data.threadcategory}</Text>
+            <Text style = {[style.text]}>Author : {data.username}</Text>
+            <Text style = {[style.text]}>Category: {data.threadcategory}</Text>
             {/* <Text>Tags: {data.tags}</Text> */}
             <Button onPress = {goToDetailComponent} title = "Go To Thread"/>
         </View>

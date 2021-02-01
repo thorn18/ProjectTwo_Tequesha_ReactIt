@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
-import { View, Text, Button, FlatList } from 'react-native';
-import styles from '../global-styles';
-import style from './thread_table_style';
+import { View, Text, Button, FlatList, ImageBackground } from 'react-native';
+import styles from './thread_table_style';
+import style from '../comment/thread_comment_style';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation, RouteProp } from '@react-navigation/native';
 import { StackParams } from '../router/router.component';
@@ -11,6 +11,7 @@ import { Comment } from '../comment/comment';
 import { getComments } from '../store/actions';
 import CommentTableComponent from '../comment/commenttable.component';
 import commentService from '../comment/comment.service';
+import image from '../router/alien.jpg'
 
 interface DetailProps {
     route: RouteProp<StackParams, 'ThreadDetail'>;
@@ -66,33 +67,31 @@ export default function ThreadDetailComponent(props: DetailProps) {
     }
 
     return (
-        <View>
+        <ImageBackground source= {image} style = {[style.container]}>
             <Text style={style.title}>{thr.threadname}</Text>
             <br></br>
-            <Text>Author: {thr.username}</Text>
+            <Text style={style.text}>Author: {thr.username.toUpperCase()}</Text>
             <br></br>
-            <Text>Category: {thr.threadcategory}</Text>
+            <Text  style={style.text}>Category: {thr.threadcategory}</Text>
             <br></br>
-            <Text>{thr.threaddescription}</Text>
+            <Text style={style.body}>{thr.threaddescription}</Text>
             <br></br>
-
-            <Button title='Add a reply' onPress={insertReply}/>
-
-            <Text>Replies: </Text>
+            {(!thr.repliesdisabled) && (
+                <Button title='Add a reply' onPress={insertReply} color = "green"/>
+            )}
+            <Text style={style.replies}>Replies: </Text>
             <br></br>
-
             <FlatList
                 data={com}
-                renderItem={({ item }) => (<CommentTableComponent data={item}></CommentTableComponent>)}
+                renderItem={({ item }) => (<CommentTableComponent data={item} ></CommentTableComponent>)}
                 keyExtractor={(item) => item.thread_reply_id}
             />
-
-            <Button title='Refresh replies' onPress={refresh} />
+            <Button title='Refresh replies' onPress={refresh} color = "green" />
             <br></br>
 
             {(user.role === 'Site Moderator' || user.username === thr.username) && (
-                <Button title='Delete Thread' onPress={deleteThread} />
+                <Button title='Delete Thread' onPress={deleteThread} color = "green"/>
             )}
-        </View>
+        </ImageBackground>
     );
 }

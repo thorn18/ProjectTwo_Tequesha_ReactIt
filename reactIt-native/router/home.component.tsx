@@ -87,12 +87,6 @@ function HomeComponent({ navigation }: HomeProp) {
             } else {
                 return false;
             }
-        } else if (qchooser == "Tags") {
-            if (threads.includes(thread) && thread.tags.includes(q2)) {
-                return true;
-            } else {
-                return false;
-            }
         } else {
             return true;
         }
@@ -113,7 +107,6 @@ function HomeComponent({ navigation }: HomeProp) {
                         { label: 'Thread Title', value: 'Thread Title', icon: () => <Icon name="flag" size={18} color="#900" /> },
                         { label: 'Author', value: 'Author', icon: () => <Icon name="flag" size={18} color="#900" /> },
                         { label: 'Category', value: 'Category', icon: () => <Icon name="flag" size={18} color="#900" /> },
-                        { label: 'Tags', value: 'Tags', icon: () => <Icon name="flag" size={18} color="#900" /> },
 
                     ]}
                     defaultValue=""
