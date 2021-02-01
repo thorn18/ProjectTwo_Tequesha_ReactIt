@@ -18,9 +18,14 @@ export default function CommentTableComponent({data}: CommentProps) {
     const nav = useNavigation();
     const user = useSelector((state: UserState) => state.user);
     function deleteRep(){
-        commentService.deleteReply(data.thread_reply_id);
-        console.log('successfully deleted reply');
-        nav.navigate('ThreadDetail')
+        try{
+            commentService.deleteReply(data.thread_reply_id);
+            console.log('successfully deleted reply');
+            nav.navigate('ThreadDetail')
+        } catch {
+            console.log('delete failed');
+        }
+        
     }
 
     return (
