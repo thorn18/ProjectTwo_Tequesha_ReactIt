@@ -45,7 +45,11 @@ function LoginComponent({ navigation }: LoginProp) {
             } else if (user?.accountstatus === 'moderator-deactivated') {
                 // User is unable to login if site moderator deactivates account
                 dispatch(changeUser(new User));
-                alert('Moderators have deactivated this account.')
+                alert('Moderators have deactivated this account.');
+                navigation.navigate('Login');
+            } else if(user?.accountstatus === 'BANNED'){
+                dispatch(changeUser(new User));
+                alert('This account has been banned from this site.');
                 navigation.navigate('Login');
             } else {
                 if (user) {

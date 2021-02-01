@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import DisplayEmailComponent from './displayEmails.component';
 import style from '../account/account-styles';
 import {changeEmail} from '../../store/actions';
+import userService from '../user.service';
 
 export interface EmailProp {
     navigation: any;
@@ -25,6 +26,13 @@ function BanEmailComponent({navigation}: EmailProp) {
         // Add banned email to the database and update state for confirmation
         emailService.addEmailAddress(email).then((bannedEmail) => {
             dispatch(changeEmail(bannedEmail));
+            userService.getUserByName(email.username).then((bannedUser) => {
+                console.log(bannedUser);
+                bannedUser.accountstatus = 'BANNED';
+                userService.updateUser(bannedUser).then((result)=>{
+                    console.log(result);
+                });
+            });
         });
         //Confirmation of ban
         alert(`${email.address} has been banned from registration.`)

@@ -24,27 +24,33 @@ function RegisterComponent({ navigation }: RegisterProp) {
     const dispatch = useDispatch();
 
     function submitForm() {
-        let emailBanned: boolean;
-        // check to make sure user is not using a banned email
-        emailService.getEmailAddress(user.email).then((email) =>{
-            if(email){
-                emailBanned = true;
+        userService.getUserByName(user.username).then((regUser) => {
+            if(regUser){
+                alert('User already exists.');
             } else{
-                console.log('null');
-                emailBanned = false;
-            }
+                let emailBanned: boolean;
+                // check to make sure user is not using a banned email
+                emailService.getEmailAddress(user.email).then((email) =>{
+                    if(email){
+                        emailBanned = true;
+                    } else{
+                        console.log('null');
+                        emailBanned = false;
+                    }
 
-            // if the email is not banned, create an account
-            if(emailBanned === false){
-                userService.register(user).then((user) => {
-                    dispatch(getUser(user));
+                    // if the email is not banned, create an account
+                    if(emailBanned === false){
+                        userService.register(user).then((user) => {
+                            dispatch(getUser(user));
+                        });
+                    } else if (emailBanned === true){
+                        alert('Email banned. Unable to register.')
+                    }
                 });
-            } else if (emailBanned === true){
-                alert('Email banned. Unable to register.')
             }
             navigation.navigate('Login');
             dispatch(registerAction(new User()));
-        });  
+        });     
     }
     
     return (

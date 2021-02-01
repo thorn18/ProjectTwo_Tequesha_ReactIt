@@ -5,6 +5,8 @@ var Email = /** @class */ (function () {
     function Email() {
         this.address = '';
         this.username = '';
+        this.reason = '';
+        this.bannedBy = '';
     }
     return Email;
 }());
