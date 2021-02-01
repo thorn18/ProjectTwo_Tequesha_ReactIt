@@ -36,7 +36,7 @@
     "react-native-search-bar": "^3.5.1",
     "react-native-search-component": "^1.4.0",
     "react-native-svg": "^12.1.0",
-    "react-native-web": "~0.13.12",
+    "react-native-web": "^0.13.18",
     "react-redux": "^7.2.2",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",

@@ -5,7 +5,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var http_errors_1 = __importDefault(require("http-errors"));
 var express_1 = __importDefault(require("express"));
-var path_1 = __importDefault(require("path"));
 var cors_1 = __importDefault(require("cors"));
 var constant_1 = __importDefault(require("./constant"));
 var users_router_1 = __importDefault(require("./routes/users-router"));
@@ -19,9 +18,8 @@ var tag_router_1 = __importDefault(require("./routes/tag-router"));
 dotenv_1.default.config();
 var app = express_1.default();
 // view engine setup
+//app.use(cors({origin:process.env.CLIENT, credentials: true}));
 app.use(cors_1.default({ origin: [process.env.CLIENT, process.env.MOBILE, process.env.ANDROID], credentials: true }));
-app.set('views', path_1.default.join(__dirname, 'views'));
-app.set('view engine', 'jade');
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: false }));
 app.use(express_1.default.static(constant_1.default));

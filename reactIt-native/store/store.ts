@@ -3,8 +3,10 @@ import thunk from "redux-thunk";
 import { User } from "../user/user";
 import { Thread } from "../threads/thread";
 import { AppAction } from "./actions";
+import { Email } from '../user/email/email';
+import { Comment } from '../comment/comment';
 import reducer from "./reducer";
-import {Email} from '../user/email/email';
+
 
 // Define the items that are in our state
 
@@ -16,8 +18,8 @@ export interface UserState {
     locale?: string;
     query:string;
 }
+
 export interface ThreadState {
-    //TEMP NEEDS CHANGING
     threads: Thread[];
     thread: Thread
 }
@@ -27,7 +29,12 @@ export interface EmailState {
     emails: Email[];
 }
 
-export interface ForumState extends UserState,ThreadState, EmailState { }
+export interface CommentState {
+    comment: Comment;
+    comments: Comment[];
+}
+
+export interface ForumState extends UserState,ThreadState, EmailState, CommentState { }
 // <> is generics: Generic arguments allow us to define the type of a thing at runtime instead of when we write it,
 // creating a reusable object.
 const store: Store<ForumState, AppAction> = createStore(reducer, applyMiddleware(thunk));

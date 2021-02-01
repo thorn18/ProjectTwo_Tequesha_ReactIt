@@ -67,6 +67,7 @@ function HomeComponent({ navigation }: HomeProp) {
     function refresh() {
         handleStuff();
     }
+    
     function checkfilter(thread: Thread) {
         if (qchooser == "Thread Title") {
             if (threads.includes(thread) && thread.threadname.includes(q2)) {

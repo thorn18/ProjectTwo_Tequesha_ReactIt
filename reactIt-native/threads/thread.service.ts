@@ -50,6 +50,10 @@ class ThreadService {
         console.log('attempt to insert');
         axios.post(this.URI+'/thread', thread);
     }
+
+    deleteThread(thread_id: string){
+        axios.get(this.URI + '/threaded?threaded=' + thread_id);
+    }
 }
 
 export default new ThreadService();
