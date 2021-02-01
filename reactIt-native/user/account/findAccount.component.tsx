@@ -9,9 +9,10 @@ import {
     Text,
     View,
 } from 'react-native';
-import style from '../../global-styles';
+import style from './account-styles';
 import {useNavigation} from '@react-navigation/native';
 
+// Site moderator is able to find a specific account using the username
 function FindAccountComponent() {
     const userSelector = (state: UserState) => state.searchUser;
     const user = useSelector(userSelector);

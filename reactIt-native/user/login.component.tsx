@@ -39,19 +39,27 @@ function LoginComponent({ navigation }: LoginProp) {
     function submitForm() {
         userService.login(user).then((user) => {
             if (user?.accountstatus === 'deactivated') {
+                //User is prompted to reactivate account in order to see site
                 alert('This account is currently deactivated.  Re-activate to continue.');
                 navigation.navigate('ModifyUser');
             } else if (user?.accountstatus === 'moderator-deactivated') {
+                // User is unable to login if site moderator deactivates account
                 dispatch(changeUser(new User));
-                alert('Moderators have deactivated this account.')
+                alert('Moderators have deactivated this account.');
+                navigation.navigate('Login');
+            } else if(user?.accountstatus === 'BANNED'){
+                dispatch(changeUser(new User));
+                alert('This account has been banned from this site.');
                 navigation.navigate('Login');
             } else {
+<<<<<<< HEAD
                 if (user.username.length > 0) {
                     console.log('Login User: ', user);
+=======
+                if (user) {
+>>>>>>> 88467ccaae653283da7b47abe9bc31b6d65a4cfd
                     navigation.navigate('Home');
-
                 } else {
-                    console.log("No user");
                     alert('Login Failed. Please Try Again.')
                 }
                 dispatch(getUser(user));
@@ -60,7 +68,7 @@ function LoginComponent({ navigation }: LoginProp) {
             console.log(err);
         });
     }
-
+    
     function register() {
         navigation.navigate('Register');
     }

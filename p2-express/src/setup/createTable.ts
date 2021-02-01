@@ -99,7 +99,24 @@ ddb.deleteTable(removeEmails, function (err, data) {
             } else {
                 // table successfully created
                 console.log('Table Created', data);
+                setTimeout(() => {
+                    populateUserTable();
+                }, 6000);
             }
         });
     }, 5000);
 });
+
+function populateUserTable(){
+    userService.addUser({username: 'thorn', password: 'pass', role: 'Site Moderator', name: 'Tyler', email: 'tyler@gmail.com', age: 25, 
+    phonenumber: '111-222-3345', personalsettings: {backgroundcolor: 'Blue', language: 'English', fontstyle: ''}, 
+    emailvalidated: false ,accountstatus: 'activated'},).then(() => {});
+
+    userService.addUser({username: 'salman', password: 'pass', role: 'Site Moderator', name: 'Salman', email: 'pcf.salman@gmail.com', age: 25, 
+    phonenumber: '222-222-2222', personalsettings: {backgroundcolor: 'Blue', language: 'English', fontstyle: ''}, 
+    emailvalidated: false ,accountstatus: 'activated'},).then(() => {});
+
+    userService.addUser({username: 'user', password: 'pass', role: '', name: 'Name', email: 'email@gmail.com', age: 21, 
+    phonenumber: '123-456-7890', personalsettings: {backgroundcolor: 'Blue', language: 'English', fontstyle: ''}, 
+    emailvalidated: false ,accountstatus: 'activated'},).then(() => {});
+}
