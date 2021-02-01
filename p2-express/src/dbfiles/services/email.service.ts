@@ -54,21 +54,6 @@ class EmailService {
             return false;
         });
     }
-
-    // Take an email off of the list (by deleting it)
-    async deleteEmail(address: string): Promise<Boolean> {
-            const params = {
-                TableName: 'emails',
-                Key: {
-                    'address': address
-                }
-            }
-            return await this.doc.delete(params).promise().then((data) => {
-                return true;
-            }).catch((err) => {
-                return false;
-            });
-        }
 }
 
 const emailService = new EmailService();

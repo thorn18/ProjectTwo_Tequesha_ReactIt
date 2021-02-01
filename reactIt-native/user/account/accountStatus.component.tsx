@@ -10,23 +10,28 @@ import {useNavigation} from '@react-navigation/native';
 interface statusProp {
     user: User;
 }
+
+// Determines account status of specific account and the options of the user based on role.
+
 function AccountStatusComponent(prop: statusProp) {
+    // prop is the user that account is being modified
+    // current user determines the role of user and options to display
+    // if current user is the prop user, account is being modified by account holder
     const userSelector = (state: UserState) => state.user;
     const currUser = useSelector(userSelector);
     const navigation = useNavigation();
-
-    console.log('Current User: ', currUser);
-    console.log('User Prop: ', prop.user);
-
     const dispatch = useDispatch();
 
+    // update account status of the account modified
     function update() {
         userService.updateUser(prop.user).then(() => {});
+        // if the account holder makes changes update the state to reflect changes
         if (currUser.username === prop.user.username) {
             dispatch(changeUser(prop.user));
         }
     }
 
+    // account holder actions
     function deactivateAccount() {
         prop.user.accountstatus = 'deactivated';
         update();
@@ -38,7 +43,9 @@ function AccountStatusComponent(prop: statusProp) {
         navigation.navigate('Home');
     }
 
+    // site moderator actions
     function moderatorDeactivated() {
+        // moderator-deactivation does NOT allow account holder to reactivate account.
         prop.user.accountstatus = 'moderator-deactivated';
         update();
     }
@@ -48,6 +55,7 @@ function AccountStatusComponent(prop: statusProp) {
         update();
     }
 
+    // account holder or site moderator can delete account
     function deleteAccount() {
         userService.deleteUser(prop.user.username).then(() => {});
         if(currUser === prop.user){

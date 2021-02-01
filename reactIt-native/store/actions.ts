@@ -1,6 +1,7 @@
 import {User} from './../user/user';
 import { Thread } from './../threads/thread';
 import {Email} from '../user/email/email';
+import { Comment } from './../comment/comment';
 
 export enum UserActions {
     GetUser = 'GET_USER',
@@ -16,6 +17,12 @@ export enum ThreadActions {
     GetThreads = 'GET_THREADS',
     GetThread = 'GET_THREAD',
     ChangeThreads = 'CHANGE_THREADS'
+}
+
+export enum CommentActions {
+    GetComments = 'GET_COMMENTS',
+    GetComment = 'GET_COMMENT',
+    ChangeComments = 'CHANGE_COMMENTS'
 }
 
 export enum EmailActions {
@@ -40,6 +47,11 @@ export interface UserAction<P> extends AppAction {
 
 export interface EmailAction<P> extends AppAction{
     type: EmailActions;
+    payload: P;
+}
+
+export interface CommentAction<P> extends AppAction{
+    type: CommentActions;
     payload: P;
 }
 
@@ -134,8 +146,24 @@ export function changeEmail(email: Email): EmailAction<Email> {
 
 export function getAllBanned(emails: Email[]): EmailAction<Email[]> {
     const action: EmailAction<Email[]> = {
-        type: EmailActions.ChangeEmail,
+        type: EmailActions.GetAllBanned,
         payload: emails
+    }
+    return action;
+}
+
+export function getComments(comments: Comment[]): CommentAction<Comment[]> {
+    const action: CommentAction<Comment[]> = {
+        type: CommentActions.GetComments,
+        payload: comments
+    }
+    return action;
+}
+
+export function addReply(comment: Comment): CommentAction<Comment>{
+    const action: CommentAction<Comment> = {
+        type: CommentActions.ChangeComments,
+        payload: comment
     }
     return action;
 }

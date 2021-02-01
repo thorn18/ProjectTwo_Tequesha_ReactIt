@@ -1,97 +1,121 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import userService from './user.service';
 import { UserState } from '../store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser, registerAction } from '../store/actions';
 import {
-    Platform,
     Button,
     TextInput,
     Text,
     View,
-    TouchableNativeFeedback,
-    TouchableHighlight,
 } from 'react-native';
-import style from '../global-styles';
+import style from './account/account-styles';
+import emailService from './email/email.service';
+import {User} from './user';
 
-// Function Component
 interface RegisterProp {
     navigation: any;
 }
+
+// User can register for a new account
 function RegisterComponent({ navigation }: RegisterProp) {
     const userSelector = (state: UserState) => state.registerUser;
     const user = useSelector(userSelector);
     const dispatch = useDispatch();
 
     function submitForm() {
+        userService.getUserByName(user.username).then((regUser) => {
+            if(regUser){
+                alert('User already exists.');
+            } else{
+                let emailBanned: boolean;
+                // check to make sure user is not using a banned email
+                emailService.getEmailAddress(user.email).then((email) =>{
+                    if(email){
+                        emailBanned = true;
+                    } else{
+                        console.log('null');
+                        emailBanned = false;
+                    }
 
-        userService.register(user).then((user) => {
-            console.log(user);
-            dispatch(getUser(user));
-        });
-        navigation.navigate('Login');
-
+                    // if the email is not banned, create an account
+                    if(emailBanned === false){
+                        userService.register(user).then((user) => {
+                            dispatch(getUser(user));
+                        });
+                    } else if (emailBanned === true){
+                        alert('Email banned. Unable to register.')
+                    }
+                });
+            }
+            navigation.navigate('Login');
+            dispatch(registerAction(new User()));
+        });     
     }
-    function handle() {
-        alert('press');
-    }
-    function longHandle() {
-        alert('long press');
-    }
+    
     return (
-        <View style={[style.container, style.login]}>
-            <Text>Username: </Text>
+        <View style={style.container}>
+        <View style={[style.innercontainer]}>
+            <br></br>
+            <Text style={style.text}>Username: </Text>
             <TextInput
-                style={style.input}
+                style={[style.input, style.text]}
                 onChangeText= {(value) => {
                     user.username = value;
                     dispatch(registerAction({ ...user, username: value }))
                 }}
                 value={user.username}
             />
-            <Text>Password: </Text>
+            <br></br>
+            <Text style={style.text}>Password: </Text>
             <TextInput
-                style={style.input}
+                secureTextEntry
+                style={[style.input, style.text]}
                 onChangeText={(value) =>
                     dispatch(registerAction({ ...user, password: value }))
                 }
                 value={user.password}
             />
-            <Text>Name: </Text>
+            <br></br>
+            <Text style={style.text}>Name: </Text>
             <TextInput
-                style={style.input}
+                style={[style.input, style.text]}
                 onChangeText={(value) =>
                     dispatch(registerAction({ ...user, name: value }))
                 }
                 value={user.name}
             />
-            <Text>Email: </Text>
+            <br></br>
+            <Text style={style.text}>Email: </Text>
             <TextInput
-                style={style.input}
+                style={[style.input, style.text]}
                 onChangeText={(value) =>
                     dispatch(registerAction({ ...user, email: value }))
                 }
                 value={user.email}
             />
-            <Text>Age: </Text>
+            <br></br>
+            <Text style={style.text}>Age: </Text>
             <TextInput
                 
-                style={style.input}
+                style={[style.input, style.text]}
                 onChangeText={(value) =>
 
                     dispatch(registerAction({ ...user, age: Number(value) }))
                 }
             />
-            <Text>Phone Number: </Text>
+            <br></br>
+            <Text style={style.text}>Phone Number: </Text>
             <TextInput
-                style={style.input}
+                style={[style.input, style.text]}
                 onChangeText={(value) =>
                     dispatch(registerAction({ ...user, phonenumber: value }))
                 }
                 value={user.phonenumber}
             />
-            <Button onPress={submitForm} title='Register' color='#880022' />
-
+            <br></br>
+            <Button onPress={submitForm} title='Register' color='green' />
+            </View>
         </View>
     );
 }

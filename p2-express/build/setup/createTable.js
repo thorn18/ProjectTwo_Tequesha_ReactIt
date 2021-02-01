@@ -18,8 +18,12 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var AWS = __importStar(require("aws-sdk"));
+var user_service_1 = __importDefault(require("../dbfiles/services/user.service"));
 // Set the region
 AWS.config.update({ region: 'us-west-2' });
 // Create a DynamoDB service object
@@ -114,7 +118,21 @@ ddb.deleteTable(removeEmails, function (err, data) {
             else {
                 // table successfully created
                 console.log('Table Created', data);
+                setTimeout(function () {
+                    populateUserTable();
+                }, 6000);
             }
         });
     }, 5000);
 });
+function populateUserTable() {
+    user_service_1.default.addUser({ username: 'thorn', password: 'pass', role: 'Site Moderator', name: 'Tyler', email: 'tyler@gmail.com', age: 25,
+        phonenumber: '111-222-3345', personalsettings: { backgroundcolor: 'Blue', language: 'English', fontstyle: '' },
+        emailvalidated: false, accountstatus: 'activated' }).then(function () { });
+    user_service_1.default.addUser({ username: 'salman', password: 'pass', role: 'Site Moderator', name: 'Salman', email: 'pcf.salman@gmail.com', age: 25,
+        phonenumber: '222-222-2222', personalsettings: { backgroundcolor: 'Blue', language: 'English', fontstyle: '' },
+        emailvalidated: false, accountstatus: 'activated' }).then(function () { });
+    user_service_1.default.addUser({ username: 'user', password: 'pass', role: '', name: 'Name', email: 'email@gmail.com', age: 21,
+        phonenumber: '123-456-7890', personalsettings: { backgroundcolor: 'Blue', language: 'English', fontstyle: '' },
+        emailvalidated: false, accountstatus: 'activated' }).then(function () { });
+}

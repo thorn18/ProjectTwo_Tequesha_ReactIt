@@ -15,14 +15,6 @@ router.get('/:address', function(req, res, next) {
     });
 })
 
-router.delete('/:address', function (req, res, next) {
-    emailService.deleteEmail(req.body).then((data)=> {
-        res.sendStatus(200);
-    }).catch((err) => {
-        res.sendStatus(500);
-    })
-});
-
 router.post('/', (req, res, next) => {
     emailService.addEmailAddress(req.body).then((data)=> {
         res.sendStatus(201);

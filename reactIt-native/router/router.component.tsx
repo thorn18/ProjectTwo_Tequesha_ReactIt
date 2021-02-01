@@ -14,10 +14,11 @@ import ThreadDetailComponent from '../threads/thread.detail.component';
 import { useSelector } from 'react-redux';
 import { ForumState } from '../store/store';
 import { Thread } from '../threads/thread';
-import styles from '../global-styles';
-import routerstyles from './routerstyle'
+import alien from './alien.jpg'
+
 import BanEmailComponent from '../user/email/banEmail.component';
 import style from './navstyle'
+import { AddReplyComponent } from '../comment/addreply.component';
 
 /* Parameter list for RouteProp requires a field for the route that we're on. */
 export type StackParams = {
@@ -26,19 +27,23 @@ export type StackParams = {
     ModifyUser: undefined;
     Profile: undefined;
     SearchedProfile: undefined;
-    Home:undefined;
-    Threads:undefined;
+    Home: undefined;
+    Threads: undefined;
     NewThread: undefined;
     ThreadDetails: Thread;
     BannedEmails: undefined;
     ThreadDetail: Thread;
-
+    Reply: undefined | Thread;
 };
 
 const Stack = createStackNavigator<StackParams>();
 const headerOptions: StackHeaderOptions = {
-    headerTitle: () => <Text style = {[style.row]}>ReactIt</Text>,
-    headerRight: () => <NavBarComponent />,
+    headerTitle: () => <Text style={[style.row]}>ReactIt</Text>,
+    headerRight: () => <NavBarComponent/>,
+    headerTintColor:"yellow",
+    headerStyle: {
+        backgroundColor: 'darkgreen',
+      },
 };
 function RouterComponent(props: any) {
     const th = useSelector((state: ForumState) => state.thread);
@@ -52,48 +57,52 @@ function RouterComponent(props: any) {
             />
             <Stack.Screen
                 name='Register'
-                component = {RegisterComponent}
+                component={RegisterComponent}
                 options={headerOptions}
             />
             <Stack.Screen
                 name='ModifyUser'
-                component = {ModifyUserComponent}
+                component={ModifyUserComponent}
                 options={headerOptions}
             />
             <Stack.Screen
                 name='Profile'
-                component = {UserScreenComponent}
+                component={UserScreenComponent}
                 options={headerOptions}
             />
             <Stack.Screen
                 name='SearchedProfile'
-                component = {GetProfileComponent}
+                component={GetProfileComponent}
                 options={headerOptions}
             />
-             <Stack.Screen
+            <Stack.Screen
                 name='ThreadDetail'
-                component = {ThreadDetailComponent}
+                component={ThreadDetailComponent}
                 options={headerOptions}
                 initialParams={th}
             />
             <Stack.Screen
                 name='Home'
-                component = {HomeComponent}
+                component={HomeComponent}
                 options={headerOptions}
             />
             <Stack.Screen
                 name='NewThread'
-                component = {NewThreadComponent}
+                component={NewThreadComponent}
                 options={headerOptions}
             />
             <Stack.Screen
                 name='BannedEmails'
-                component = {BanEmailComponent}
+                component={BanEmailComponent}
                 options={headerOptions}
             />
-            
+            <Stack.Screen
+                name='Reply'
+                component={AddReplyComponent}
+                options={headerOptions}
+            />
         </Stack.Navigator>
-        
+
     );
 }
 

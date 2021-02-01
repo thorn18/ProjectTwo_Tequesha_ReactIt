@@ -1,30 +1,22 @@
-import React, { useEffect } from 'react';
-import userService from '../user.service';
+import React from 'react';
 import { UserState } from '../../store/store';
-import { useDispatch, useSelector } from 'react-redux';
-import {changeUser, getUser, registerAction, searchUserAction} from '../../store/actions';
+import { useSelector } from 'react-redux';
 import {
     Button,
-    TextInput,
     Text,
     View,
-    StyleSheet,
     Image
 } from 'react-native';
 import style from './account-styles';
-import FindAccountComponent from './findAccount.component';
-import {User} from '../user';
 import {useNavigation} from '@react-navigation/native';
 import AccountStatusComponent from './accountStatus.component';
 
-
-
+// Display profile of searched user
 function GetProfileComponent() {
     const userSelector = (state: UserState) => state.user;
     const searchUserSelector = (state: UserState) => state.searchUser;
     const currUser = useSelector(userSelector);
     const searchUser = useSelector(searchUserSelector);
-    const dispatch = useDispatch();
     const navigation = useNavigation();
     
     function goToModify(){
