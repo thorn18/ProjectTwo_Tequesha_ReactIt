@@ -23,8 +23,8 @@ export default function CommentTableComponent({ data }: CommentProps) {
     const user = useSelector(userSelector);
     const nav = useNavigation();
 
-    async function deleteRep(){
-        try{
+    async function deleteRep() {
+        try {
             await commentService.deleteReply(data.thread_reply_id);
             console.log('Successfully deleted reply');
             nav.navigate("Home");
@@ -33,14 +33,20 @@ export default function CommentTableComponent({ data }: CommentProps) {
         }
     }
 
+    function replyToReply(){
+
+    }
+    
     return (
         <View style={[style.h2]}>
             {(user.role === 'Site Moderator' || user.username === data.username) && (
-                            <TouchableHighlight style={[style.highlight]}>
-                            <Text style={[style.h2]} onPress={deleteRep}>X</Text>
-                        </TouchableHighlight>
+                <TouchableHighlight style={[style.highlight]}>
+                    <Text style={[style.h2]} onPress={deleteRep}>X</Text>
+                </TouchableHighlight>
             )}
             <Text style={[style.card]}>Author: {data.username + ' \n' + data.thread_reply_description}</Text>
+
+            <Button title='Reply to this reply' onPress={replyToReply} />
 
         </View>
     )
