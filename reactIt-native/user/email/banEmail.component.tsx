@@ -27,11 +27,13 @@ function BanEmailComponent({navigation}: EmailProp) {
         emailService.addEmailAddress(email).then((bannedEmail) => {
             dispatch(changeEmail(bannedEmail));
             userService.getUserByName(email.username).then((bannedUser) => {
-                console.log(bannedUser);
-                bannedUser.accountstatus = 'BANNED';
-                userService.updateUser(bannedUser).then((result)=>{
-                    console.log(result);
-                });
+                if(bannedUser){
+                    console.log(bannedUser);
+                    bannedUser.accountstatus = 'BANNED';
+                    userService.updateUser(bannedUser).then((result)=>{
+                        console.log(result);
+                    });
+                }
             });
         });
         //Confirmation of ban
