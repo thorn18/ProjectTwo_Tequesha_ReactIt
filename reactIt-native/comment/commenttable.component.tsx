@@ -34,7 +34,7 @@ export default function CommentTableComponent({ data }: CommentProps) {
     }
 
     function replyToReply(){
-
+        nav.navigate('ReplyToReply');
     }
     
     return (

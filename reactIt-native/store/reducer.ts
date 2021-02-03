@@ -3,7 +3,7 @@ import { User } from './../user/user';
 import { ForumState } from './store';
 import { Thread } from '../threads/thread';
 import { Email } from '../user/email/email';
-import { Comment } from '../comment/comment';
+import { Comment, ReplyToReply } from '../comment/comment';
 
 // We need to define the initial state of the application and that
 // state should include everything that the application might keep track of.
@@ -19,7 +19,9 @@ export const initialState: ForumState = {
     email: new Email(),
     emails: [],
     comments: [],
-    comment: new Comment()
+    comment: new Comment(),
+    reply_to_reply: new ReplyToReply(),
+    reply_to_replies: []
 }
 
 // Make sure that the reducer has a default argument of the inital state or it will not work.
@@ -75,6 +77,12 @@ const reducer = (state: ForumState = initialState, action: Actions.AppAction): F
             return newState;
         case Actions.CommentActions.ChangeComments:
             newState.comment = action.payload as Comment;
+            return newState;
+        case Actions.CommentActions.GetReplies:
+            newState.reply_to_replies = action.payload as ReplyToReply[];
+            return newState;
+        case Actions.CommentActions.ChangeReplies:
+            newState.reply_to_reply = action.payload as ReplyToReply;
             return newState;
         default:
             return state;

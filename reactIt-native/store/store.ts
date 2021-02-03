@@ -4,7 +4,7 @@ import { User } from "../user/user";
 import { Thread } from "../threads/thread";
 import { AppAction } from "./actions";
 import { Email } from '../user/email/email';
-import { Comment } from '../comment/comment';
+import { Comment, ReplyToReply } from '../comment/comment';
 import reducer from "./reducer";
 
 
@@ -32,6 +32,8 @@ export interface EmailState {
 export interface CommentState {
     comment: Comment;
     comments: Comment[];
+    reply_to_reply: ReplyToReply;
+    reply_to_replies: ReplyToReply[]
 }
 
 export interface ForumState extends UserState,ThreadState, EmailState, CommentState { }

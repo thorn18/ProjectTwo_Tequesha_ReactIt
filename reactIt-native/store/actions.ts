@@ -1,7 +1,7 @@
 import {User} from './../user/user';
 import { Thread } from './../threads/thread';
 import {Email} from '../user/email/email';
-import { Comment } from './../comment/comment';
+import { Comment, ReplyToReply } from './../comment/comment';
 
 export enum UserActions {
     GetUser = 'GET_USER',
@@ -22,7 +22,10 @@ export enum ThreadActions {
 export enum CommentActions {
     GetComments = 'GET_COMMENTS',
     GetComment = 'GET_COMMENT',
-    ChangeComments = 'CHANGE_COMMENTS'
+    ChangeComments = 'CHANGE_COMMENTS',
+    GetReplies = 'GET_REPLIES',
+    GetReply = 'GET_REPLY',
+    ChangeReplies = 'CHANGE_REPLIES'
 }
 
 export enum EmailActions {
@@ -160,10 +163,26 @@ export function getComments(comments: Comment[]): CommentAction<Comment[]> {
     return action;
 }
 
+export function getReplies(replies: ReplyToReply[]): CommentAction<ReplyToReply[]> {
+    const action: CommentAction<ReplyToReply[]> = {
+        type: CommentActions.GetReplies,
+        payload: replies
+    }
+    return action;
+}
+
 export function addReply(comment: Comment): CommentAction<Comment>{
     const action: CommentAction<Comment> = {
         type: CommentActions.ChangeComments,
         payload: comment
+    }
+    return action;
+}
+
+export function addReplyToReply(reply: ReplyToReply): CommentAction<ReplyToReply>{
+    const action: CommentAction<ReplyToReply> = {
+        type: CommentActions.ChangeReplies,
+        payload: reply
     }
     return action;
 }
