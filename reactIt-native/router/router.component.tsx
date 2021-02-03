@@ -14,11 +14,11 @@ import ThreadDetailComponent from '../threads/thread.detail.component';
 import { useSelector } from 'react-redux';
 import { ForumState } from '../store/store';
 import { Thread } from '../threads/thread';
-import alien from './alien.jpg'
-
+import { Comment } from '../comment/comment';
 import BanEmailComponent from '../user/email/banEmail.component';
 import style from './navstyle'
 import { AddReplyComponent } from '../comment/addreply.component';
+import { AddReplyToReplyComponent } from '../comment/addreplytoreply.component';
 
 /* Parameter list for RouteProp requires a field for the route that we're on. */
 export type StackParams = {
@@ -34,6 +34,7 @@ export type StackParams = {
     BannedEmails: undefined;
     ThreadDetail: Thread;
     Reply: undefined | Thread;
+    ReplyToReply: undefined | Comment;
 };
 
 const Stack = createStackNavigator<StackParams>();
@@ -99,6 +100,11 @@ function RouterComponent(props: any) {
             <Stack.Screen
                 name='Reply'
                 component={AddReplyComponent}
+                options={headerOptions}
+            />
+            <Stack.Screen
+                name='ReplyToReply'
+                component={AddReplyToReplyComponent}
                 options={headerOptions}
             />
         </Stack.Navigator>

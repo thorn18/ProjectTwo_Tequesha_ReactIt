@@ -1,11 +1,13 @@
 import axios from 'axios';
-import { Comment } from './comment';
+import { Comment, ReplyToReply } from './comment';
 
 class CommentService {
     private URI: string;
+    private URI2: string;
 
     constructor(){
-        this.URI = 'https://hn2j9rkruh.execute-api.us-west-2.amazonaws.com/secondStage/replies'
+        this.URI = 'https://hn2j9rkruh.execute-api.us-west-2.amazonaws.com/secondStage/replies';
+        this.URI2 = 'https://hn2j9rkruh.execute-api.us-west-2.amazonaws.com/rtr/repliestoreplies'
     }
 
     async getReplies(id: string){
@@ -30,6 +32,10 @@ class CommentService {
     deleteReply(id: string){
         console.log(id);
         axios.get(this.URI + '/replied?replied=' + id);
+    }
+
+    insertReplyToReply(reply: ReplyToReply){
+        axios.post(this.URI2, reply);
     }
 }
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Comment } from '../comment/comment';
 import style from './thread_comment_style'
 import {
@@ -7,11 +7,9 @@ import {
     View,
 } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
-import { CommentState, UserState } from '../store/store';
-import { useDispatch, useSelector } from 'react-redux';
+import { UserState } from '../store/store';
+import { useSelector } from 'react-redux';
 import commentService from './comment.service';
-import ThreadDetailComponent from '../threads/thread.detail.component'
-import { getComments } from '../store/actions';
 import { useNavigation } from '@react-navigation/native';
 
 interface CommentProps {
@@ -22,7 +20,8 @@ export default function CommentTableComponent({ data }: CommentProps) {
     const userSelector = (state: UserState) => state.user;
     const user = useSelector(userSelector);
     const nav = useNavigation();
-
+    console.log(data); 
+    
     async function deleteRep() {
         try {
             await commentService.deleteReply(data.thread_reply_id);
@@ -34,7 +33,7 @@ export default function CommentTableComponent({ data }: CommentProps) {
     }
 
     function replyToReply(){
-        nav.navigate('ReplyToReply');
+        nav.navigate('ReplyToReply', data);
     }
     
     return (
