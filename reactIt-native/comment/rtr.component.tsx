@@ -11,7 +11,8 @@ interface ReplyProps {
 }
 
 export default function RTRTableComponent ({data}: ReplyProps){
-
+    console.log(data);
+        
     return (
         <View>
             <Text>Author: {data.username + ' \n' + data.thread_reply_to_reply_description}</Text>

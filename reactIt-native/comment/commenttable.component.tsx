@@ -27,13 +27,15 @@ export default function CommentTableComponent({ data }: CommentProps) {
     const dispatch = useDispatch();
     console.log(data); 
 
-
     useEffect(() => {
+        console.log('calling useEffect');
         gettingRepToReps();
-    },[dispatch]);
-    
+    },[]);
+
     function gettingRepToReps(){
         let r: any;
+        console.log('getting replies to replies');
+        console.log(data.thread_reply_id);
         commentService.getRepliesToReplies(data.thread_reply_id).then((result) => {
             r = result;
             populate(r);
@@ -45,7 +47,7 @@ export default function CommentTableComponent({ data }: CommentProps) {
         let reply: ReplyToReply[] = [];
         rtr.forEach((row: ReplyToReply) => {
             reply.push(row);
-        })
+        });
         rep = reply;
         dispatch(getReplies(rep));
     }
@@ -72,13 +74,14 @@ export default function CommentTableComponent({ data }: CommentProps) {
                 </TouchableHighlight>
             )}
             <Text style={[style.card]}>Author: {data.username + ' \n' + data.thread_reply_description}</Text>
+            <br></br>
 
             <FlatList
                 data={rep}
                 renderItem={({ item }) => (<RTRTableComponent data={item}  ></RTRTableComponent>)}
                 keyExtractor={(item) => item.thread_reply_to_reply_id}
             />
-
+            <br></br>
             <Button title='Reply to this reply' onPress={replyToReply} />
 
         </View>
