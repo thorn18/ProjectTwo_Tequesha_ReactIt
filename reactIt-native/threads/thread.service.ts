@@ -6,12 +6,31 @@ import { Thread } from './thread';
 class ThreadService {
     private URI: string;
     private URI2: string;
+    private URIGetReaction: string;
+
 
 
     constructor() {
         this.URI = 'https://hn2j9rkruh.execute-api.us-west-2.amazonaws.com/salmanFirst';
         this.URI2 = 'http://localhost:3000/tags';
+        this.URIGetReaction = 'https://kpbwe720za.execute-api.us-west-2.amazonaws.com/default/reaction';
 
+    }
+
+    async getReactions(threadid:string) {
+        let ret;
+        console.log(this.URIGetReaction+"?threadid="+threadid, {withCredentials: true});
+        await axios.get(this.URIGetReaction+"?threadid="+threadid).then(result => {
+            if (result) {
+                ret =  result.data   
+            } else {
+                console.log("RESULT IS EMPTY");
+            }   
+        }).catch((err) => {
+            console.log("Promise Error");
+            console.log(err);
+        });
+        return ret;
     }
 
     async getAllThreads() {

@@ -6,6 +6,7 @@ import { AppAction } from "./actions";
 import { Email } from '../user/email/email';
 import { Comment } from '../comment/comment';
 import reducer from "./reducer";
+import { Reaction } from "../threads/reaction";
 
 
 // Define the items that are in our state
@@ -21,7 +22,8 @@ export interface UserState {
 
 export interface ThreadState {
     threads: Thread[];
-    thread: Thread
+    thread: Thread;
+    reaction: Reaction;
 }
 
 export interface EmailState {

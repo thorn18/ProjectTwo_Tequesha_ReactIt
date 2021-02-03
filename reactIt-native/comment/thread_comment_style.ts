@@ -50,11 +50,12 @@ const threadtablestyle = StyleSheet.create({
         height: "fitcontent",
         paddingBottom: perfectSize(25),
         borderStyle: "inset",
-        borderWidth: 3,
-        borderRadius: 3,
+        borderWidth: 5,
+        borderRadius: 5,
         position: "relative",
         width: 1400,
         left: 100,
+        borderColor:"darkgreen",
 
     },
     container: {
@@ -94,6 +95,26 @@ const threadtablestyle = StyleSheet.create({
         borderColor:"black",
         fontSize:16,
         fontWeight:"bold",
+    },
+    emojihappy: {
+        width:50,
+        height:50,
+        left:200,
+        position:"relative",
+
+    },
+    emoji: {
+        height:50,
+        width:50,
+        left:200,
+        position:"relative",
+    },
+    emojisad: {
+        width:50,
+        height:50,
+        left:800,
+        top: -50,
+        position:"relative",
     },
 
 
