@@ -25,7 +25,7 @@ export function AddReplyToReplyComponent(props: ReplyToReplyProp) {
 
     const parentReply = props.route.params;
     const author = rtr.username = userContext.username;
-    const id = rtr.threads_reply_id = Number(parentReply?.threads_id);
+    const id = rtr.reply_id = Number(parentReply?.threads_id);
     console.log(id);
     
     const dispatch = useDispatch();

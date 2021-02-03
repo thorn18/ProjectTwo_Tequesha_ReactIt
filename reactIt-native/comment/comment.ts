@@ -14,7 +14,7 @@ export class ReplyToReply {
     thread_reply_to_reply_id: string = '';
     thread_reply_to_reply_name: string = '';
     thread_reply_to_reply_description: string = '';
-    threads_reply_id: number = 0;
+    reply_id: number = 0;
     admincomments: string = '';
     username: string = '';
 }
