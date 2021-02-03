@@ -37,6 +37,21 @@ class CommentService {
     insertReplyToReply(reply: ReplyToReply){
         axios.post(this.URI2, reply);
     }
+
+    async getRepliesToReplies(id: string){
+        let r;
+        await axios.get(this.URI2+'?threads_reply_id='+id).then(result => {
+            if(result) {
+                r = result.data;
+            } else {
+                console.log('Result set is empty.')
+            }
+        }).catch((err) => {
+            console.log(err);
+        })
+        console.log(r);
+        return r;
+    }
 }
 
 export default new CommentService();

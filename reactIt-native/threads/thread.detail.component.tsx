@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { View, Text, Button, FlatList, ImageBackground } from 'react-native';
+import { Text, Button, FlatList, ImageBackground } from 'react-native';
 import styles from './thread_table_style';
 import style from '../comment/thread_comment_style';
 import { useDispatch, useSelector } from 'react-redux';
