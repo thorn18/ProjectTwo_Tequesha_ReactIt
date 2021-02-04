@@ -75,14 +75,15 @@ export default function CommentTableComponent({ data }: CommentProps) {
             )}
             <Text style={[style.card]}>Author: {data.username + ' \n' + data.thread_reply_description}</Text>
             <br></br>
-
+            <Button title='Reply to this reply' onPress={replyToReply} />
+            
             <FlatList
                 data={rep}
                 renderItem={({ item }) => (<RTRTableComponent data={item}  ></RTRTableComponent>)}
                 keyExtractor={(item) => item.thread_reply_to_reply_id}
             />
             <br></br>
-            <Button title='Reply to this reply' onPress={replyToReply} />
+           
 
         </View>
     )

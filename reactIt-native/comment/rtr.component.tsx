@@ -3,8 +3,10 @@ import { ReplyToReply } from '../comment/comment';
 import {
     Text,
     View,
-    TouchableHighlight,
+    Button,
 } from 'react-native';
+
+import { TouchableHighlight } from 'react-native-gesture-handler';
 import { UserState } from '../store/store';
 import { useSelector } from 'react-redux';
 import style from './thread_comment_style';
@@ -23,8 +25,8 @@ export default function RTRTableComponent ({data}: ReplyProps){
 
     function deletertr(){
         try {
-            await commentService.deleteReplyToReply(data.thread_reply_to_reply_id);
-            console.log('Successfully delete reply to reply');
+            commentService.deleteReplyToReply(data.thread_reply_to_reply_id);
+            console.log('Successfully deleted reply to reply');
             nav.navigate('Home');
         } catch {
             console.log('deleting reply to reply failed');
@@ -32,13 +34,12 @@ export default function RTRTableComponent ({data}: ReplyProps){
     }
         
     return (
-        <View>
+        <View style={[style.h2]}>
+            <Text style={[style.card]}>Author: {data.username + ' \n' + data.thread_reply_to_reply_description}</Text>
             {(user.role === 'Site Moderator' || user.username === data.username) && (
-                <TouchableHighlight style={[style.highlight]}>
-                    <Text style={[style.h2]} onPress={deletertr}>X</Text>
-                </TouchableHighlight>
+                <Button title='delete' onPress={deletertr} />
             )}
-            <Text>Author: {data.username + ' \n' + data.thread_reply_to_reply_description}</Text>
+            
         </View>
     )
 }
