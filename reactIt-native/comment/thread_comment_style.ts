@@ -77,8 +77,8 @@ const threadtablestyle = StyleSheet.create({
     h2: {
         position: "relative",
         textalign: "center",
-        width: 25,
-        height: 30,
+        width: "fitcontent",
+        height: "fitcontent",
         fontSize: 20,
         color: "red",
         textAlign: "center",
