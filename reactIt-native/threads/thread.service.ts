@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { ThreadState } from '../store/store';
+import { Reaction } from './reaction';
 import { Thread } from './thread';
 
 class ThreadService {
@@ -17,9 +18,25 @@ class ThreadService {
 
     }
 
+    async addReactions(reaction:Reaction) {
+        console.log(reaction);
+        let ret;
+        await axios.post(this.URIGetReaction, reaction).then(result => {
+            if (result) {
+                ret =  result;
+            } else {
+                console.log("RESULT IS EMPTY");
+            }   
+        }).catch((err) => {
+            console.log("Promise Error");
+            console.log(err);
+        });
+        return ret;
+    }
+
     async getReactions(threadid:string) {
+        threadid = "173";
         console.log(threadid);
-        threadid = '173';
         let ret;
         await axios.get(this.URIGetReaction+'?threadid='+threadid).then(result => {
             if (result) {
