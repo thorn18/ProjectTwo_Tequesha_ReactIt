@@ -69,8 +69,6 @@ const threadtablestyle = StyleSheet.create({
         borderColor: "red",
         borderWidth: 3,
         position: "relative",
-        left: 1640,
-        down: 500,
         width: 25,
         height: 30,
         fontSize: 30,
@@ -79,6 +77,8 @@ const threadtablestyle = StyleSheet.create({
     h2: {
         position: "relative",
         textalign: "center",
+        width: 25,
+        height: 30,
         fontSize: 20,
         color: "red",
         textAlign: "center",
@@ -112,7 +112,7 @@ const threadtablestyle = StyleSheet.create({
     emojisad: {
         width:50,
         height:50,
-        left:800,
+        left:500,
         top: -50,
         position:"relative",
     },

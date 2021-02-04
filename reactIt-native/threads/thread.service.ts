@@ -13,16 +13,17 @@ class ThreadService {
     constructor() {
         this.URI = 'https://hn2j9rkruh.execute-api.us-west-2.amazonaws.com/salmanFirst';
         this.URI2 = 'http://localhost:3000/tags';
-        this.URIGetReaction = 'https://kpbwe720za.execute-api.us-west-2.amazonaws.com/default/reaction';
+        this.URIGetReaction = 'https://kpbwe720za.execute-api.us-west-2.amazonaws.com/default/reactions';
 
     }
 
     async getReactions(threadid:string) {
+        console.log(threadid);
+        threadid = '173';
         let ret;
-        console.log(this.URIGetReaction+"?threadid="+threadid, {withCredentials: true});
-        await axios.get(this.URIGetReaction+"?threadid="+threadid).then(result => {
+        await axios.get(this.URIGetReaction+'?threadid='+threadid).then(result => {
             if (result) {
-                ret =  result.data   
+                ret =  result;
             } else {
                 console.log("RESULT IS EMPTY");
             }   

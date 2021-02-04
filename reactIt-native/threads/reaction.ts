@@ -1,4 +1,5 @@
 export class Reaction {
     threadid:string = '';
-    reaction= [];
+    reactions:any= [];
+    userSelection:any = [];
 }

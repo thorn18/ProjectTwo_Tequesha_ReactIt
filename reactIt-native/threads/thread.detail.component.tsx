@@ -34,7 +34,6 @@ export default function ThreadDetailComponent(props: DetailProps) {
     const user = useSelector((state: UserState) => state.user);
     let com = useSelector((state: CommentState) => state.comments);
     let react = useSelector((state: ThreadState) => state.reaction);
-    console.log(user);
 
     function deleteThread() {
         threadService.deleteThread(thr.thread_id);
@@ -51,11 +50,23 @@ export default function ThreadDetailComponent(props: DetailProps) {
         gettingReactions();
     }, []);
 
+    function checkUserSelection(thread: Reaction) {
+        let uS = ["",0];
+        console.log(thread.reactions[0]);
+        thread.reactions.forEach((value:any) => {
+            if(value[0] == user.username) {
+                uS = value;
+            }
+        })
+        return uS;
+    }
+
     function gettingReactions() {
-        threadService.getReactions(thr.thread_id).then((result:Reaction) => {
-            console.log("Result:");
+        threadService.getReactions(thr.thread_id).then((result:any) => {
             console.log(result);
-            react = result;
+            let temp:Reaction = result.data;
+            react = temp;
+            react.userSelection = checkUserSelection(react);
             dispatch(GetReaction(react));
         });
     }
@@ -80,10 +91,32 @@ export default function ThreadDetailComponent(props: DetailProps) {
 
     function refresh() {
         gettingReplies();
+        gettingReactions();
+    }
+
+    function handleclickhappy() {
+        let temp = [user.username,react.reactions[1]];
+        let index = react.reactions.indexOf(temp)
+        react.reactions[index]
+        let reaction = react.reactions[index];
+        reaction.reaction[1] = 1;
+        // threadService.updateReaction(react).then((result:any) => {
+           
+        // });
+    }
+
+    function handleclicksad() {
+        react.reactions[1] = 1;
+        // threadService.updateReaction(react).then((result:any) => {
+           
+        // });
     }
 
     return (
         <ImageBackground source={image} style={[style.container]}>
+            <Button onPress = {() => {
+                console.log(react);
+            }}></Button>
             <Text style={style.title}>{thr.threadname}</Text>
             <br></br>
             <Text style={style.text}>Author: {thr.username.toUpperCase()}</Text>
@@ -91,15 +124,15 @@ export default function ThreadDetailComponent(props: DetailProps) {
             <Text style={style.text}>Category: {thr.threadcategory}</Text>
             <br></br>
             <Text style={style.body}>{thr.threaddescription}</Text>
-            {(react.reaction[1] == "1") && (
+            {(react.userSelection[1] == 1 && react.userSelection[0] == user.username) && (
                 <View>
-                <TouchableOpacity style={style.emojihappy} activeOpacity={0.5}> disabled={true}
+                <TouchableOpacity style={style.emojihappy} activeOpacity={0.5} disabled={true} onPress ={handleclickhappy}>
                     <Image
                         source={happyemojiselected}
                         style={style.emoji}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity style={style.emojisad} activeOpacity={0.5}>
+                <TouchableOpacity style={style.emojisad} activeOpacity={0.5} onPress ={handleclicksad}>
                     <Image
                         source={sademoji}
                         style={style.emoji}
@@ -107,15 +140,15 @@ export default function ThreadDetailComponent(props: DetailProps) {
                 </TouchableOpacity>
             </View>
             )}
-            {(react.reaction[1] == "-1") && (
+            {(react.userSelection[1] == -1 && react.userSelection[0] == user.username)  && (
                 <View>
-                <TouchableOpacity style={style.emojihappy} activeOpacity={0.5}>
+                <TouchableOpacity style={style.emojihappy} activeOpacity={0.5} onPress ={handleclickhappy}>
                     <Image
                         source={happyemoji}
                         style={style.emoji}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity style={style.emojisad} activeOpacity={0.5} disabled={true}>
+                <TouchableOpacity style={style.emojisad} activeOpacity={0.5} disabled={true} onPress ={handleclicksad}>
                     <Image
                         source={sademojiselected}
                         style={style.emoji}
@@ -123,15 +156,15 @@ export default function ThreadDetailComponent(props: DetailProps) {
                 </TouchableOpacity>
             </View>
             )}
-            {(react.reaction[1] == "0") && (
+            {(react.userSelection[1] == 0 && react.userSelection[0] == user.username) && (
                 <View>
-                    <TouchableOpacity style={style.emojihappy} activeOpacity={0.5}>
+                    <TouchableOpacity style={style.emojihappy} activeOpacity={0.5} onPress ={handleclickhappy}>
                         <Image
                             source={happyemoji}
                             style={style.emoji}
                         />
                     </TouchableOpacity>
-                    <TouchableOpacity style={style.emojisad} activeOpacity={0.5}>
+                    <TouchableOpacity style={style.emojisad} activeOpacity={0.5} onPress ={handleclicksad}>
                         <Image
                             source={sademoji}
                             style={style.emoji}
