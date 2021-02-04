@@ -52,6 +52,10 @@ class CommentService {
         console.log(r);
         return r;
     }
+
+    deleteReplyToReply(id: string){
+        axios.get(this.URI2+'?threads_reply_id='+id);
+    }
 }
 
 export default new CommentService();

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Comment, ReplyToReply } from '../comment/comment';
-import style from './thread_comment_style'
+import style from './thread_comment_style';
 import {
     Button,
     Text,
