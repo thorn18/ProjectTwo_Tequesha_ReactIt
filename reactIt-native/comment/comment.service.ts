@@ -54,7 +54,7 @@ class CommentService {
     }
 
     deleteReplyToReply(id: string){
-        axios.get(this.URI2+'?threads_reply_id='+id);
+        axios.get(this.URI2+'/replied?replied='+id);
     }
 }
 
