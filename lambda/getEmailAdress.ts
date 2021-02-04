@@ -6,17 +6,16 @@ let docClient = new AWS.DynamoDB.DocumentClient({
 });
 
 interface MyEvent {
-    body: string;
+    path: string;
 }
 
-export const handler = async (event: MyEvent): Promise<any> => {
-    let email: Email = JSON.parse(event.body) as Email;
-    let resp = await addEmailAddress(email);
-    
-    if(resp){
+export const handler = async (event: MyEvent) => {
+    let address = event.path.substring(event.path.lastIndexOf('/')+1, event.path.length);
+    const email = await getEmailAddress(address);
+    if(email){
         return {
-            body: '',
-            statusCode: 204,
+            body: JSON.stringify(email),
+            statusCode: 200,
             headers: {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*'
@@ -24,7 +23,7 @@ export const handler = async (event: MyEvent): Promise<any> => {
         };
     } else {
         return {
-            body: '',
+            body: JSON.stringify({}),
             statusCode: 400,
             headers: {
                 'Content-Type': 'application/json',
@@ -32,21 +31,25 @@ export const handler = async (event: MyEvent): Promise<any> => {
             }
         }
     }
+    //return JSON.stringify(event);
 }
 
-async function addEmailAddress(email: Email): Promise<boolean> {
+async function getEmailAddress(address: string): Promise<Email | null> {
+    // Look up by email address
     const params = {
         TableName: 'emails',
-        // Email address being put on banned list
-        Item: email,
+        Key: {
+            'address': address
+        }
     };
-
-    return await docClient.put(params).promise().then((result) => {
-        return true;
-    }).catch((error) => {
-        console.log(error);
-        return false;
-    });
+    return await docClient.get(params).promise().then((data) => {
+        if (data && data.Item) {
+            return data.Item as Email;
+        } else {
+            console.log("Promise Failed");
+            return null;
+        }
+    })
 }
 
 class Email{

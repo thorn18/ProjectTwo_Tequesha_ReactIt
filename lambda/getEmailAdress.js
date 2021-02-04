@@ -62,18 +62,18 @@ var docClient = new AWS.DynamoDB.DocumentClient({
     endpoint: 'http://dynamodb.us-west-2.amazonaws.com'
 });
 var handler = function (event) { return __awaiter(void 0, void 0, void 0, function () {
-    var email, resp;
+    var address, email;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                email = JSON.parse(event.body);
-                return [4 /*yield*/, addEmailAddress(email)];
+                address = event.path.substring(event.path.lastIndexOf('/') + 1, event.path.length);
+                return [4 /*yield*/, getEmailAddress(address)];
             case 1:
-                resp = _a.sent();
-                if (resp) {
+                email = _a.sent();
+                if (email) {
                     return [2 /*return*/, {
-                            body: '',
-                            statusCode: 204,
+                            body: JSON.stringify(email),
+                            statusCode: 200,
                             headers: {
                                 'Content-Type': 'application/json',
                                 'Access-Control-Allow-Origin': '*'
@@ -82,7 +82,7 @@ var handler = function (event) { return __awaiter(void 0, void 0, void 0, functi
                 }
                 else {
                     return [2 /*return*/, {
-                            body: '',
+                            body: JSON.stringify({}),
                             statusCode: 400,
                             headers: {
                                 'Content-Type': 'application/json',
@@ -95,7 +95,7 @@ var handler = function (event) { return __awaiter(void 0, void 0, void 0, functi
     });
 }); };
 exports.handler = handler;
-function addEmailAddress(email) {
+function getEmailAddress(address) {
     return __awaiter(this, void 0, void 0, function () {
         var params;
         return __generator(this, function (_a) {
@@ -103,14 +103,18 @@ function addEmailAddress(email) {
                 case 0:
                     params = {
                         TableName: 'emails',
-                        // Email address being put on banned list
-                        Item: email,
+                        Key: {
+                            'address': address
+                        }
                     };
-                    return [4 /*yield*/, docClient.put(params).promise().then(function (result) {
-                            return true;
-                        }).catch(function (error) {
-                            console.log(error);
-                            return false;
+                    return [4 /*yield*/, docClient.get(params).promise().then(function (data) {
+                            if (data && data.Item) {
+                                return data.Item;
+                            }
+                            else {
+                                console.log("Promise Failed");
+                                return null;
+                            }
                         })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
