@@ -61,60 +61,52 @@ var docClient = new AWS.DynamoDB.DocumentClient({
     region: 'us-west-2',
     endpoint: 'http://dynamodb.us-west-2.amazonaws.com'
 });
-var handler = function (event) { return __awaiter(void 0, void 0, void 0, function () {
-    var address, email;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                address = event.path.substring(event.path.lastIndexOf('/') + 1, event.path.length);
-                return [4 /*yield*/, getEmailAddress(address)];
-            case 1:
-                email = _a.sent();
-                if (email) {
-                    return [2 /*return*/, {
-                            body: JSON.stringify(email),
-                            statusCode: 200,
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Access-Control-Allow-Origin': '*'
-                            }
-                        }];
-                }
-                else {
-                    return [2 /*return*/, {
-                            body: JSON.stringify({}),
-                            statusCode: 400,
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Access-Control-Allow-Origin': '*'
-                            }
-                        }];
-                }
-                return [2 /*return*/];
-        }
+// AWS Lambda needs a Handler Function. In node, that handler function must be named 'handler'.
+function handler() {
+    return __awaiter(this, void 0, void 0, function () {
+        var emails;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, getBannedEmails()];
+                case 1:
+                    emails = _a.sent();
+                    if (emails) {
+                        return [2 /*return*/, {
+                                body: JSON.stringify(emails),
+                                statusCode: 200,
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Access-Control-Allow-Origin': '*'
+                                }
+                            }];
+                    }
+                    else {
+                        return [2 /*return*/, {
+                                body: JSON.stringify({}),
+                                statusCode: 400,
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Access-Control-Allow-Origin': '*'
+                                }
+                            }];
+                    }
+                    return [2 /*return*/];
+            }
+        });
     });
-}); };
+}
 exports.handler = handler;
-function getEmailAddress(address) {
+function getBannedEmails() {
     return __awaiter(this, void 0, void 0, function () {
         var params;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     params = {
-                        TableName: 'emails',
-                        Key: {
-                            'address': address
-                        }
+                        TableName: 'emails'
                     };
-                    return [4 /*yield*/, docClient.get(params).promise().then(function (data) {
-                            if (data && data.Item) {
-                                return data.Item;
-                            }
-                            else {
-                                console.log("Promise Failed");
-                                return null;
-                            }
+                    return [4 /*yield*/, docClient.scan(params).promise().then(function (data) {
+                            return data.Items;
                         })];
                 case 1: return [2 /*return*/, _a.sent()];
             }

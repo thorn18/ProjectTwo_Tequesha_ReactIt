@@ -5,16 +5,12 @@ let docClient = new AWS.DynamoDB.DocumentClient({
     endpoint: 'http://dynamodb.us-west-2.amazonaws.com'
 });
 
-interface MyEvent {
-    path: string;
-}
-
-export const handler = async (event: MyEvent) => {
-    let address = event.path;
-    const email = await getEmailAddress(address);
-    if(email){
+// AWS Lambda needs a Handler Function. In node, that handler function must be named 'handler'.
+export async function handler() {
+    const emails = await getBannedEmails();
+    if(emails) {
         return {
-            body: JSON.stringify(email),
+            body: JSON.stringify(emails),
             statusCode: 200,
             headers: {
                 'Content-Type': 'application/json',
@@ -31,24 +27,14 @@ export const handler = async (event: MyEvent) => {
             }
         }
     }
-    //return JSON.stringify(event);
 }
 
-async function getEmailAddress(address: string): Promise<Email | null> {
-    // Look up by email address
+async function getBannedEmails(): Promise<Email[]> {
     const params = {
-        TableName: 'emails',
-        Key: {
-            'address': address
-        }
+        TableName: 'emails'
     };
-    return await docClient.get(params).promise().then((data) => {
-        if (data && data.Item) {
-            return data.Item as Email;
-        } else {
-            console.log("Promise Failed");
-            return null;
-        }
+    return await docClient.scan(params).promise().then((data) => {
+        return data.Items as Email[];
     })
 }
 
