@@ -11,12 +11,11 @@ import { Comment } from '../comment/comment';
 import { getComments, GetReaction } from '../store/actions';
 import CommentTableComponent from '../comment/commenttable.component';
 import commentService from '../comment/comment.service';
-import image from '../router/alien.jpg'
-import happyemoji from '../happyemoji.png'
-import happyemojiselected from '../happyemojiselected.jpg'
-import sademoji from '../sademoji.png'
-import sademojiselected from '../sademojiselected.jpg'
-import { State } from 'react-native-gesture-handler';
+import image from '../router/alien.jpg';
+import happyemoji from '../happyemoji.jpg';
+import happyemojiselected from '../happyemojiselected.jpg';
+import sademoji from '../sademoji.jpg';
+import sademojiselected from '../sademojiselected.jpg';
 import { Reaction } from './reaction';
 
 interface DetailProps {
@@ -51,10 +50,10 @@ export default function ThreadDetailComponent(props: DetailProps) {
     }, []);
 
     function checkUserSelection(thread: Reaction) {
-        let uS = ["", 0];
+        let uS = ["",0];
         console.log(thread.reactions[0]);
-        thread.reactions.forEach((value: any) => {
-            if (value[0] == user.username) {
+        thread.reactions.forEach((value:any) => {
+            if(value[0] == user.username) {
                 uS = value;
             }
         })
@@ -141,7 +140,7 @@ export default function ThreadDetailComponent(props: DetailProps) {
 
     return (
         <ImageBackground source={image} style={[style.container]}>
-            <Button onPress={() => {
+            <Button onPress = {() => {
                 console.log(react);
             }}></Button>
             <Text style={style.title}>{thr.threadname}</Text>

@@ -3,7 +3,7 @@ import { User } from './../user/user';
 import { ForumState } from './store';
 import { Thread } from '../threads/thread';
 import { Email } from '../user/email/email';
-import { Comment } from '../comment/comment';
+import { Comment, ReplyToReply } from '../comment/comment';
 import { Reaction } from '../threads/reaction';
 
 // We need to define the initial state of the application and that
@@ -21,6 +21,8 @@ export const initialState: ForumState = {
     emails: [],
     comments: [],
     comment: new Comment(),
+    reply_to_reply: new ReplyToReply(),
+    reply_to_replies: [],
     reaction: new Reaction()
 }
 
@@ -81,6 +83,12 @@ const reducer = (state: ForumState = initialState, action: Actions.AppAction): F
             return newState;
         case Actions.CommentActions.ChangeComments:
             newState.comment = action.payload as Comment;
+            return newState;
+        case Actions.CommentActions.GetReplies:
+            newState.reply_to_replies = action.payload as ReplyToReply[];
+            return newState;
+        case Actions.CommentActions.ChangeReplies:
+            newState.reply_to_reply = action.payload as ReplyToReply;
             return newState;
         default:
             return state;
