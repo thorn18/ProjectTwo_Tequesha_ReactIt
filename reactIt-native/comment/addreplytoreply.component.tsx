@@ -7,12 +7,13 @@ import {
     Text,
     View,
     ImageBackground,
-
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { CommentState, UserState } from '../store/store';
 import { addReplyToReply } from '../store/actions';
 import commentService from '../comment/comment.service';
+import style from './thread_comment_style';
+import image from '../threads/alien.jpg'
 
 interface ReplyToReplyProp {
     navigation: any,
@@ -27,34 +28,37 @@ export function AddReplyToReplyComponent(props: ReplyToReplyProp) {
     const author = rtr.username = userContext.username;
     const id = rtr.reply_id = Number(parentReply?.thread_reply_id);
     console.log(id);
-    
+
     const dispatch = useDispatch();
 
-    function submit(){
+    function submit() {
         console.log(rtr);
         commentService.insertReplyToReply(rtr);
         props.navigation.navigate('ThreadDetail');
     }
 
     return (
-        <View>
-            <Text>Author: {author}</Text>
-            <Text>Title: </Text>
-            <TextInput onChangeText={(value) =>
-                dispatch(addReplyToReply({ ...rtr, thread_reply_to_reply_name: value }))
-            }
-                value={rtr.thread_reply_to_reply_name}>
-            </TextInput>
-            <Text>Reply: </Text>
-            <TextInput multiline numberOfLines={4}
-                onChangeText={(value) =>
-                    dispatch(addReplyToReply({ ...rtr, thread_reply_to_reply_description: value }))
+        <ImageBackground source={image} style={[style.image]}>
+            <View style={[style.container]}>
+                <Text style={[style.add]}>Author: {author}</Text>
+                <Text style={[style.add]}>Title: </Text>
+                <TextInput 
+                    style={[style.add]}
+                    onChangeText={(value) =>
+                        dispatch(addReplyToReply({ ...rtr, thread_reply_to_reply_name: value }))
                 }
-                value={rtr.thread_reply_to_reply_description}>
-            </TextInput>
+                    value={rtr.thread_reply_to_reply_name}>
+                </TextInput>
+                <Text style={[style.add]}>Reply: </Text>
+                <TextInput multiline numberOfLines={4} style={[style.add]}
+                    onChangeText={(value) =>
+                        dispatch(addReplyToReply({ ...rtr, thread_reply_to_reply_description: value }))
+                    }
+                    value={rtr.thread_reply_to_reply_description}>
+                </TextInput>
 
-            <Button title='Add the reply' onPress={submit} />
-        </View>
+                <Button title='Add the reply' color = 'green' onPress={submit} />
+            </View>
+        </ImageBackground>
     )
-
 }

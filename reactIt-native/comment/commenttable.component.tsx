@@ -32,6 +32,10 @@ export default function CommentTableComponent({ data }: CommentProps) {
         gettingRepToReps();
     },[]);
 
+    function refreshrtr(){
+        gettingRepToReps();
+    }
+
     function gettingRepToReps(){
         let r: any;
         console.log('getting replies to replies');
@@ -83,8 +87,7 @@ export default function CommentTableComponent({ data }: CommentProps) {
                 keyExtractor={(item) => item.thread_reply_to_reply_id}
             />
             <br></br>
-           
-
+            <Button title='refresh replies to replies' color='green' onPress={refreshrtr} />
         </View>
     )
 }

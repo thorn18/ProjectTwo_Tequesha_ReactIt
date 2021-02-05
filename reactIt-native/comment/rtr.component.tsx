@@ -17,13 +17,13 @@ interface ReplyProps {
     data: ReplyToReply
 }
 
-export default function RTRTableComponent ({data}: ReplyProps){
+export default function RTRTableComponent({ data }: ReplyProps) {
     console.log(data);
 
     const user = useSelector((state: UserState) => state.user);
     const nav = useNavigation();
 
-    function deletertr(){
+    function deletertr() {
         try {
             commentService.deleteReplyToReply(data.thread_reply_to_reply_id);
             console.log('Successfully deleted reply to reply');
@@ -32,14 +32,15 @@ export default function RTRTableComponent ({data}: ReplyProps){
             console.log('deleting reply to reply failed');
         }
     }
-        
+
     return (
         <View style={[style.h2]}>
-            <Text style={[style.card]}>Author: {data.username + ' \n' + data.thread_reply_to_reply_description}</Text>
             {(user.role === 'Site Moderator' || user.username === data.username) && (
-                <Button title='delete' onPress={deletertr} />
+                <TouchableHighlight style={[style.highlight]}>
+                    <Text style={[style.h2]} onPress={deletertr}>X</Text>
+                </TouchableHighlight>
             )}
-            
+            <Text style={[style.card]}>Author: {data.username + ' \n' + data.thread_reply_to_reply_description}</Text>
         </View>
     )
 }
