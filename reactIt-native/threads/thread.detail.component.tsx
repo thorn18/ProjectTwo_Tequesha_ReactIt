@@ -50,10 +50,10 @@ export default function ThreadDetailComponent(props: DetailProps) {
     }, []);
 
     function checkUserSelection(thread: Reaction) {
-        let uS = ["",0];
+        let uS = ["", 0];
         console.log(thread.reactions[0]);
-        thread.reactions.forEach((value:any) => {
-            if(value[0] == user.username) {
+        thread.reactions.forEach((value: any) => {
+            if (value[0] == user.username) {
                 uS = value;
             }
         })
@@ -97,27 +97,11 @@ export default function ThreadDetailComponent(props: DetailProps) {
     }
 
     function handleclickhappy() {
-        let temp = [user.username, react.reactions[1]];
-        let index = react.reactions.indexOf(temp)
-        console.log(index);
-        react.reactions[index]
-        console.log(react.reactions[index]);
-
-        let reaction = react.reactions[index];
-        // reaction.reaction[1] = 1;
-        // threadService.updateReaction(react).then((result:any) => {
-
-        // });
-    }
-
-    function handleclicksad() {
-        console.log(react);
-        console.log(thr);
         if (react.reactions.length == 0 || react.threadid == "") {
             react.threadid = thr.thread_id;
-            react.reactions.push([user.username, -1]);
+            react.reactions.push([user.username, 1]);
             threadService.addReactions(react);
-            // dispatch(GetReaction(react));
+            dispatch(GetReaction(react));
         } else {
             let temp = [user.username, react.userSelection[1]];
             let index = -1;
@@ -126,21 +110,35 @@ export default function ThreadDetailComponent(props: DetailProps) {
                     index = react.reactions.indexOf(element);
                 }
             });
-            console.log(index);
-            react.reactions[index]
-            console.log(react.reactions[index]);
+            react.reactions[index] = [user.username,1];
+            threadService.addReactions(react);
+            dispatch(GetReaction(react));
         }
+    }
 
-
-        // react.reactions[1] = -1;
-        // threadService.updateReaction(react).then((result:any) => {
-
-        // });
+    function handleclicksad() {
+        if (react.reactions.length == 0 || react.threadid == "") {
+            react.threadid = thr.thread_id;
+            react.reactions.push([user.username, -1]);
+            threadService.addReactions(react);
+            dispatch(GetReaction(react));
+        } else {
+            let temp = [user.username, react.userSelection[1]];
+            let index = -1;
+            react.reactions.forEach((element: any) => {
+                if (element[0] == temp[0] && element[1] == temp[1]) {
+                    index = react.reactions.indexOf(element);
+                }
+            });
+            react.reactions[index][1] = [user.username,-1];
+            threadService.addReactions(react);
+            dispatch(GetReaction(react));
+        }
     }
 
     return (
         <ImageBackground source={image} style={[style.container]}>
-            <Button onPress = {() => {
+            <Button onPress={() => {
                 console.log(react);
             }}></Button>
             <Text style={style.title}>{thr.threadname}</Text>
@@ -182,7 +180,7 @@ export default function ThreadDetailComponent(props: DetailProps) {
                     </TouchableOpacity>
                 </View>
             )}
-            {(react.userSelection[1] == 0 && react.userSelection[0] == user.username || react.userSelection.length == 0) && (
+            {(react.userSelection[1] == 0 && react.userSelection[0] == user.username) && (
                 <View>
                     <TouchableOpacity style={style.emojihappy} activeOpacity={0.5} onPress={handleclickhappy}>
                         <Image
