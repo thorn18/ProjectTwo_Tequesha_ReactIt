@@ -143,7 +143,6 @@ function HomeComponent({ navigation }: HomeProp) {
 
             </View>
         </ImageBackground>
-
     );
 }
 
