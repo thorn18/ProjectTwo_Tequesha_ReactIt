@@ -47,12 +47,13 @@ function LoginComponent({ navigation }: LoginProp) {
                 dispatch(changeUser(new User));
                 alert('Moderators have deactivated this account.');
                 navigation.navigate('Login');
-            } else if(user?.accountstatus === 'BANNED'){
+            } else if (user?.accountstatus === 'BANNED') {
                 dispatch(changeUser(new User));
                 alert('This account has been banned from this site.');
                 navigation.navigate('Login');
             } else {
-                if (user) {
+                if (user.username.length > 0) {
+                    console.log('Login User: ', user);
                     navigation.navigate('Home');
                 } else {
                     alert('Login Failed. Please Try Again.')
@@ -63,12 +64,11 @@ function LoginComponent({ navigation }: LoginProp) {
             console.log(err);
         });
     }
-    
     function register() {
         navigation.navigate('Register');
     }
     return (
-        <ImageBackground source = {image} style={[style.image]}>
+        <ImageBackground source={image} style={[style.image]}>
             <View style={[style.innercontainer]}>
                 <Text style={style.text}>Username: </Text>
                 <TextInput

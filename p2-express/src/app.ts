@@ -10,13 +10,15 @@ import session from 'express-session';
 import MemoryStore from 'memorystore';
 import dotenv from 'dotenv';
 import indexRouter from './routes/index-router';
+import tagRouter from './routes/tag-router';
+
 dotenv.config();
 var app = express();
 
 // view engine setup
+//app.use(cors({origin:process.env.CLIENT, credentials: true}));
 app.use(cors({origin: [process.env.CLIENT as string, process.env.MOBILE as string, process.env.ANDROID as string], credentials: true}));
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(publicDir));
@@ -29,6 +31,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/threads', threadRouter);
 app.use('/emails', emailRouter);
+app.use('/tags', tagRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req:any, res:any, next:Function) {

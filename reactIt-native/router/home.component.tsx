@@ -34,10 +34,11 @@ function HomeComponent({ navigation }: HomeProp) {
 
     let [q2, q2setter] = useState("");
     let [qchooser, qchoosersetter] = useState("");
+    let [a, achooser] = useState(0);
 
     useEffect(() => {
         handleStuff()
-    }, [q2, q2setter]);
+    }, [q2]);
 
     function createNewThread() {
         navigation.navigate('NewThread');
@@ -63,23 +64,24 @@ function HomeComponent({ navigation }: HomeProp) {
         dispatch(getThreads(threads));
     }
 
+    function refresh() {
+        handleStuff();
+    }
+    
     function checkfilter(thread: Thread) {
         if (qchooser == "Thread Title") {
-            console.log("thread name");
             if (threads.includes(thread) && thread.threadname.includes(q2)) {
                 return true;
             } else {
                 return false;
             }
         } else if (qchooser == "Author") {
-            console.log("thread name");
             if (threads.includes(thread) && thread.username.includes(q2)) {
                 return true;
             } else {
                 return false;
             }
         } else if (qchooser == "Category") {
-            console.log("thread name");
             if (threads.includes(thread) && thread.threadcategory.includes(q2)) {
                 return true;
             } else {
@@ -92,7 +94,7 @@ function HomeComponent({ navigation }: HomeProp) {
     }
 
     return (
-        <ImageBackground source = {image} style={[style.image]}>
+        <ImageBackground source={image} style={[style.image]}>
             <View style={[style.homeContainer]}>
                 {user.username ? (
                     <Button onPress={createNewThread} title='Create New Thread' color='green' />
@@ -105,6 +107,7 @@ function HomeComponent({ navigation }: HomeProp) {
                         { label: 'Thread Title', value: 'Thread Title', icon: () => <Icon name="flag" size={18} color="#900" /> },
                         { label: 'Author', value: 'Author', icon: () => <Icon name="flag" size={18} color="#900" /> },
                         { label: 'Category', value: 'Category', icon: () => <Icon name="flag" size={18} color="#900" /> },
+
                     ]}
                     defaultValue=""
                     containerStyle={{ height: 40 }}
@@ -131,12 +134,13 @@ function HomeComponent({ navigation }: HomeProp) {
                     }
                     value={q2}
                 />
-
                 <FlatList
                     data={threads}
                     renderItem={({ item }) => ((checkfilter(item) && <ThreadTableComponent data={item}></ThreadTableComponent>))}
                     keyExtractor={(item) => item.thread_id}
                 />
+                <Button onPress={refresh} title='Refresh Thread List' color='green' />
+
             </View>
         </ImageBackground>
 
