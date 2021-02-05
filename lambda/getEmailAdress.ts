@@ -10,7 +10,7 @@ interface MyEvent {
 }
 
 export const handler = async (event: MyEvent) => {
-    let address = event.path.substring(event.path.lastIndexOf('/')+1, event.path.length);
+    let address = event.path;
     const email = await getEmailAddress(address);
     if(email){
         return {

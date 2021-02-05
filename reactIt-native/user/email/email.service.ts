@@ -12,7 +12,7 @@ class EmailService {
     
     // Add an email address to the list of emails banned from registration
     addEmailAddress(email: Email): Promise<Email>{
-        return axios.post(this.URI+"/", email, {withCredentials: true}).then(result => result.data).catch(err => err);
+        return axios.post(this.URI+"/", email).then(result => result.data).catch(err => err);
     }
 
 

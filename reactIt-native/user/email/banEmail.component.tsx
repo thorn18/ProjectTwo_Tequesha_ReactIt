@@ -24,6 +24,7 @@ function BanEmailComponent({navigation}: EmailProp) {
         // Set current user as the moderator that banned email
         email.bannedBy = currUser.username;
         // Add banned email to the database and update state for confirmation
+        console.log(email);
         emailService.addEmailAddress(email).then((bannedEmail) => {
             dispatch(changeEmail(bannedEmail));
             userService.getUserByName(email.username).then((bannedUser) => {
