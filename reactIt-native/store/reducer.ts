@@ -3,7 +3,8 @@ import { User } from './../user/user';
 import { ForumState } from './store';
 import { Thread } from '../threads/thread';
 import { Email } from '../user/email/email';
-import { Comment } from '../comment/comment';
+import { Comment, ReplyToReply } from '../comment/comment';
+import { Reaction } from '../threads/reaction';
 
 // We need to define the initial state of the application and that
 // state should include everything that the application might keep track of.
@@ -19,7 +20,10 @@ export const initialState: ForumState = {
     email: new Email(),
     emails: [],
     comments: [],
-    comment: new Comment()
+    comment: new Comment(),
+    reply_to_reply: new ReplyToReply(),
+    reply_to_replies: [],
+    reaction: new Reaction()
 }
 
 // Make sure that the reducer has a default argument of the inital state or it will not work.
@@ -33,8 +37,12 @@ const reducer = (state: ForumState = initialState, action: Actions.AppAction): F
         case Actions.ThreadActions.GetThreads:
             console.log("Calling action getThreads");
             console.log(action.payload);
-            //Threads [] will need updating here.
             newState.threads = action.payload as Thread[];
+            return newState;
+        case Actions.ThreadActions.GetReaction:
+            console.log("Calling action getThreads");
+            console.log(action.payload);
+            newState.reaction = action.payload as Reaction;
             return newState;
         case Actions.ThreadActions.GetThread:
             newState.thread = action.payload as Thread;
@@ -68,13 +76,19 @@ const reducer = (state: ForumState = initialState, action: Actions.AppAction): F
             newState.email = action.payload as Email;
             return newState;
         case Actions.EmailActions.GetAllBanned:
-            newState.emails = action.payload as Email [];
+            newState.emails = action.payload as Email[];
             return newState;
         case Actions.CommentActions.GetComments:
             newState.comments = action.payload as Comment[];
             return newState;
         case Actions.CommentActions.ChangeComments:
             newState.comment = action.payload as Comment;
+            return newState;
+        case Actions.CommentActions.GetReplies:
+            newState.reply_to_replies = action.payload as ReplyToReply[];
+            return newState;
+        case Actions.CommentActions.ChangeReplies:
+            newState.reply_to_reply = action.payload as ReplyToReply;
             return newState;
         default:
             return state;

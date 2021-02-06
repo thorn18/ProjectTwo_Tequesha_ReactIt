@@ -50,11 +50,12 @@ const threadtablestyle = StyleSheet.create({
         height: "fitcontent",
         paddingBottom: perfectSize(25),
         borderStyle: "inset",
-        borderWidth: 3,
-        borderRadius: 3,
+        borderWidth: 5,
+        borderRadius: 5,
         position: "relative",
         width: 1400,
         left: 100,
+        borderColor:"darkgreen",
 
     },
     container: {
@@ -68,8 +69,6 @@ const threadtablestyle = StyleSheet.create({
         borderColor: "red",
         borderWidth: 3,
         position: "relative",
-        left: 1640,
-        down: 500,
         width: 25,
         height: 30,
         fontSize: 30,
@@ -78,6 +77,8 @@ const threadtablestyle = StyleSheet.create({
     h2: {
         position: "relative",
         textalign: "center",
+        width: "fitcontent",
+        height: "fitcontent",
         fontSize: 20,
         color: "red",
         textAlign: "center",
@@ -95,6 +96,53 @@ const threadtablestyle = StyleSheet.create({
         fontSize:16,
         fontWeight:"bold",
     },
+    emojihappy: {
+        top:-5,
+        width:50,
+        height:50,
+        left:600,
+        position:"relative",
+
+    },
+    emoji: {
+        height:50,
+        width:50,
+        left:200,
+        position:"relative",
+    },
+    emojih: {
+        height:65,
+        width:65,
+        left:200,
+        position:"relative",
+    },
+    emojisad: {
+        width:40,
+        height:40,
+        left:500,
+        top: -50,
+        position:"relative",
+    },
+    replybutton: {
+        borderStyle:"inset",
+        borderWidth:3,
+        borderColor:"green",
+        width:170,
+        fontSize:14,
+        height:27,
+        position:"relative",
+        backgroundColor:"blue",
+        color:"black",
+        justifyContent:"center",
+    },
+    highlightreply: {
+        textAlign:"center",
+        justifyContent:"center",
+        width:200,
+        top:-15,
+        left:660,
+        height:32,
+    }
 
 
 
