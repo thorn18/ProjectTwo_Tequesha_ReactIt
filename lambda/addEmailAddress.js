@@ -62,12 +62,10 @@ var docClient = new AWS.DynamoDB.DocumentClient({
     endpoint: 'http://dynamodb.us-west-2.amazonaws.com'
 });
 var handler = function (event) { return __awaiter(void 0, void 0, void 0, function () {
-    var email, resp;
+    var resp;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0:
-                email = JSON.parse(event.body);
-                return [4 /*yield*/, addEmailAddress(email)];
+            case 0: return [4 /*yield*/, addEmailAddress(event)];
             case 1:
                 resp = _a.sent();
                 if (resp) {

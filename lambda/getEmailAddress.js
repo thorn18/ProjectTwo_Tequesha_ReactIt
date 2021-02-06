@@ -66,7 +66,7 @@ var handler = function (event) { return __awaiter(void 0, void 0, void 0, functi
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                address = event.path.substring(event.path.lastIndexOf('/') + 1, event.path.length);
+                address = event.queryStringParameters.address;
                 return [4 /*yield*/, getEmailAddress(address)];
             case 1:
                 email = _a.sent();
