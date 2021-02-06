@@ -1,12 +1,10 @@
 import express from 'express'
-import {Cookie} from 'express-session';
 import userservice from '../dbfiles/services/user.service'
 import * as user from '../user/user';
 
 var router = express.Router();
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  // TODO: Get the session information to check if there is a user and send back
   //res.send('express is working');
 });
 
@@ -36,7 +34,6 @@ router.post('/', function(req, res, next) {
     console.log(returnedUser?.password);
     console.log(req.body.password);
     if(returnedUser && returnedUser.password === req.body.password){
-      // TODO: Save session
       res.send(JSON.stringify(returnedUser));
     }
     else{

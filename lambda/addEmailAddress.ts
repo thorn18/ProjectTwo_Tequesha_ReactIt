@@ -5,13 +5,8 @@ let docClient = new AWS.DynamoDB.DocumentClient({
     endpoint: 'http://dynamodb.us-west-2.amazonaws.com'
 });
 
-interface MyEvent {
-    body: string;
-}
-
-export const handler = async (event: MyEvent): Promise<any> => {
-    let email: Email = JSON.parse(event.body) as Email;
-    let resp = await addEmailAddress(email);
+export const handler = async (event: Email): Promise<any> => {
+    let resp = await addEmailAddress(event);
     
     if(resp){
         return {

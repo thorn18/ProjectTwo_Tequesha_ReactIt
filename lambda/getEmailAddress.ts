@@ -6,11 +6,11 @@ let docClient = new AWS.DynamoDB.DocumentClient({
 });
 
 interface MyEvent {
-    path: string;
+    queryStringParameters: {'address':string};
 }
 
 export const handler = async (event: MyEvent) => {
-    let address = event.path.substring(event.path.lastIndexOf('/')+1, event.path.length);
+    let address = event.queryStringParameters.address;
     const email = await getEmailAddress(address);
     if(email){
         return {
