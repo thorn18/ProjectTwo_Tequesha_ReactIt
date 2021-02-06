@@ -79,7 +79,9 @@ export default function CommentTableComponent({ data }: CommentProps) {
             )}
             <Text style={[style.card]}>Author: {data.username + ' \n' + data.thread_reply_description}</Text>
             <br></br>
-            <Button title='Reply to this reply' onPress={replyToReply} />
+            <TouchableHighlight style = {[style.highlightreply]}>
+                <Text style = {[style.replybutton]} onPress={replyToReply}>Reply to this reply</Text>
+            </TouchableHighlight>
             
             <FlatList
                 data={rep}

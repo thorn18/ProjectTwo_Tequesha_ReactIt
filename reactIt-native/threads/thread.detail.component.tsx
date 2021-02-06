@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Text, Button, FlatList, ImageBackground, TouchableOpacity, Image, View } from 'react-native';
 import styles from './thread_table_style';
 import style from '../comment/thread_comment_style';
@@ -33,6 +33,7 @@ export default function ThreadDetailComponent(props: DetailProps) {
     const user = useSelector((state: UserState) => state.user);
     let com = useSelector((state: CommentState) => state.comments);
     let react = useSelector((state: ThreadState) => state.reaction);
+    let [us, ussetter] = useState(0);
 
     function deleteThread() {
         threadService.deleteThread(thr.thread_id);
@@ -50,14 +51,20 @@ export default function ThreadDetailComponent(props: DetailProps) {
     }, []);
 
     function checkUserSelection(thread: Reaction) {
-        let uS = ["", 0];
+        let uS:any = ["", 0];
         console.log(thread.reactions[0]);
         thread.reactions.forEach((value: any) => {
             if (value[0] == user.username) {
                 uS = value;
             }
         })
-        return uS;
+        if(uS[0] == "") {
+            ussetter(0);
+        } else {
+            react.userSelection =  uS;
+            ussetter(uS[1]);
+        }
+        
     }
 
     function gettingReactions() {
@@ -66,7 +73,7 @@ export default function ThreadDetailComponent(props: DetailProps) {
                 let temp: Reaction = result.data;
                 console.log(temp);
                 react = temp;
-                react.userSelection = checkUserSelection(react);
+                checkUserSelection(react);
                 dispatch(GetReaction(react));
             }
 
@@ -94,10 +101,11 @@ export default function ThreadDetailComponent(props: DetailProps) {
     function refresh() {
         gettingReplies();
         gettingReactions();
+        
     }
 
     function handleclickhappy() {
-        if (react.reactions.length == 0 || react.threadid == "") {
+        if (react.reactions.length == 0) {
             react.threadid = thr.thread_id;
             react.reactions.push([user.username, 1]);
             threadService.addReactions(react);
@@ -117,7 +125,7 @@ export default function ThreadDetailComponent(props: DetailProps) {
     }
 
     function handleclicksad() {
-        if (react.reactions.length == 0 || react.threadid == "") {
+        if (react.reactions.length == 0) {
             react.threadid = thr.thread_id;
             react.reactions.push([user.username, -1]);
             threadService.addReactions(react);
@@ -180,7 +188,7 @@ export default function ThreadDetailComponent(props: DetailProps) {
                     </TouchableOpacity>
                 </View>
             )}
-            {(react.userSelection[1] == 0 && react.userSelection[0] == user.username) && (
+            {us == 0 && (
                 <View>
                     <TouchableOpacity style={style.emojihappy} activeOpacity={0.5} onPress={handleclickhappy}>
                         <Image

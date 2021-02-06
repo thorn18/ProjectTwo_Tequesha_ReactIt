@@ -123,6 +123,26 @@ const threadtablestyle = StyleSheet.create({
         top: -50,
         position:"relative",
     },
+    replybutton: {
+        borderStyle:"inset",
+        borderWidth:3,
+        borderColor:"green",
+        width:170,
+        fontSize:14,
+        height:27,
+        position:"relative",
+        backgroundColor:"blue",
+        color:"black",
+        justifyContent:"center",
+    },
+    highlightreply: {
+        textAlign:"center",
+        justifyContent:"center",
+        width:200,
+        top:-15,
+        left:660,
+        height:32,
+    }
 
 
 
