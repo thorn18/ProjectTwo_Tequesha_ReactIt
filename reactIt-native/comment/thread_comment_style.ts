@@ -97,9 +97,10 @@ const threadtablestyle = StyleSheet.create({
         fontWeight:"bold",
     },
     emojihappy: {
+        top:-5,
         width:50,
         height:50,
-        left:200,
+        left:600,
         position:"relative",
 
     },
@@ -109,13 +110,39 @@ const threadtablestyle = StyleSheet.create({
         left:200,
         position:"relative",
     },
+    emojih: {
+        height:65,
+        width:65,
+        left:200,
+        position:"relative",
+    },
     emojisad: {
-        width:50,
-        height:50,
+        width:40,
+        height:40,
         left:500,
         top: -50,
         position:"relative",
     },
+    replybutton: {
+        borderStyle:"inset",
+        borderWidth:3,
+        borderColor:"green",
+        width:170,
+        fontSize:14,
+        height:27,
+        position:"relative",
+        backgroundColor:"blue",
+        color:"black",
+        justifyContent:"center",
+    },
+    highlightreply: {
+        textAlign:"center",
+        justifyContent:"center",
+        width:200,
+        top:-15,
+        left:660,
+        height:32,
+    }
 
 
 

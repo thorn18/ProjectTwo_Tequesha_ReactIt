@@ -13,6 +13,7 @@ import { addThread, getThreads } from '../store/actions';
 import threadService from './thread.service';
 import { Switch } from 'react-native';
 import background from './alien.jpg'
+import { Reaction } from './reaction';
 
 interface NewThreadProp {
     navigation: any
@@ -31,9 +32,9 @@ export default function NewThreadComponent({ navigation }: NewThreadProp) {
 
     async function submitThread() {
         await threadService.insertThread(th);
+        let val = new Reaction();
         threads.push(th);
         dispatch(getThreads(threads));
-        // threadService.insertTags(th);
         navigation.navigate("Home");
     }
 
