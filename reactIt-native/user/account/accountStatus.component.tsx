@@ -22,7 +22,6 @@ function AccountStatusComponent(prop: statusProp) {
     const navigation = useNavigation();
     const dispatch = useDispatch();
 
-    console.log(prop);
     // update account status of the account modified
     function update() {
         userService.updateUser(prop.user).then(() => {});
