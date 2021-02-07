@@ -8,7 +8,6 @@ var user_service_1 = __importDefault(require("../dbfiles/services/user.service")
 var router = express_1.default.Router();
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-    // TODO: Get the session information to check if there is a user and send back
     //res.send('express is working');
 });
 router.get('/:username', function (req, res, next) {
@@ -35,7 +34,6 @@ router.post('/', function (req, res, next) {
         console.log(returnedUser === null || returnedUser === void 0 ? void 0 : returnedUser.password);
         console.log(req.body.password);
         if (returnedUser && returnedUser.password === req.body.password) {
-            // TODO: Save session
             res.send(JSON.stringify(returnedUser));
         }
         else {
