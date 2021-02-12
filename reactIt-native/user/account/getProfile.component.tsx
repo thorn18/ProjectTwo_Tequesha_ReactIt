@@ -60,7 +60,7 @@ function GetProfileComponent() {
             {searchUser === null &&(
                 <Text>No account found</Text>
             )}
-            {searchUser.accountstatus === 'BANNED' &&(
+            {searchUser?.accountstatus === 'BANNED' && (
                 <Text>This account has been banned</Text>
             )}
         </View>
