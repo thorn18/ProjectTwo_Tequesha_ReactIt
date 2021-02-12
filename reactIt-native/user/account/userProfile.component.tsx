@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { UserState } from '../../store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -40,7 +40,9 @@ function UserProfileComponent({ navigation }: ModifyUserProp) {
                 />
             <br></br>
             <Text style={style.text}>Name: {user.name}</Text>
+            <Text style={style.text}>Email: {user.email}</Text>
             <Text style={style.text}>Age: {user.age}</Text>
+
             <br></br>
             <Button onPress={goToModify} title='Modify Account' color='green' />
             <br></br>
