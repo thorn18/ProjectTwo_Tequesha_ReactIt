@@ -41,6 +41,7 @@ function LoginComponent({ navigation }: LoginProp) {
             if (user?.accountstatus === 'deactivated') {
                 //User is prompted to reactivate account in order to see site
                 alert('This account is currently deactivated.  Re-activate to continue.');
+                dispatch(getUser(user));
                 navigation.navigate('ModifyUser');
             } else if (user?.accountstatus === 'moderator-deactivated') {
                 // User is unable to login if site moderator deactivates account
