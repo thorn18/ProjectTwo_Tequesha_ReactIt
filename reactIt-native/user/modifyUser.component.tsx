@@ -22,7 +22,8 @@ function ModifyUserComponent({ navigation }: ModifyUserProp) {
     const userSelector = (state: UserState) => state.user;
     const user = useSelector(userSelector);
     const dispatch = useDispatch();
- 
+    let age = String(user.age);
+
     // Update the state and navigate back to home page
     function submitForm() {
         userService.updateUser(user).then(() => {
@@ -31,6 +32,7 @@ function ModifyUserComponent({ navigation }: ModifyUserProp) {
         console.log(user);
 
     }
+
 
     // Account status component called to give options regarding activating and deactivating account
     return (
@@ -69,9 +71,9 @@ function ModifyUserComponent({ navigation }: ModifyUserProp) {
                 <TextInput
                     style={[style.input, style.text]}
                     onChangeText={(value) =>
-
                         dispatch(changeUser({ ...user, age: Number(value) }))
                     }
+                    placeholder = {age}
                 />
                 <br></br>
                 <Text style={style.text}>Phone Number: </Text>
