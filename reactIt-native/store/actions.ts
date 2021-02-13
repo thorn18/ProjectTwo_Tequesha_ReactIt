@@ -14,11 +14,16 @@ export enum UserActions {
     SearchUserChange = 'CHANGE_SEARCH_USER'
 }
 
+
+
+
 export enum ThreadActions {
     GetThreads = 'GET_THREADS',
     GetThread = 'GET_THREAD',
     ChangeThreads = 'CHANGE_THREADS',
     GetReaction = 'GET_REACTION',
+    addReply = "addReply",
+    tempReply = "tempReply"
 }
 
 export enum CommentActions {
@@ -61,6 +66,7 @@ export interface CommentAction<P> extends AppAction{
 }
 
 export function GetReaction(query: Reaction): ThreadAction<Reaction> {
+    console.log("get reaction called");
     const action: ThreadAction<Reaction> = {
         type: ThreadActions.GetReaction,
         payload: query
@@ -78,6 +84,7 @@ export function getQuery(query: string): ThreadAction<string> {
 
 
 export function getThreads(threads: Thread[]): ThreadAction<Thread[]> {
+    console.log("dispatched get threads");
     const action: ThreadAction<Thread[]> = {
         type: ThreadActions.GetThreads,
         payload: threads
@@ -94,6 +101,7 @@ export function getThread(thread: Thread): ThreadAction<Thread> {
 }
 
 export function addThread(thread: Thread): ThreadAction<Thread> {
+    console.log("Being called");
     const action: ThreadAction<Thread> = {
         type: ThreadActions.ChangeThreads,
         payload: thread
@@ -177,6 +185,14 @@ export function getReplies(replies: ReplyToReply[]): CommentAction<ReplyToReply[
     const action: CommentAction<ReplyToReply[]> = {
         type: CommentActions.GetReplies,
         payload: replies
+    }
+    return action;
+}
+
+export function tempReply(val: number): ThreadAction<number>{
+    const action: ThreadAction<number> = {
+        type: ThreadActions.tempReply,
+        payload: val
     }
     return action;
 }

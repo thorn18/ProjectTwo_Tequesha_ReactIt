@@ -8,8 +8,8 @@ import {
     FlatList,
 } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
-import { UserState, CommentState } from '../store/store';
-import { getReplies } from '../store/actions';
+import { UserState, CommentState, ThreadState } from '../store/store';
+import { getReplies, tempReply } from '../store/actions';
 import { useSelector, useDispatch } from 'react-redux';
 import commentService from './comment.service';
 import { useNavigation } from '@react-navigation/native';
@@ -23,6 +23,7 @@ export default function CommentTableComponent({ data }: CommentProps) {
     const userSelector = (state: UserState) => state.user;
     const user = useSelector(userSelector);
     let rep = useSelector((state:CommentState) => state.reply_to_replies);
+    let temp = useSelector((state:ThreadState) => state.temp);
     const nav = useNavigation();
     const dispatch = useDispatch();
     console.log(data); 
@@ -30,7 +31,7 @@ export default function CommentTableComponent({ data }: CommentProps) {
     useEffect(() => {
         console.log('calling useEffect');
         gettingRepToReps();
-    },[]);
+    },[temp]);
 
     function refreshrtr(){
         gettingRepToReps();
@@ -59,8 +60,12 @@ export default function CommentTableComponent({ data }: CommentProps) {
     async function deleteRep() {
         try {
             await commentService.deleteReply(data.thread_reply_id);
+            setTimeout(() => {
+                temp += 1;
+                dispatch(tempReply(temp));
+            }, 500);
             console.log('Successfully deleted reply');
-            nav.navigate("Home");
+            // nav.navigate("Home");
         } catch {
             console.log('delete failed');
         }

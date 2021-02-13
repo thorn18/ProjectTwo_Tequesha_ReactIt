@@ -1,5 +1,5 @@
 # Reactit
-Reactit is a forum where individuals can share interests, information, and ask questions about on various topics.  The purpose of Reactit is to bring people together despite their locations, allowing them to communicate and find others that have common interests.  Reactit is a safe environment and constantly moderated by its administrator to prevent any forms of abuse and avoid inappropriate content.
+Reactit is a forum where individuals can share interests, information, and ask questions about on various topics. The purpose of Reactit is to bring people together despite their locations, allowing them to communicate and find others that have common interests. Reactit is a safe environment and constantly moderated by its administrator to prevent any forms of abuse and avoid inappropriate content.
 
 ## Technologies Used
 * AWS SDK - version 2.818.0
@@ -29,6 +29,7 @@ Future Development:
 * Disabling of comments
 * Account email and phone number verification
 * Ability to audit site moderator actions
+* Adding reactions to comments on main threads
 
 ## Getting Started
 Cloning the repository:

@@ -22,7 +22,7 @@ interface NewThreadProp {
 export default function NewThreadComponent({ navigation }: NewThreadProp) {
     const dispatch = useDispatch();
     const th = useSelector((state: ThreadState) => state.thread);
-    const threads = useSelector((state: ThreadState) => state.threads);
+    let threadsState = useSelector((state: ThreadState) => state.threads);
     const user = useSelector((state: UserState) => state.user);
     const author = th.username = user.username;
     const [isSelected, setSelection] = useState(true);
@@ -31,11 +31,16 @@ export default function NewThreadComponent({ navigation }: NewThreadProp) {
 
 
     async function submitThread() {
-        await threadService.insertThread(th);
-        let val = new Reaction();
-        threads.push(th);
-        dispatch(getThreads(threads));
-        navigation.navigate("Home");
+        threadService.insertThread(th);
+        setTimeout(() => {
+            threadService.getAllThreads().then((threads:any) => {
+                console.log(threads)
+                threadsState = threads;
+                navigation.navigate("Home");
+                dispatch(getThreads(threadsState));
+            })
+        }, 1500);
+
     }
 
     function setRepliesDisabled() {

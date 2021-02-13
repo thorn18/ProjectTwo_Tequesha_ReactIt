@@ -24,6 +24,7 @@ export interface ThreadState {
     threads: Thread[];
     thread: Thread;
     reaction: Reaction;
+    temp:number;
 }
 
 export interface EmailState {
