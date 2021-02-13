@@ -1,5 +1,5 @@
 import React from 'react';
-import { CommentState, UserState } from '../store/store';
+import { CommentState, ThreadState, UserState } from '../store/store';
 import { useSelector, useDispatch } from 'react-redux';
 import {
     Button,
@@ -9,12 +9,13 @@ import {
     ImageBackground,
 
 } from 'react-native';
-import { addReply } from '../store/actions';
+import { addReply, getReplies, tempReply } from '../store/actions';
 import commentService from './comment.service';
 import { RouteProp } from '@react-navigation/native';
 import { StackParams } from '../router/router.component';
 import style from './thread_comment_style';
 import image from '../threads/alien.jpg'
+import { createPortal } from 'react-dom';
 
 interface ReplyProp {
     navigation: any,
@@ -26,6 +27,7 @@ export function AddReplyComponent(props: ReplyProp) {
     const userContext = useSelector((state: UserState) => state.user);
     const comment = useSelector((state: CommentState) => state.comment);
     const dispatch = useDispatch();
+    let temp = useSelector((state: ThreadState) => state.temp);
 
     const author = comment.username = userContext.username;
     const parentId = comment.threads_id = Number(parentThread?.thread_id);
@@ -35,10 +37,14 @@ export function AddReplyComponent(props: ReplyProp) {
         try {
             console.log('attempting to insert')
             commentService.insertReply(comment);
+            setTimeout(() => {
+                temp += 1;
+                dispatch(tempReply(temp));
+                props.navigation.navigate('ThreadDetail');
+            }, 700);
         } catch {
             console.log('insert failed');
         }
-        props.navigation.navigate('ThreadDetail');
     }
 
     return (

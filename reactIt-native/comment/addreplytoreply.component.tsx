@@ -9,8 +9,8 @@ import {
     ImageBackground,
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { CommentState, UserState } from '../store/store';
-import { addReplyToReply } from '../store/actions';
+import { CommentState, ThreadState, UserState } from '../store/store';
+import { addReplyToReply, tempReply } from '../store/actions';
 import commentService from '../comment/comment.service';
 import style from './thread_comment_style';
 import image from '../threads/alien.jpg'
@@ -23,6 +23,7 @@ interface ReplyToReplyProp {
 export function AddReplyToReplyComponent(props: ReplyToReplyProp) {
     const userContext = useSelector((state: UserState) => state.user);
     const rtr = useSelector((state: CommentState) => state.reply_to_reply);
+    let temp = useSelector((state: ThreadState) => state.temp);
 
     const parentReply = props.route.params;
     const author = rtr.username = userContext.username;
@@ -34,7 +35,12 @@ export function AddReplyToReplyComponent(props: ReplyToReplyProp) {
     function submit() {
         console.log(rtr);
         commentService.insertReplyToReply(rtr);
-        props.navigation.navigate('ThreadDetail');
+        setTimeout(() => {
+            temp += 1;
+            dispatch(tempReply(temp));
+            props.navigation.navigate('ThreadDetail');
+
+        }, 700);
     }
 
     return (
