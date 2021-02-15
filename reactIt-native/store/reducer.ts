@@ -23,7 +23,8 @@ export const initialState: ForumState = {
     comment: new Comment(),
     reply_to_reply: new ReplyToReply(),
     reply_to_replies: [],
-    reaction: new Reaction()
+    reaction: new Reaction(),
+    temp: 0
 }
 
 // Make sure that the reducer has a default argument of the inital state or it will not work.
@@ -34,6 +35,11 @@ const reducer = (state: ForumState = initialState, action: Actions.AppAction): F
 
     switch (action.type) {
 
+        case Actions.ThreadActions.tempReply:
+            console.log("Calling action tempreply");
+            console.log(action.payload);
+            newState.temp = action.payload as number;
+            return newState;
         case Actions.ThreadActions.GetThreads:
             console.log("Calling action getThreads");
             console.log(action.payload);

@@ -7,11 +7,12 @@ import {
 } from 'react-native';
 
 import { TouchableHighlight } from 'react-native-gesture-handler';
-import { UserState } from '../store/store';
-import { useSelector } from 'react-redux';
+import { ThreadState, UserState } from '../store/store';
+import { useDispatch, useSelector } from 'react-redux';
 import style from './replytoreply_style';
 import commentService from './comment.service';
 import { useNavigation } from '@react-navigation/native';
+import { tempReply } from '../store/actions';
 
 interface ReplyProps {
     data: ReplyToReply
@@ -22,12 +23,18 @@ export default function RTRTableComponent({ data }: ReplyProps) {
 
     const user = useSelector((state: UserState) => state.user);
     const nav = useNavigation();
+    let temp = useSelector((state: ThreadState) => state.temp);
+    const dispatch = useDispatch();
 
     function deletertr() {
         try {
             commentService.deleteReplyToReply(data.thread_reply_to_reply_id);
-            console.log('Successfully deleted reply to reply');
-            nav.navigate('Home');
+            setTimeout(() => {
+                console.log('Successfully deleted reply to reply');
+                temp += 1;
+                dispatch(tempReply(temp));
+            }, 500);
+            // nav.navigate('Home');
         } catch {
             console.log('deleting reply to reply failed');
         }
