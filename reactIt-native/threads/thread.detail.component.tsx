@@ -26,6 +26,11 @@ interface CommentProp {
     data: Comment
 }
 
+/**
+ * Core component for all threads being shown. Holds the state of the selected thread as well as some local state
+ * variables used to control the user selection.
+ * @param props 
+ */
 export default function ThreadDetailComponent(props: DetailProps) {
     const nav = useNavigation();
     const dispatch = useDispatch();
@@ -37,39 +42,49 @@ export default function ThreadDetailComponent(props: DetailProps) {
 
     let [us, ussetter] = useState(0);
 
-    function deleteThread() {
-        threadService.deleteThread(thr.thread_id);
-        console.log('successfully deleted');
-        nav.navigate('Home');
-    }
-
-    function insertReply() {
-        nav.navigate('Reply', thr);
-    }
-
     useEffect(() => {
         gettingReplies();
         gettingReactions();
     }, [temp]);
 
+    /**
+     * Front-end deletion of thread handler
+     */
+    function deleteThread() {
+        threadService.deleteThread(thr.thread_id);
+        console.log('successfully deleted');
+        nav.navigate('Home');
+    }
+    /**
+     * navigation to the add reply component.
+     */
+    function insertReply() {
+        nav.navigate('Reply', thr);
+    }
+    /**
+     * This method checks the current user selection to determine which reaction the screen should display.
+     * @param thread is the thread that the reaction is cheked on.
+     */
     function checkUserSelection(thread: Reaction) {
-        let uS:any = ["", 0];
+        let uS: any = ["", 0];
         console.log(thread.reactions[0]);
         thread.reactions.forEach((value: any) => {
             if (value[0] == user.username) {
                 uS = value;
             }
         })
-        if(uS[0] == "") {
+        if (uS[0] == "") {
             ussetter(0);
         } else {
-            react.userSelection =  uS;
+            react.userSelection = uS;
             dispatch(GetReaction(react));
             ussetter(uS[1]);
         }
-        
-    }
 
+    }
+    /**
+     * Function that retrievws all the reactions on a thread and then updates the state.
+     */
     function gettingReactions() {
         threadService.getReactions(thr.thread_id).then((result: any) => {
             if (result) {
@@ -83,6 +98,9 @@ export default function ThreadDetailComponent(props: DetailProps) {
         });
     }
 
+    /**
+     * Method for getting replies on a specific thread
+     */
     function gettingReplies() {
         let co: any;
         commentService.getReplies(thr.thread_id).then((result) => {
@@ -92,6 +110,10 @@ export default function ThreadDetailComponent(props: DetailProps) {
         });
     }
 
+    /**
+     * Populates the replies on a thread, and dispatches to the state for window change.
+     * @param reply 
+     */
     function populateReplies(reply: any) {
         console.log('populating replies');
         let rep: Comment[] = [];
@@ -101,13 +123,17 @@ export default function ThreadDetailComponent(props: DetailProps) {
         com = rep;
         dispatch(getComments(com));
     }
-
+    /**
+     * Helper function that refreshes the screen by resetting state of the replies/reactions
+     */
     function refresh() {
         gettingReplies();
         gettingReactions();
-        
-    }
 
+    }
+    /**
+     * Handler for if user selects the happy face reaction button.
+     */
     function handleclickhappy() {
         console.log("happy")
         if (react.reactions.length == 0) {
@@ -115,7 +141,7 @@ export default function ThreadDetailComponent(props: DetailProps) {
             react.reactions.push([user.username, 1]);
             threadService.addReactions(react);
             setTimeout(() => {
-                temp +=1;
+                temp += 1;
                 dispatch(tempReply(temp));
                 dispatch(GetReaction(react));
             }, 500);
@@ -132,13 +158,15 @@ export default function ThreadDetailComponent(props: DetailProps) {
             (react.reactions[index])[1] = 1;
             threadService.addReactions(react);
             setTimeout(() => {
-                temp +=1;
+                temp += 1;
                 dispatch(tempReply(temp));
                 dispatch(GetReaction(react));
             }, 500);
         }
     }
-
+    /**
+     * Handler for if user selects the sad face reaction button.
+     */
     function handleclicksad() {
         console.log("sad")
         if (react.reactions.length == 0) {
@@ -146,7 +174,7 @@ export default function ThreadDetailComponent(props: DetailProps) {
             react.reactions.push([user.username, -1]);
             threadService.addReactions(react);
             setTimeout(() => {
-                temp +=1;
+                temp += 1;
                 dispatch(tempReply(temp));
                 dispatch(GetReaction(react));
             }, 500);
@@ -163,7 +191,7 @@ export default function ThreadDetailComponent(props: DetailProps) {
             (react.reactions[index])[1] = -1;
             threadService.addReactions(react);
             setTimeout(() => {
-                temp +=1;
+                temp += 1;
                 dispatch(tempReply(temp));
                 dispatch(GetReaction(react));
             }, 500);
@@ -182,7 +210,7 @@ export default function ThreadDetailComponent(props: DetailProps) {
             <Text style={style.text}>Category: {thr.threadcategory}</Text>
             <br></br>
             <Text style={style.body}>{thr.threaddescription}</Text>
-            <Button onPress = {() => {alert(us)}}></Button>
+            <Button onPress={() => { alert(us) }}></Button>
             {(us == 1) && (
                 <View>
                     <TouchableOpacity style={style.emojihappy} activeOpacity={0.5} disabled={true} onPress={handleclickhappy}>

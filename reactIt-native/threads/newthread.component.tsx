@@ -29,11 +29,13 @@ export default function NewThreadComponent({ navigation }: NewThreadProp) {
 
 
 
-
+    /**
+     * Submits a thread once the form is completed.
+     */
     async function submitThread() {
         threadService.insertThread(th);
         setTimeout(() => {
-            threadService.getAllThreads().then((threads:any) => {
+            threadService.getAllThreads().then((threads: any) => {
                 console.log(threads)
                 threadsState = threads;
                 navigation.navigate("Home");
@@ -42,7 +44,6 @@ export default function NewThreadComponent({ navigation }: NewThreadProp) {
         }, 1500);
 
     }
-
     function setRepliesDisabled() {
         if (isSelected) {
             setSelection(false);

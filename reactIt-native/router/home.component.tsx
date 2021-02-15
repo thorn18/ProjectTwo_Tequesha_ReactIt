@@ -25,6 +25,10 @@ interface ThreadProp {
     data: Thread
 }
 
+/**
+ * Home Page component that is the baseline for many other components, and the landing screen for our page.
+ * @param param0 is the navigation prob that is passed into the component.
+ */
 function HomeComponent({ navigation }: HomeProp) {
     const userSelector = (state: UserState) => state.user;
     const user = useSelector(userSelector);
@@ -37,14 +41,19 @@ function HomeComponent({ navigation }: HomeProp) {
     let [a, achooser] = useState(0);
 
     useEffect(() => {
-        handleStuff()
+        handleThreads()
     }, [q2]);
 
+    /**
+     * navigates to new thread component (button handler)
+     */
     function createNewThread() {
         navigation.navigate('NewThread');
     }
-
-    function handleStuff() {
+    /**
+     * Deals with the changing of thread in state
+     */
+    function handleThreads() {
         console.log("hello");
         // settest(1);
         let th: any;
@@ -64,10 +73,17 @@ function HomeComponent({ navigation }: HomeProp) {
         dispatch(getThreads(threads));
     }
 
+    /**
+     * Repopulates threads forcing a rerender.
+     */
     function refresh() {
-        handleStuff();
+        handleThreads();
     }
-    
+    /**
+     * Filter searching for the threads.
+     * Checks the value in the search box against the state.
+     * @param thread 
+     */
     function checkfilter(thread: Thread) {
         if (qchooser == "Thread Title") {
             if (threads.includes(thread) && thread.threadname.includes(q2)) {

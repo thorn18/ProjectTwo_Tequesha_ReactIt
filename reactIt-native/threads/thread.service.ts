@@ -4,6 +4,9 @@ import { ThreadState } from '../store/store';
 import { Reaction } from './reaction';
 import { Thread } from './thread';
 
+/**
+ * Service for the threads, getting/modifying/inserting threads.
+ */
 class ThreadService {
     private URI: string;
     private URI2: string;
@@ -17,11 +20,14 @@ class ThreadService {
         this.URIGetReaction = ' https://kpbwe720za.execute-api.us-west-2.amazonaws.com/default/reactions';
 
     }
-
+    /**
+     * Service for adding a reaction to the database.
+     * @param reaction 
+     */
     async addReactions(reaction: Reaction) {
         reaction.threadid = reaction.threadid.toString();
         console.log(reaction);
-        let ret;     
+        let ret;
         await axios.post(this.URIGetReaction, reaction).then(result => {
             if (result) {
                 ret = result;
@@ -35,7 +41,10 @@ class ThreadService {
         });
         return ret;
     }
-
+    /**
+     * Service for getting all threads from the database.
+     * @param threadid 
+     */
     async getReactions(threadid: string) {
         let ret;
         await axios.get(this.URIGetReaction + '?threadid=' + threadid).then(result => {
@@ -50,7 +59,9 @@ class ThreadService {
         });
         return ret;
     }
-
+    /**
+     * Aquires all threads from the database
+     */
     async getAllThreads() {
         let ret;
         await axios.get(this.URI).then(result => {
@@ -66,7 +77,11 @@ class ThreadService {
         console.log(ret);
         return ret;
     }
-
+    /**
+     * BETA: NOTYETIMPLEMENTED
+     * Inserts tags into the database.
+     * @param thread 
+     */
     async insertTags(thread: Thread) {
         let ret;
         await axios.post(this.URI2, thread).then(result => {
@@ -82,12 +97,18 @@ class ThreadService {
         console.log(ret);
         return ret;
     }
-
+    /**
+     * Inserts a thread into the database
+     * @param thread is the threads to be inserted.
+     */
     async insertThread(thread: Thread) {
         console.log('attempt to insert');
         axios.post(this.URI + '/thread', thread);
     }
-
+    /**
+     * Handles the deletion of a thread from the database.
+     * @param thread_id 
+     */
     deleteThread(thread_id: string) {
         axios.get(this.URI + '/threaded?threaded=' + thread_id);
     }
