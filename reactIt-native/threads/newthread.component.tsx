@@ -18,7 +18,10 @@ import { Reaction } from './reaction';
 interface NewThreadProp {
     navigation: any
 }
-
+/**
+ * Component for creating a new thread.
+ * @param param0 is navigator.
+ */
 export default function NewThreadComponent({ navigation }: NewThreadProp) {
     const dispatch = useDispatch();
     const th = useSelector((state: ThreadState) => state.thread);
