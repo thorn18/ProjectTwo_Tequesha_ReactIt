@@ -46,6 +46,9 @@ const headerOptions: StackHeaderOptions = {
         backgroundColor: 'darkgreen',
       },
 };
+/**
+ * Routing component which is used to navigate between all the applications child components.
+ */
 function RouterComponent(props: any) {
     const th = useSelector((state: ForumState) => state.thread);
 

@@ -9,7 +9,10 @@ import I18n, { strings } from '../i18n';
 import { changeLocale, getUser } from '../store/actions';
 import { User } from '../user/user';
 
-
+/**
+ * Navbar at the top of the page which we use to hold our welcome message and a button that can be used
+ * to access the user settings page.
+ */
 function NavBarComponent() {
     const nav = useNavigation();
     const user = useSelector((state: ForumState) => state.user);

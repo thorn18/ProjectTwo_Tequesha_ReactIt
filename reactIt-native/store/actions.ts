@@ -15,7 +15,9 @@ export enum UserActions {
 }
 
 
-
+/**
+ * All the actions that can be undertaken by the Comments,Email and thread components.
+ */
 
 export enum ThreadActions {
     GetThreads = 'GET_THREADS',

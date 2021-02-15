@@ -20,6 +20,10 @@ export default function ThreadTableComponent({data}: ThreadProps) {
     const nav = useNavigation();
     //console.log(th);
 
+
+    /**
+     * Go to details component.
+     */
     function goToDetailComponent() {
         //dispatch(getThreads(th));
         console.log('button is pressed');
